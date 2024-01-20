@@ -46,8 +46,7 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
   const [text, setText] = useState('');
 
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-  main
-    setText(event.target.value);
+     setText(event.target.value);
   };
 
   const isTextEntered = text.trim() !== '';
