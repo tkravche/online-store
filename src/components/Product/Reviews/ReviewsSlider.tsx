@@ -7,7 +7,7 @@ import {
   StyledReviewSlider,
   StyledReviewsWrapper,
 } from '@/theme/styles/components/StyledReviewSection';
-import {EnumIcons, IReviewItem, IReviewProps} from '@/types';
+import { EnumIcons, IReviewItem, IReviewProps } from '@/types';
 import { IconButton, Typography } from '@mui/material';
 
 interface IArrowProps {
@@ -45,16 +45,16 @@ const settings = {
 
 export const ReviewsSlider: FC<IReviewProps> = props => {
   const { items } = props;
-  console.log(items)
   return (
     <StyledReviewsWrapper>
-      {!items || !items.length && (
-        <StyledNoReviews>
-          <Typography>
-            There are no reviews for this product on this site yet.
-          </Typography>
-        </StyledNoReviews>
-      )}
+      {!items ||
+        (!items.length && (
+          <StyledNoReviews>
+            <Typography>
+              There are no reviews for this product on this site yet.
+            </Typography>
+          </StyledNoReviews>
+        ))}
       {items && items?.length > 0 && items?.length === 1 && (
         <StyledReviewCard
           stars={items[0].stars}

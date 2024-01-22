@@ -17,6 +17,7 @@ import { HeaderSearch } from './HeaderSearch';
 import { HeaderSearchModal } from './HeaderSearchModal';
 import { setSearch } from '@/lib/otherRedux/slice/header';
 import { setAuth } from '@/lib/otherRedux/slice/ui';
+import { Link } from 'react-router-dom';
 
 export const Header: FC = () => {
   const [open, setOpen] = useState(false);
@@ -53,11 +54,13 @@ export const Header: FC = () => {
                 {getIcon(EnumIcons.search)}
               </IconButton>
             )}
-
             <IconButton>{getIcon(EnumIcons.heart)}</IconButton>
-            <IconButton
-              onClick={() => dispatch(setAuth(true))}
-            >
+
+            <IconButton>
+              <Link to="profile">{getIcon(EnumIcons.cart)} </Link>
+            </IconButton>
+
+            <IconButton onClick={() => dispatch(setAuth(true))}>
               {getIcon(EnumIcons.user)}
             </IconButton>
           </StyledOptions>

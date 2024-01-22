@@ -20,7 +20,7 @@ import {
   StyledQuantityAndPricesWrapper,
   StyledQuantityButtons,
   StyledQuantityNumber,
-} from '@/theme/styles/components/StyledCartPopUp';
+} from '@/theme/styles/components/StyledCart';
 
 export const CartItem: FC<ICartItemProps> = ({
   id,

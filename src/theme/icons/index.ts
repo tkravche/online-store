@@ -18,6 +18,9 @@ import { UserIcon } from './UserIcon';
 import { YtIcon } from './YtIcon';
 import { AddIcon } from './AddIcon';
 import { DeleteIcon } from './DeleteIcon';
+import { SettingIcon } from './SettingIcon';
+import { OrdersIcon } from './OrdersIcon';
+import { LogOutIcon } from './LogOutIcon';
 
 export interface Icons {
   [key: string]: FC<{ iconClass: string }>;
@@ -43,4 +46,7 @@ export const icons: Icons = {
   google: GoogleIcon,
   add: AddIcon,
   delete: DeleteIcon,
+  orders: OrdersIcon,
+  setting: SettingIcon,
+  logOut: LogOutIcon,
 };

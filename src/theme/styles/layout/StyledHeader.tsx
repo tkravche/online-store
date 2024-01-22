@@ -15,7 +15,7 @@ export const StyledHeader = styled.header`
     rgba(251, 251, 251, 0.64) 54.41%,
     rgba(251, 251, 251, 0.4) 100%
   );
-
+box-shadow: 0px 4px 16px 0px rgba(128, 131, 255, 0.16); 
   &::before {
     ${tw`content-[''] absolute inset-y-0 inset-x-0 backdrop-blur	overflow-hidden`}
   }

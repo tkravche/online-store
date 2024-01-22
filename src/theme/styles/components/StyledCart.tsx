@@ -3,55 +3,23 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
-// CartPopUp
-export const StyledCartDialog = styled(Dialog)`
-  .MuiPaper-root {
-    ${tw`min-w-[700px] rounded-3xl pt-16 pb-10 bg-secondary-bg`}
+// Cart
+export const StyledCartSection = styled.section`
+  ${tw`mt-[160px]`}
+  svg {
+    ${tw`w-6 h-6 stroke-main-black transition-all`}
+  }
+  .icon-heart {
+    ${tw`fill-main-black`}
   }
 `;
-export const StyledCartItemsWrapper = styled.div`
-  ${tw`grid auto-rows-fr gap-x-6`}
+
+export const StyledCartWrapper = styled.div`
+  ${tw`grid grid-cols-[20%, auto] gap-x-20`}
 `;
 
-export const StyledNoCartItemsWrapper = styled.div`
-  // ${tw`flex flex-col items-start px-8`}
-  ${tw`flex flex-col items-start min-w-[700px] min-h-[448px] px-8`}
-`;
-
-export const StyledNoCartItems = styled.p`
-  ${tw`mb-10`}
-`;
-export const StyledCatalogLink = styled.div`
-  ${tw`self-start py-1 px-9 rounded-xl text-base leading-8 text-main-white bg-main-black`}
-`;
-
-export const StyledCartBottom = styled.div`
-  ${tw`grid auto-rows-auto content-center px-8 mt-6`}
-`;
-
-export const StyledTotals = styled.div`
-  ${tw`grid grid-cols-[auto 26%] `}
-`;
-export const StyledCol1 = styled.div`
+export const StyledCartRight = styled.div`
   ${tw``}
-`;
-export const StyledCol2 = styled.div`
-  ${tw``}
-`;
-export const StyledPriceTotal = styled.div`
-  ${tw`flex justify-between mb-2`}
-`;
-export const StyledSaleTotal = styled.div`
-  ${tw`flex justify-between mb-2`}
-`;
-export const StyledTotal = styled.div`
-  ${tw`flex justify-between`}
-`;
-export const StyledDialogActions = styled.div`
-  ${tw`grid grid-cols-[auto 26%] mt-6`}
-`;
-export const StyledContinueLink = styled(Link)`
-  ${tw`text-base font-bold leading-8 text-[#878D99]`}
 `;
 
 // CartItem
@@ -90,7 +58,7 @@ export const StyledMinus = styled.div`
   }
   button:disabled,
   button[disabled] {
-    color: #8083FF;
+    color: #8083ff;
   }
 `;
 export const StyledQuantityNumber = styled.div`
@@ -144,4 +112,55 @@ export const StyledIconButton = styled(IconButton)`
   svg {
     ${tw`w-6 h-6 stroke-[#878D99] transition-all`}
   }
+`;
+
+// CartPopUp
+export const StyledCartDialog = styled(Dialog)`
+  .MuiPaper-root {
+    ${tw`min-w-[700px] rounded-3xl pt-16 pb-10 bg-secondary-bg`}
+  }
+`;
+export const StyledCartItemsWrapper = styled.div`
+  ${tw`grid auto-rows-fr gap-x-6 mt-20 `}
+`;
+
+export const StyledNoCartItemsWrapper = styled.div`
+  // ${tw`flex flex-col items-start px-8`}
+  ${tw`flex flex-col items-start min-w-[700px] min-h-[448px] px-8`}
+`;
+
+export const StyledNoCartItems = styled.p`
+  ${tw`mb-10`}
+`;
+export const StyledCatalogLink = styled.div`
+  ${tw`self-start py-1 px-9 rounded-xl text-base leading-8 text-main-white bg-main-black`}
+`;
+
+export const StyledCartBottom = styled.div`
+  ${tw`grid auto-rows-auto content-center px-8 mt-6`}
+`;
+
+export const StyledTotals = styled.div`
+  ${tw`grid grid-cols-[auto 26%] `}
+`;
+export const StyledCol1 = styled.div`
+  ${tw``}
+`;
+export const StyledCol2 = styled.div`
+  ${tw``}
+`;
+export const StyledPriceTotal = styled.div`
+  ${tw`flex justify-between mb-2`}
+`;
+export const StyledSaleTotal = styled.div`
+  ${tw`flex justify-between mb-2`}
+`;
+export const StyledTotal = styled.div`
+  ${tw`flex justify-between`}
+`;
+export const StyledDialogActions = styled.div`
+  ${tw`grid grid-cols-[auto 26%] mt-6`}
+`;
+export const StyledContinueLink = styled(Link)`
+  ${tw`text-base font-bold leading-8 text-[#878D99]`}
 `;

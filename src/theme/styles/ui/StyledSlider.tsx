@@ -15,10 +15,22 @@ export const StyledSlider = styled(Slider)`
   }
 
   ${StyledCard} {
-    ${tw`min-w-[220px]`}
+    ${tw`min-w-[220px] border-4 transition-all`}
+    
   }
 
   .button {
     ${tw`hidden lg:inline-flex`}
+  }
+  .MuiIconButton-root {
+    ${tw`p-0 cursor-pointer`}
+
+    &:hover {
+      background-color: transparent;
+
+      svg {
+        ${tw`stroke-main-red`}
+      }
+    }
   }
 `;

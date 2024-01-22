@@ -28,7 +28,25 @@ export const addToFavoritesThunk = createAsyncThunk(
     const token = useSelector(selectAccessToken);
     try {
       setToken(token);
-      const currentUserInfo = await instance.patch('users/me', id);
+      const currentUserInfo = await instance.post(`users/me/favorites/${id}`);
+      return currentUserInfo.data;
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const removeFromFavoritesThunk = createAsyncThunk(
+  'user/removeFromFavorites',
+  async (id, { rejectWithValue }) => {
+    const token = useSelector(selectAccessToken);
+    try {
+      setToken(token);
+      const currentUserInfo = await instance.delete(`users/me/favorites/${id}`);
       return currentUserInfo.data;
     } catch (error: any) {
       if (error.response && error.response.data.message) {

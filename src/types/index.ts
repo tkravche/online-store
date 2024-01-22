@@ -18,6 +18,8 @@ export enum EnumIcons {
   google = 'google',
   add = 'add',
   delete = 'delete',
+  orders = 'orders',
+  setting = 'setting',logOut = 'logOut',
 }
 
 export enum EnumBreakpoints {

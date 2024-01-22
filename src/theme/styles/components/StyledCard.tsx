@@ -2,8 +2,10 @@ import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 export const StyledCard = styled.div`
-  ${tw`relative flex flex-col gap-y-6 h-full py-4 bg-main-white overflow-hidden rounded-3xl`}
-`;
+  ${tw`relative flex flex-col gap-y-6 w-full h-full py-4 bg-main-white overflow-hidden rounded-3xl border-main-transparent transition-all`}
+  &:hover {
+      border: 4px solid #D25;}
+  `;
 
 export const StyledCardTop = styled.div`
   ${tw`flex items-center justify-between min-h-[28px] pr-4`}

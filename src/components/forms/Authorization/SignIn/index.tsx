@@ -22,15 +22,13 @@ interface ISignIn {
 }
 
 export const SignIn = () => {
-  const loading = useSelector(selectIsLoading);
+  const loading= useSelector(selectIsLoading)
   const form = useForm({
     mode: 'onTouched',
   });
   const dispatch = useDispatch();
 
   const handleSendSubmit = async (data: ISignIn) => {
-    console.log(data);
-
     // try {
     //   await dispatch(loginUser(data));
     //   dispatch(setAuth(false));

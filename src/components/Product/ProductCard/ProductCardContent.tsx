@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import {FC, RefObject, SyntheticEvent, useRef, useState} from 'react';
+import { FC, RefObject, SyntheticEvent, useRef, useState } from 'react';
 import {
   Box,
   Breadcrumbs,
@@ -8,6 +8,7 @@ import {
   Tab,
   ListItem,
   ListItemText,
+  Button,
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import { TabContext } from '@mui/lab';
@@ -38,9 +39,15 @@ import { StyledAllLink } from '@/theme/styles/ui/StyledAllLink';
 import { ReviewsSection } from '../ReviewsSection';
 import { ProductSectionByCategory } from '../ProductSectionWithCategory';
 import { ImageSlider } from './ImageSlider';
-// import { useDispatch } from 'react-redux';
-import { Cart } from '@/components/Cart';
-// import { addToFavoritesThunk } from '@/lib/otherRedux/thunks/user';
+import { selectFavorites, selectIsLogged } from '@/lib/otherRedux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+// import {
+//   addToFavoritesThunk,
+//   removeFromFavoritesThunk,
+// } from '@/lib/otherRedux/thunks/user';
+// import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { addItemToCart } from '@/lib/otherRedux/slice/user';
 
 export const ProductCardContent: FC<ICardProps> = props => {
   const {
@@ -56,11 +63,18 @@ export const ProductCardContent: FC<ICardProps> = props => {
     count,
   } = props;
 
+  const dispatch = useDispatch();
+  // const isLogged = useSelector(selectIsLogged);
+  // const favoriteItems = useSelector(selectFavorites);
+  // const isFavorite = favoriteItems?.some((item: any) => item.id === id);
+  // const [favorite, setFavorite] = useState(isFavorite);
+
   const [value, setValue] = useState('1');
 
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
   const reviewSection = useRef(null);
   const scrollToSection = (elementRef: RefObject<any>) => {
     window.scrollTo({
@@ -68,13 +82,12 @@ export const ProductCardContent: FC<ICardProps> = props => {
       behavior: 'smooth',
     });
   };
-  // const handleFavoritesSubmit = async id => {
-  //   try {
-  //     await dispatch(addToFavoritesThunk(id));
-  //   } catch (e) {
-  //     return e.message;
-  //   }
-  // };
+  const quantity = 1;
+  const infoForCart = { id, name, url: images[0].url, price, sale, quantity };
+  const handleFavoritesChange = () => {
+    console.log('favorites');
+  };
+
   return (
     <StyledProductCardSection>
       <StyledContainer>
@@ -180,26 +193,40 @@ export const ProductCardContent: FC<ICardProps> = props => {
               )}
             </StyledProductPrices>
             <StyledButtonHeartGroup>
-              <Cart
+              {/* <Cart
                 id={id}
                 name={name}
                 quantity={1}
                 url={images[0].url}
                 price={price}
                 sale={sale?.newPrise}
-              />
-              {/* <Button
+              /> */}
+              <Button
                 variant="addToCart"
-                onClick={() => dispatch(addItemToCart(infoForCard))}
+                onClick={() => dispatch(addItemToCart(infoForCart))}
               >
                 Add to cart
-              </Button> */}
+              </Button>
               <Checkbox
                 aria-label="Like"
                 icon={getIcon(EnumIcons.heart)}
                 checkedIcon={getIcon(EnumIcons.heart)}
-                // onChange={handleFavoritesSubmit}
+                // checked={favorite}
+                // disabled={!isLogged}
+                onClick={handleFavoritesChange}
               />
+              {/* <ToastContainer
+                position="top-right"
+                autoClose={2500}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              /> */}
             </StyledButtonHeartGroup>
             <Box>
               <TabContext value={value}>

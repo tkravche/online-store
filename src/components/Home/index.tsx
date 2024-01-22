@@ -11,7 +11,6 @@ import { Categories } from './Categories';
 import { SkateboardsSection } from './SkateboardsSection';
 
 export const Home: FC = () => {
-   
   return (
     <>
       <Hero />

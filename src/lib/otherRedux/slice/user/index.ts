@@ -2,17 +2,30 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   addToFavoritesThunk,
   currentUserThunk,
+  removeFromFavoritesThunk,
 } from '../../thunks/user';
+// import type { PayloadAction } from '@reduxjs/toolkit';
+
+// Define a type for the slice state
+// interface ICurrentUser {
+//   currentUser: object | null,
+//   cart: [],
+//   isLoading: boolean,
+//   isOnline: boolean,
+//   error: string | null,
+// }
+
+// Define the initial state using that type
+const initialState = {
+  currentUser: {},
+  cart: [],
+  isLoading: false,
+  error: null,
+};
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    currentUser: null,
-    cart: [],
-    isLoading: false,
-    isOnline: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     addItemToCart: (state, { payload }) => {
       let newCart = [...state.cart];
@@ -24,8 +37,10 @@ const userSlice = createSlice({
             ? { ...item, quantity: payload.quantity || item.quantity + 1 }
             : item;
         });
-      } else newCart.push({ ...payload, quantity: 1 });
-      state.cart = newCart;
+      } else {
+        newCart.push({ ...payload, quantity: 1 });
+        state.cart = newCart;
+      }
     },
     removeItemFromCart: (state, { payload }) => {
       state.cart = state.cart.filter(({ id }) => id !== payload);
@@ -40,7 +55,6 @@ const userSlice = createSlice({
     });
     builder.addCase(currentUserThunk.rejected, (state, action) => {
       state.error = action.payload;
-      state.isOnline = false;
       state.isLoading = false;
     });
     builder.addCase(addToFavoritesThunk.pending, (state, action) => {
@@ -51,6 +65,17 @@ const userSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(addToFavoritesThunk.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(removeFromFavoritesThunk.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(removeFromFavoritesThunk.fulfilled, (state, action) => {
+      state.currentUser = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(removeFromFavoritesThunk.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });
