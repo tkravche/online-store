@@ -19,7 +19,9 @@ export enum EnumIcons {
   add = 'add',
   delete = 'delete',
   orders = 'orders',
-  setting = 'setting',logOut = 'logOut',
+  setting = 'setting',
+  logOut = 'logOut',
+  dot= 'dot'
 }
 
 export enum EnumBreakpoints {
@@ -70,14 +72,6 @@ export interface IProductProps {
   id?: number;
 }
 
-export interface IReviewProps {
-  author: { name: string };
-  text: string;
-  stars: number;
-  updatedAt: Date;
-  items?: IReviewItem[];
-}
-
 export interface IReviewItem {
   stars: number;
   author: {
@@ -86,9 +80,16 @@ export interface IReviewItem {
   text: string;
   updatedAt: Date;
 }
+export interface IReviewProps {
+  author: { name: string };
+  text: string;
+  stars: number;
+  updatedAt: Date;
+  items?: IReviewItem[];
+}
 
 export interface IReviewPopUpProps {
-  id?:number;
+  id?: number;
   name: string;
   url: string;
 }
@@ -99,5 +100,5 @@ export interface ICartItemProps {
   url: string;
   quantity: number;
   price: number;
-  sale: number;
+  sale: {newPrise:number};
 }

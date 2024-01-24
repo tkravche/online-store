@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   addToFavoritesThunk,
   currentUserThunk,
+  getCurrentUserCartThunk,
   removeFromFavoritesThunk,
 } from '../../thunks/user';
 // import type { PayloadAction } from '@reduxjs/toolkit';
@@ -18,6 +19,7 @@ import {
 // Define the initial state using that type
 const initialState = {
   currentUser: {},
+  currentUserCart: {},
   cart: [],
   isLoading: false,
   error: null,
@@ -30,6 +32,7 @@ const userSlice = createSlice({
     addItemToCart: (state, { payload }) => {
       let newCart = [...state.cart];
       const found = state.cart.find(({ id }) => id === payload.id);
+      console.log(found);
 
       if (found) {
         newCart = newCart.map(item => {
@@ -54,6 +57,16 @@ const userSlice = createSlice({
       state.currentUser = action.payload;
     });
     builder.addCase(currentUserThunk.rejected, (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(getCurrentUserCartThunk.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getCurrentUserCartThunk.fulfilled, (state, action) => {
+      state.currentUserCart = action.payload;
+    });
+    builder.addCase(getCurrentUserCartThunk.rejected, (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
     });

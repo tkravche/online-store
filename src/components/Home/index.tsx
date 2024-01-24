@@ -20,7 +20,7 @@ export const Home: FC = () => {
       <SkateboardsSection />
       <StyledContainer>
         <StyledAllLink>
-          <Link to="#">
+          <Link to="catalog">
             View All
             {getIcon(EnumIcons.arrowLong)}
           </Link>

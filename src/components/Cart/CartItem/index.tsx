@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Checkbox, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Image from 'react-image-webp';
 import { useDispatch } from 'react-redux';
 
@@ -11,6 +11,7 @@ import {
   StyledCartItemInfo,
   StyledCartItemWrapper,
   StyledCartPrices,
+  StyledCheckbox,
   StyledFormControlLabel,
   StyledIconButton,
   StyledImageWrapper,
@@ -31,7 +32,8 @@ export const CartItem: FC<ICartItemProps> = ({
   sale,
 }) => {
   const dispatch = useDispatch();
-  const item = { id, name, url, price, sale };
+  const newPrice = sale?.newPrise ?? 0;
+  const item = { id, name, url, price, sale: newPrice };
 
   const changeQuantity = (item: any, quantity: any) => {
     dispatch(addItemToCart({ ...item, quantity }));
@@ -57,17 +59,6 @@ export const CartItem: FC<ICartItemProps> = ({
           >
             {name}
           </Typography>
-          <Typography variant="body2" component="h3" className="line-clamp-1">
-            <Typography
-              variant="body2"
-              component="span"
-              mr={1}
-              sx={{ color: '#878D99' }}
-            >
-              Color:
-            </Typography>
-            Black
-          </Typography>
           <StyledQuantityAndPricesWrapper>
             <StyledQuantity>
               <Typography
@@ -80,12 +71,14 @@ export const CartItem: FC<ICartItemProps> = ({
                 Quantity
               </Typography>
               <StyledQuantityButtons>
-                <StyledMinus
-                  onClick={() =>
-                    changeQuantity(item, Math.max(1, quantity - 1))
-                  }
-                >
-                  <button type="button" disabled={quantity === 1}>
+                <StyledMinus>
+                  <button
+                    type="button"
+                    disabled={quantity === 1}
+                    onClick={() =>
+                      changeQuantity(item, Math.max(1, quantity - 1))
+                    }
+                  >
                     -
                   </button>
                 </StyledMinus>
@@ -100,26 +93,20 @@ export const CartItem: FC<ICartItemProps> = ({
               </StyledQuantityButtons>
             </StyledQuantity>
             <StyledCartPrices>
-              <Typography
-                variant="newPrice"
-                component="h3"
-                className="line-clamp-2"
-              >
-                ${price}
+              <Typography variant="newPrice" component="span">
+                ${!sale?.newPrise ? price : sale?.newPrise}
               </Typography>
-              <Typography
-                variant="oldPrice"
-                component="h3"
-                className="line-clamp-2"
-              >
-                {sale}
-              </Typography>
+              {sale?.newPrise && (
+                <Typography variant="oldPrice" component="span">
+                  ${price}
+                </Typography>
+              )}
             </StyledCartPrices>
           </StyledQuantityAndPricesWrapper>
           <StyledCartItemActions>
             <StyledFormControlLabel
               control={
-                <Checkbox
+                <StyledCheckbox
                   icon={getIcon(EnumIcons.heart)}
                   checkedIcon={getIcon(EnumIcons.heart)}
                 />

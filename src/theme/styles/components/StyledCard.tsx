@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 export const StyledCard = styled.div`
-  ${tw`relative flex flex-col gap-y-6 w-full h-full py-4 bg-main-white overflow-hidden rounded-3xl border-main-transparent transition-all`}
+  ${tw`relative flex flex-col gap-y-6 w-full h-full py-4 bg-main-white overflow-hidden rounded-3xl border-4 border-main-transparent transition-all`}
   &:hover {
       border: 4px solid #D25;}
   `;
@@ -13,7 +13,9 @@ export const StyledCardTop = styled.div`
   .MuiCheckbox-root {
     ${tw`w-6 h-6 ml-auto p-0 stroke-main-black`}
   }
-
+  .MuiCheckbox-root:hover {
+    ${tw`border-main-red stroke-main-red`}
+  }
   .Mui-checked {
     svg {
       ${tw`stroke-main-red fill-main-red`}

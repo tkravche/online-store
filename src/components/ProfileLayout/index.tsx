@@ -15,12 +15,12 @@ import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import {
-  StyledCartSection,
-  StyledCartWrapper,
-  StyledCartLeftWrapper,
+  StyledProfileLeftWrapper,
   StyledToolbar,
   StyledUserAvatar,
   StyledToolbarLink,
+  StyledProfileSection,
+  StyledProfileWrapper,
 } from '@/theme/styles/layout/StyledProfileLayout';
 import { selectIsLogged } from '@/lib/otherRedux/selectors';
 import { useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ export const ProfileLayout: FC = () => {
   // const isLogged = useSelector(selectIsLogged);
   const isLogged = true;
   return (
-    <StyledCartSection>
+    <StyledProfileSection>
       <StyledContainer>
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           <Link underline="hover" color="inherit" href="/">
@@ -50,22 +50,38 @@ export const ProfileLayout: FC = () => {
             {location}
           </Typography>
         </Breadcrumbs>
-        <StyledCartWrapper>
-          <StyledCartLeftWrapper>
+        <StyledProfileWrapper>
+          <StyledProfileLeftWrapper>
             <StyledUserAvatar>
               {getIcon(EnumIcons.user)}
               {!isLogged ? (
-                <Typography ml={1}>No Name</Typography>
+                <Typography
+                  ml={1}
+                  sx={{ fontWeight: '700', lineHeight: '200%' }}
+                >
+                  No Name
+                </Typography>
               ) : (
                 <Typography ml={1}>Name</Typography>
               )}
             </StyledUserAvatar>
             {!isLogged ? (
-              <Typography mt={2}>
+              <Typography
+                mt={2}
+                variant="body1"
+                component="p"
+                sx={{ color: '#878D99' }}
+              >
                 Log in to the site for your convenience.
               </Typography>
             ) : (
-              <Typography>email@email.com</Typography>
+              <Typography
+                variant="body1"
+                component="p"
+                sx={{ color: '#878D99' }}
+              >
+                email@email.com
+              </Typography>
             )}
             {isLogged && (
               <StyledToolbar>
@@ -144,10 +160,10 @@ export const ProfileLayout: FC = () => {
                 </List>
               </StyledToolbar>
             )}
-          </StyledCartLeftWrapper>
+          </StyledProfileLeftWrapper>
           <Outlet />
-        </StyledCartWrapper>
+        </StyledProfileWrapper>
       </StyledContainer>
-    </StyledCartSection>
+    </StyledProfileSection>
   );
 };

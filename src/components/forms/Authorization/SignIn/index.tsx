@@ -1,3 +1,7 @@
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
+
 import { getIcon } from '@/helpers/getIcon';
 import {
   StyledAuthorizationForm,
@@ -6,35 +10,32 @@ import {
 import { StyledDivider } from '@/theme/styles/ui/StyledDivider';
 import { StyledGoogleBtn } from '@/theme/styles/ui/StyledGoogleLink';
 import { EnumIcons } from '@/types';
-import { Button } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { Field } from '../../elements/Field';
-import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '@/lib/otherRedux/thunks/auth';
 import { setAuth } from '@/lib/otherRedux/slice/ui';
-import { LoadingButton } from '@mui/lab';
 import { selectIsLoading } from '@/lib/otherRedux/selectors';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { FC } from 'react';
 
-interface ISignIn {
-  email: string;
-  password: string;
-}
+// interface ISignIn {
+//   email: string;
+//   password: string;
+// }
 
-export const SignIn = () => {
-  const loading= useSelector(selectIsLoading)
+export const SignIn: FC = () => {
+  const loading = useAppSelector(selectIsLoading);
   const form = useForm({
     mode: 'onTouched',
   });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleSendSubmit = async (data: ISignIn) => {
-    // try {
-    //   await dispatch(loginUser(data));
-    //   dispatch(setAuth(false));
-    // } catch (e) {
-    //   return e.message;
-    // }
+  const handleSendSubmit = async () => {
+    try {
+      await dispatch(loginUser());
+      dispatch(setAuth(false));
+    } catch (e) {
+      return e.message;
+    }
   };
 
   return (

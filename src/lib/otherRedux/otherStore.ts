@@ -14,6 +14,7 @@ import authSlice from './slice/auth';
 import userSlice from './slice/user';
 import headerSlice from './slice/header';
 import uiSlice from './slice/ui';
+import catalogSlice from './slice/catalog';
 
 const persistConfig = {
   key: 'data',
@@ -28,6 +29,7 @@ export const otherStore = configureStore({
     user: userSlice,
     headerSearch: headerSlice,
     ui: uiSlice,
+    catalog: catalogSlice
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

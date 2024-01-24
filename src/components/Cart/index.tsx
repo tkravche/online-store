@@ -1,86 +1,171 @@
-import { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { selectCart } from '@/lib/otherRedux/selectors';
-import { addItemToCart } from '@/lib/otherRedux/slice/user';
+import { NavLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
-import DialogContent from '@mui/material/DialogContent';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import {
-  Breadcrumbs,
-  Divider,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
-  Toolbar,
+  TextField,
   Typography,
 } from '@mui/material';
-import { EnumIcons, ICartItemProps } from '@/types';
+
+import {
+  selectCart,
+  selectCurrentUserCart,
+  selectIsLogged,
+} from '@/lib/otherRedux/selectors';
 import { CartItem } from './CartItem';
 import {
-  StyledCartBottom,
-  StyledCartDialog,
   StyledCartItemsWrapper,
-  StyledCatalogLink,
   StyledNoCartItems,
   StyledNoCartItemsWrapper,
-  StyledDialogActions,
-  StyledContinueLink,
   StyledPriceTotal,
   StyledSaleTotal,
   StyledTotal,
   StyledTotals,
-  StyledCol1,
-  StyledCol2,
   StyledCartSection,
-  StyledCartWrapper,
-  StyledCartRight,
+  StyledCartLeftWrapper,
+  StyledCartItemsContainer,
+  StyledButtons,
+  StyledPromocode,
+  StyledDeliveryDetails,
+  StyledTotalsBox,
+  StyledDeliveryList,
+  StyledDeliveryListItem,
 } from '@/theme/styles/components/StyledCart';
-import { NavLink, Outlet } from 'react-router-dom';
-import Link from '@mui/material/Link';
-import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
-import { MailIcon } from '@/theme/icons/MailIcon';
+import { getCurrentUserCartThunk } from '@/lib/otherRedux/thunks/user';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
 
 export const Cart = () => {
-  const cart = useSelector(selectCart);
+  const cart = useAppSelector(selectCart);
+  // const isLogged = useAppSelector(selectIsLogged);
+  const isLogged = true;
+  const dispatch = useAppDispatch();
+  // const newPrice = cart.sale === null ? 0 : cart.sale.newPrise;
+  if (isLogged) {
+    dispatch(getCurrentUserCartThunk());
+  }
+  // const cartCurrentUser = useAppSelector(selectCurrentUserCart);
+
   const priceTotal = cart?.reduce((acc: any, item: any) => {
     return acc + item.quantity * item.price;
   }, 0);
-  const saleTotal = cart?.reduce((acc: any, item: any) => {
-    return acc + item.quantity * (isNaN(item.sale) ? 0 : item.sale);
-  }, 0);
-  const saleTotalChecked = isNaN(saleTotal) ? 0 : saleTotal;
-  const total = priceTotal + saleTotalChecked;
+  const discountTotal =
+    cart?.reduce((acc: any, item: any) => {
+      return (
+        acc + item.quantity * (isNaN(item?.sale?.newPrise) ? 0 : item?.price)
+      );
+    }, 0) -
+    cart?.reduce((acc: any, item: any) => {
+      return (
+        acc +
+        item.quantity * (isNaN(item?.sale?.newPrise) ? 0 : item?.sale?.newPrise)
+      );
+    }, 0);
+  const total = priceTotal - discountTotal;
+
+  const { register, handleSubmit } = useForm({
+    mode: 'onTouched',
+  });
+
+  const handleSendSubmit = (data: any) => {
+    console.log(data);
+  };
 
   return (
-    <>
+    <StyledCartSection>
+      <Typography variant="h1" component="h1" className="line-clamp-1">
+        Cart
+      </Typography>
       {!cart?.length ? (
         <StyledNoCartItemsWrapper>
-          <Typography variant="h1" component="h3" className="line-clamp-1">
-            Cart
-          </Typography>
           <StyledNoCartItems>
             There are no products in your shopping cart yet.
           </StyledNoCartItems>
-          {/* <StyledCatalogLink>
-              <Link to="/online-store">View the catalog</Link>
-            </StyledCatalogLink> */}
+          <NavLink to="/online-store/catalog">
+            <Button variant="contained">View the catalog</Button>
+          </NavLink>
         </StyledNoCartItemsWrapper>
       ) : (
         <>
-          <StyledCartItemsWrapper>
-            <Typography variant="h1" component="h3" className="line-clamp-1">
-              Cart
-            </Typography>
-            {cart?.map((item: any) => <CartItem key={item.id} {...item} />)}
-          
-          </StyledCartItemsWrapper>
+          <StyledCartLeftWrapper>
+            <StyledCartItemsContainer>
+              <StyledCartItemsWrapper>
+                {cart?.map((item: any) => <CartItem key={item.id} {...item} />)}
+                {/* {!isLogged ? (cart?.map((item: any) => <CartItem key={item.id} {...item} />)):(cartCurrentUser?.map((item: any) => <CartItem key={item.id} {...item} />))} */}
+              </StyledCartItemsWrapper>{' '}
+            </StyledCartItemsContainer>
+            <StyledTotals>
+              <StyledTotalsBox>
+                <Typography
+                  variant="h2"
+                  component="h2"
+                  className="line-clamp-1"
+                  mb={3}
+                >
+                  Order Summary
+                </Typography>
+                <StyledPromocode>
+                  <Typography component="p" variant="body1">
+                    Promocode
+                  </Typography>
+                  <form onSubmit={handleSubmit(handleSendSubmit as any)}>
+                    <TextField
+                      placeholder="Enter a promo code"
+                      {...register('promocode')}
+                    />
+                  </form>
+                </StyledPromocode>
+                <StyledPriceTotal>
+                  <Typography variant="body1">Price</Typography>
+                  <Typography variant="body1" sx={{ color: '#878D99' }}>
+                    ${priceTotal}
+                  </Typography>
+                </StyledPriceTotal>
+                <StyledSaleTotal>
+                  <Typography variant="body1">Sale</Typography>
+                  <Typography variant="body1" sx={{ color: '#878D99' }}>
+                    ${discountTotal}
+                  </Typography>
+                </StyledSaleTotal>
+                <StyledTotal>
+                  <Typography variant="body1">Total</Typography>
+                  <Typography variant="newPrice">${total}</Typography>
+                </StyledTotal>
+                <StyledButtons>
+                  <Button variant="contained">Confirm</Button>
+                </StyledButtons>
+              </StyledTotalsBox>
+              <StyledDeliveryDetails>
+                <StyledDeliveryList>
+                  <StyledDeliveryListItem disablePadding>
+                    {getIcon(EnumIcons.dot)}
+                    <ListItemText primary="fast delivery — 1-5 days*" />
+                  </StyledDeliveryListItem>
+                  <StyledDeliveryListItem disablePadding>
+                    {getIcon(EnumIcons.dot)}
+                    <ListItemText primary="$20 one price for delivery" />
+                  </StyledDeliveryListItem>
+                  <StyledDeliveryListItem disablePadding>
+                    {getIcon(EnumIcons.dot)}
+                    <ListItemText primary="free shipping from $1000" />
+                  </StyledDeliveryListItem>
+                </StyledDeliveryList>
+                <Typography
+                  component="p"
+                  sx={{ fontSize: '10px', lineHeight: '140%', paddingLeft: '8px' }}
+                >
+                  *Delivery terms depending on the destination and the selected
+                  shipping method
+                </Typography>
+              </StyledDeliveryDetails>
+            </StyledTotals>
+          </StyledCartLeftWrapper>
         </>
       )}
-    </>
+    </StyledCartSection>
   );
 };

@@ -10,7 +10,7 @@ import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import { EnumBreakpoints, EnumIcons } from '@/types';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import { IconButton, useMediaQuery } from '@mui/material';
+import { Badge, IconButton, useMediaQuery } from '@mui/material';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { HeaderSearch } from './HeaderSearch';
@@ -18,10 +18,13 @@ import { HeaderSearchModal } from './HeaderSearchModal';
 import { setSearch } from '@/lib/otherRedux/slice/header';
 import { setAuth } from '@/lib/otherRedux/slice/ui';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCart } from '@/lib/otherRedux/selectors';
 
 export const Header: FC = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+  const badgeQuantity = useSelector(selectCart).length;
 
   const isTabletPortraitScreen = useMediaQuery(
     `(max-width: ${EnumBreakpoints.tabletPortrait})`
@@ -55,10 +58,15 @@ export const Header: FC = () => {
               </IconButton>
             )}
             <IconButton>{getIcon(EnumIcons.heart)}</IconButton>
-
-            <IconButton>
-              <Link to="profile">{getIcon(EnumIcons.cart)} </Link>
-            </IconButton>
+            <Badge
+              badgeContent={badgeQuantity}
+              color="error"
+              overlap="rectangular"
+            >
+              <IconButton>
+                <Link to="profile">{getIcon(EnumIcons.cart)} </Link>
+              </IconButton>
+            </Badge>
 
             <IconButton onClick={() => dispatch(setAuth(true))}>
               {getIcon(EnumIcons.user)}

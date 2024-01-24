@@ -1,5 +1,6 @@
 import { Accessories } from '@/pages/Accessories';
 import { Bicycles } from '@/pages/Bicycles';
+import { CatalogPage } from '@/pages/CatalogPage';
 import { Gyroboards } from '@/pages/Gyroboards';
 import { HomePage } from '@/pages/Home';
 import { Monowheels } from '@/pages/Monowheels';
@@ -46,6 +47,11 @@ export const routes = [
   {
     path: '/online-store/:id',
     element: ProductPage,
+    exact: true,
+  },
+  {
+    path: '/online-store/catalog',
+    element: CatalogPage,
     exact: true,
   },
 ];

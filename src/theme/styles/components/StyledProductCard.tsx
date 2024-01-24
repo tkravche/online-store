@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 export const StyledProductCardSection = styled.div`
-  ${tw`mt-[160px]`}
+  ${tw`mt-40`}
 `;
 export const StyledProductCard = styled.div`
   ${tw`grid grid-rows-1 gap-y-6 sm:grid-cols-[41% auto] sm:gap-x-32 mt-8 sm:mt-14 mb-14 overflow-hidden`}

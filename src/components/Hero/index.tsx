@@ -5,7 +5,8 @@ import {
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import { Button, Typography } from '@mui/material';
 
-import bg from '@/assets/banner-bg.jpg';
+import bg from '@/assets/banner-bg-new.jpg';
+import { Link } from 'react-router-dom';
 
 export const Hero = () => {
   return (
@@ -19,7 +20,7 @@ export const Hero = () => {
             Buy new wheels for yourself and move with pleasure
           </Typography>
           <Button variant="contained" size="large">
-            View the catalog
+            <Link to="catalog">View the catalog</Link>
           </Button>
         </StyledHeroContent>
       </StyledContainer>

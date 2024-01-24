@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
-export const StyledCartSection = styled.section`
+export const StyledProfileSection = styled.div`
   ${tw`mt-[160px]`}
   svg {
     ${tw`w-6 h-6 stroke-secondary-gray transition-all`}
   }
 `;
 
-export const StyledCartWrapper = styled.div`
+export const StyledProfileWrapper = styled.div`
   ${tw`grid grid-cols-[20%, auto] gap-x-20 mt-14`}
 
   .css-hyum1k-MuiToolbar-root {
@@ -19,11 +19,14 @@ export const StyledCartWrapper = styled.div`
 `;
 
 export const StyledUserAvatar = styled.div`
-  ${tw`flex mb-1`}
+  ${tw`flex items-center mb-1`}
+  svg {
+    stroke: #212121;
+  }
 `;
 
-export const StyledCartLeftWrapper = styled.div`
-  ${tw`py-8 px-6`}
+export const StyledProfileLeftWrapper = styled.div`
+  ${tw`py-8 px-6 max-h-[423px] rounded-3xl bg-main-white`}
 `;
 
 export const StyledCartRight = styled.div`
@@ -48,7 +51,7 @@ export const StyledToolbar = styled(Toolbar)`
     background-color: transparent;
     border: 2px solid #d25;
   }
-  
+
   .icon-heart {
     ${tw`fill-secondary-gray`}
   }
@@ -61,12 +64,12 @@ export const StyledToolbar = styled(Toolbar)`
   .active > .MuiListItemButton-root > .MuiListItemIcon-root > .icon-heart {
     ${tw`fill-main-black`}
   }
- 
+
   svg:hover {
     stroke: black;
   }
 `;
 
 export const StyledToolbarLink = styled(NavLink)`
-  ${tw``}
+  ${tw`w-full`}
 `;

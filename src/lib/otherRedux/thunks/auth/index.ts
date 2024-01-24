@@ -10,9 +10,9 @@ export const clearToken = token => {
 
 export const loginUser = createAsyncThunk(
   'auth/login',
-  async (data, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue }) => {
     try {
-      const user = await instance.post('auth/email/login', data);
+      const user = await instance.post('auth/email/login', credentials);
       return user.data;
     } catch (error: any) {
       if (error.response && error.response.data.message) {

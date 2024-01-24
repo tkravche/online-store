@@ -1,6 +1,9 @@
+
+// Modal window for Cart and styles for it
+
+
 // import { FC, useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
-
 // import { selectCart } from '@/lib/otherRedux/selectors';
 // import { addItemToCart } from '@/lib/otherRedux/slice/user';
 // import Button from '@mui/material/Button';
@@ -92,27 +95,27 @@
 //               <>
 //                 {cart?.map((item: any) => <CartItem key={item.id} {...item} />)}
 //                 <StyledCartBottom>
-//                   <StyledTotals>
-//                     <StyledCol1></StyledCol1>
-//                     <StyledCol2>
-//                       <StyledPriceTotal>
-//                         <Typography variant="body1">Price</Typography>
-//                         <Typography variant="body2" sx={{ color: '#878D99' }}>
-//                           ${priceTotal}
-//                         </Typography>
-//                       </StyledPriceTotal>
-//                       <StyledSaleTotal>
-//                         <Typography variant="body1">Sale</Typography>
-//                         <Typography variant="body2" sx={{ color: '#878D99' }}>
-//                           ${saleTotalChecked}
-//                         </Typography>
-//                       </StyledSaleTotal>
-//                       <StyledTotal>
-//                         <Typography variant="body1">Total</Typography>
-//                         <Typography variant="newPrice">${total}</Typography>
-//                       </StyledTotal>
-//                     </StyledCol2>
-//                   </StyledTotals>
+                //   <StyledTotals>
+                //     <StyledCol1></StyledCol1>
+                //     <StyledCol2>
+                //       <StyledPriceTotal>
+                //         <Typography variant="body1">Price</Typography>
+                //         <Typography variant="body2" sx={{ color: '#878D99' }}>
+                //           ${priceTotal}
+                //         </Typography>
+                //       </StyledPriceTotal>
+                //       <StyledSaleTotal>
+                //         <Typography variant="body1">Sale</Typography>
+                //         <Typography variant="body2" sx={{ color: '#878D99' }}>
+                //           ${saleTotalChecked}
+                //         </Typography>
+                //       </StyledSaleTotal>
+                //       <StyledTotal>
+                //         <Typography variant="body1">Total</Typography>
+                //         <Typography variant="newPrice">${total}</Typography>
+                //       </StyledTotal>
+                //     </StyledCol2>
+                //   </StyledTotals>
 //                   <StyledDialogActions>
 //                     <StyledContinueLink
 //                       onClick={handleClose}
@@ -133,3 +136,55 @@
 //     </>
 //   );
 // };
+
+
+// CartPopUp Styles
+// export const StyledCartDialog = styled(Dialog)`
+//   .MuiPaper-root {
+//     ${tw`min-w-[700px] rounded-3xl pt-16 pb-10 bg-secondary-bg`}
+//   }
+// `;
+// export const StyledCartItemsWrapper = styled.div`
+//   ${tw`grid auto-rows-fr gap-x-6 mt-20 rounded-3xl`}
+// `;
+
+// export const StyledNoCartItemsWrapper = styled.div`
+//   ${tw`flex flex-col items-start px-8`}
+//   // ${tw`flex flex-col items-start min-w-[700px] min-h-[448px] px-8`}
+// `;
+
+// export const StyledNoCartItems = styled.p`
+//   ${tw`mt-6 mb-10`}
+// `;
+// export const StyledCatalogLink = styled.div`
+//   ${tw`self-start py-1 px-9 rounded-xl text-base leading-8 text-main-white bg-main-black`}
+// `;
+
+// export const StyledCartBottom = styled.div`
+//   ${tw`grid auto-rows-auto content-center px-8 mt-6`}
+// `;
+
+// export const StyledTotals = styled.div`
+//   ${tw`grid grid-cols-[auto 26%] `}
+// `;
+// export const StyledCol1 = styled.div`
+//   ${tw``}
+// `;
+// export const StyledCol2 = styled.div`
+//   ${tw``}
+// `;
+// export const StyledPriceTotal = styled.div`
+//   ${tw`flex justify-between mb-2`}
+// `;
+// export const StyledSaleTotal = styled.div`
+//   ${tw`flex justify-between mb-2`}
+// `;
+// export const StyledTotal = styled.div`
+//   ${tw`flex justify-between`}
+// `;
+// export const StyledDialogActions = styled.div`
+//   ${tw`grid grid-cols-[auto 26%] mt-6`}
+// `;
+// export const StyledContinueLink = styled(Link)`
+//   ${tw`text-base font-bold leading-8 text-[#878D99]`}
+// `;

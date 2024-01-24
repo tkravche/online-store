@@ -21,6 +21,7 @@ import { DeleteIcon } from './DeleteIcon';
 import { SettingIcon } from './SettingIcon';
 import { OrdersIcon } from './OrdersIcon';
 import { LogOutIcon } from './LogOutIcon';
+import { DotIcon } from './DotIcon';
 
 export interface Icons {
   [key: string]: FC<{ iconClass: string }>;
@@ -49,4 +50,5 @@ export const icons: Icons = {
   orders: OrdersIcon,
   setting: SettingIcon,
   logOut: LogOutIcon,
+  dot: DotIcon,
 };

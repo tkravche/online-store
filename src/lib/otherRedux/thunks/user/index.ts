@@ -57,3 +57,21 @@ export const removeFromFavoritesThunk = createAsyncThunk(
     }
   }
 );
+
+export const getCurrentUserCartThunk = createAsyncThunk(
+  'user/getCart',
+  async (_, { rejectWithValue }) => {
+    const token = useSelector(selectAccessToken);
+    try {
+      setToken(token);
+      const currentUserCart = await instance('carts/my/items');
+      return currentUserCart.data;
+    } catch (error: any) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+)

@@ -152,7 +152,6 @@ const theme = createTheme({
         },
       },
     },
-
     MuiButton: {
       variants: [
         {
@@ -206,6 +205,8 @@ const theme = createTheme({
           borderRadius: '24px',
         },
         contained: {
+          paddingRight: '46px',
+          paddingLeft: '46px',
           borderRadius: '12px',
           minHeight: '40px',
           color: '#fff',
