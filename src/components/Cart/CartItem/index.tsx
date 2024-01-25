@@ -17,11 +17,13 @@ import {
   StyledImageWrapper,
   StyledMinus,
   StyledPlus,
+  StyledProductLink,
   StyledQuantity,
   StyledQuantityAndPricesWrapper,
   StyledQuantityButtons,
   StyledQuantityNumber,
 } from '@/theme/styles/components/StyledCart';
+import { Link } from 'react-router-dom';
 
 export const CartItem: FC<ICartItemProps> = ({
   id,
@@ -50,15 +52,18 @@ export const CartItem: FC<ICartItemProps> = ({
           <Image src={url} webp={url} alt={name} />
         </StyledImageWrapper>
         <StyledCartItemInfo>
-          <Typography
-            variant="body1"
-            component="h2"
-            className="line-clamp-1"
-            mb={1}
-            sx={{ width: '85%' }}
-          >
-            {name}
-          </Typography>
+          <StyledProductLink to={`/online-store/${id}`}>
+            <Typography
+              variant="body1"
+              component="h2"
+              className="line-clamp-1"
+              mb={1}
+              sx={{ width: '85%' }}
+            >
+              {name}
+            </Typography>
+          </StyledProductLink>
+
           <StyledQuantityAndPricesWrapper>
             <StyledQuantity>
               <Typography

@@ -41,14 +41,10 @@ import { getIcon } from '@/helpers/getIcon';
 
 export const Cart = () => {
   const cart = useAppSelector(selectCart);
-  // const isLogged = useAppSelector(selectIsLogged);
-  const isLogged = true;
+  const isLogged = useAppSelector(selectIsLogged);
   const dispatch = useAppDispatch();
-  // const newPrice = cart.sale === null ? 0 : cart.sale.newPrise;
-  if (isLogged) {
-    dispatch(getCurrentUserCartThunk());
-  }
-  // const cartCurrentUser = useAppSelector(selectCurrentUserCart);
+
+  const cartCurrentUser = useAppSelector(selectCurrentUserCart);
 
   const priceTotal = cart?.reduce((acc: any, item: any) => {
     return acc + item.quantity * item.price;
@@ -156,7 +152,11 @@ export const Cart = () => {
                 </StyledDeliveryList>
                 <Typography
                   component="p"
-                  sx={{ fontSize: '10px', lineHeight: '140%', paddingLeft: '8px' }}
+                  sx={{
+                    fontSize: '10px',
+                    lineHeight: '140%',
+                    paddingLeft: '8px',
+                  }}
                 >
                   *Delivery terms depending on the destination and the selected
                   shipping method

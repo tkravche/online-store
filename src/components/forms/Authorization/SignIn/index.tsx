@@ -13,14 +13,15 @@ import { EnumIcons } from '@/types';
 import { Field } from '../../elements/Field';
 import { loginUser } from '@/lib/otherRedux/thunks/auth';
 import { setAuth } from '@/lib/otherRedux/slice/ui';
-import { selectIsLoading } from '@/lib/otherRedux/selectors';
+import { selectIsLoading, selectIsLogged } from '@/lib/otherRedux/selectors';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { currentUserThunk } from '@/lib/otherRedux/thunks/user';
 
-// interface ISignIn {
-//   email: string;
-//   password: string;
-// }
+interface ISignIn {
+  email: string;
+  password: string;
+}
 
 export const SignIn: FC = () => {
   const loading = useAppSelector(selectIsLoading);
@@ -28,14 +29,20 @@ export const SignIn: FC = () => {
     mode: 'onTouched',
   });
   const dispatch = useAppDispatch();
+  const isLogged = useAppSelector(selectIsLogged);
 
-  const handleSendSubmit = async () => {
-    try {
-      await dispatch(loginUser());
-      dispatch(setAuth(false));
-    } catch (e) {
-      return e.message;
-    }
+  // const handleSendSubmit = async (data: ISignIn) => {
+  //   await dispatch(loginUser(data)).then(r => {
+  //     if (r.payload && r.meta.requestStatus === 'fulfilled') {
+  //       dispatch(currentUserThunk());
+  //       dispatch(setAuth(false));
+  //     }
+  //   });
+  // };
+
+  const handleSendSubmit = async (data: ISignIn) => {
+    await dispatch(loginUser(data));
+    dispatch(setAuth(false));
   };
 
   return (

@@ -18,7 +18,7 @@ import {
 
 // Define the initial state using that type
 const initialState = {
-  currentUser: {},
+  currentUser: null,
   currentUserCart: {},
   cart: [],
   isLoading: false,

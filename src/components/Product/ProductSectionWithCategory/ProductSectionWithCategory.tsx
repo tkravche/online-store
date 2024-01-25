@@ -15,7 +15,6 @@ interface ISliderProps {
   data?: ICardProps[];
 }
 
-
 interface IArrowProps {
   onClick?: () => void; // Define the type for onClick prop
 }
@@ -56,20 +55,6 @@ const settings = {
         slidesToScroll: 1,
       },
     },
-    // {
-    //   breakpoint: 1280,
-    //   settings: {
-    //     slidesToShow: 3,
-    //     slidesToScroll: 1,
-    //   },
-    // },
-    // {
-    //   breakpoint: 1024,
-    //   settings: {
-    //     slidesToShow: 3,
-    //     slidesToScroll: 1,
-    //   },
-    // },
     {
       breakpoint: 980,
       settings: {
@@ -80,7 +65,10 @@ const settings = {
   ],
 };
 
-export const ProductSectionWithCategory: FC<ISliderProps> = ({ category, data }) => {
+export const ProductSectionWithCategory: FC<ISliderProps> = ({
+  category,
+  data,
+}) => {
   return (
     <StyledProductSection>
       <StyledContainer>
@@ -90,7 +78,7 @@ export const ProductSectionWithCategory: FC<ISliderProps> = ({ category, data })
       </StyledContainer>
       <StyledContainerSlider>
         <StyledSlider {...settings}>
-          {data?.map((item, index) => <Card key={index} {...item} />)}
+          {data?.map((item) => <Card key={item.id} {...item} />)}
         </StyledSlider>
       </StyledContainerSlider>
     </StyledProductSection>

@@ -8,7 +8,7 @@ export const StyledReviewSection = styled.section`
 `;
 
 export const StyledReview = styled.div`
-  ${tw`h-[254px] grid grid-cols-[30%, auto] gap-x-14`}
+  ${tw`h-[254px] grid grid-cols-[29.2%, auto] gap-x-14`}
 `;
 
 export const StyledFeedbackWrapper = styled.div`
@@ -39,7 +39,7 @@ export const StyledReviewsWrapper = styled.div`
 export const StyledNoReviews = styled.div`
   ${tw`h-full flex justify-center items-center bg-main-white rounded-3xl p-4`}
 `;
-   
+
 export const StyledReviewCard = styled(ReviewCard)`
   ${tw`p-4`}
 `;
@@ -49,11 +49,11 @@ export const StyledReviewCardWrapper = styled.div`
 `;
 
 export const StyledContainerReviewSlider = styled.div`
-${tw`m-auto`}
+  ${tw`m-auto`}
 
   .slick-slider {
     ${tw`relative max-w-[250px] sm:max-w-[300px] md:max-w-[450px] lg:max-w-[600px] xl:max-w-[700px] 2xl:max-w-[940px]`}
-    
+
     .button {
       ${tw`absolute top-1/2 -left-10 -translate-y-2/4`}
     }
@@ -69,21 +69,21 @@ ${tw`m-auto`}
         ${tw`stroke-secondary-gray`}
       }
 
-      &:hover {
-      
       svg {
         ${tw`stroke-main-red`}
       }
     }
   }
-
+  .MuiIconButton-root:hover {
+    background-color: transparent;
+  }
   .slick-list {
     ${tw`overflow-hidden`}
   }
   .slick-track {
     ${tw`flex gap-x-5`}
   }
-  `;
+`;
 
 export const StyledReviewSlider = styled(Slider)`
   .slick-slide {

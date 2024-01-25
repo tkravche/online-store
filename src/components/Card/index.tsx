@@ -1,7 +1,7 @@
 import { Button, Checkbox, Typography } from '@mui/material';
 import { memo } from 'react';
 import Image from 'react-image-webp';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import { getIcon } from '@/helpers/getIcon';
 import {
@@ -39,11 +39,7 @@ export const Card = memo(
             {images.length > 0 ? (
               <Image src={images[0].url} webp={images[0].url} alt={name} />
             ) : (
-              <Image
-                src={Default}
-                webp={Default}
-                alt={name}
-              />
+              <Image src={Default} webp={Default} alt={name} />
             )}
           </Link>
         </StyledCardImg>

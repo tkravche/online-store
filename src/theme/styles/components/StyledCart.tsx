@@ -96,6 +96,10 @@ export const StyledImageWrapper = styled.div`
 export const StyledCartItemInfo = styled.div`
   ${tw``}
 `;
+export const StyledProductLink = styled(Link)`
+  ${tw`cursor-pointer hover:underline`}
+`;
+
 export const StyledQuantity = styled.div`
   ${tw`flex items-center `}
 `;

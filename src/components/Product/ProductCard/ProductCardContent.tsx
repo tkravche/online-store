@@ -26,6 +26,7 @@ import {
   StyledSale,
   StyledNoSale,
   StyledProductCardSection,
+  StyledAllLink,
 } from '@/theme/styles/components/StyledProductCard';
 import { StyledRating } from '@/theme/styles/ui/StyledRating';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
@@ -35,7 +36,6 @@ import {
   StyledTabPanel,
   StyledTabsList,
 } from '@/theme/styles/ui/StyledTabs';
-import { StyledAllLink } from '@/theme/styles/ui/StyledAllLink';
 import { ReviewsSection } from '../ReviewsSection';
 import { ProductSectionByCategory } from '../ProductSectionWithCategory';
 import { ImageSlider } from './ImageSlider';
@@ -48,6 +48,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addItemToCart } from '@/lib/otherRedux/slice/user';
+import { SkateboardsSection } from '@/components/Home/SkateboardsSection';
 
 export const ProductCardContent: FC<ICardProps> = props => {
   const {
@@ -327,7 +328,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
         <div ref={reviewSection}></div>
         <ReviewsSection url={images[0]?.url} name={name} id={id} />
         <ProductSectionByCategory category={categories[0].name} />
-        <StyledAllLink style={{ marginTop: '56px' }}>
+        <StyledAllLink>
           <NavLink to={`/online-store/${categories[0].name}s`}>
             View All
             {getIcon(EnumIcons.arrowLong)}

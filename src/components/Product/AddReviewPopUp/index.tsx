@@ -1,5 +1,5 @@
 import Image from 'react-image-webp';
-import {ChangeEvent, FC, useState} from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Button from '@mui/material/Button';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box, Typography } from '@mui/material';
 
 import { getIcon } from '@/helpers/getIcon';
-import { EnumIcons, IReviewPopUpProps} from '@/types';
+import { EnumIcons, IReviewPopUpProps } from '@/types';
 import {
   StyledDialog,
   StyledProductInfo,
@@ -46,7 +46,7 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
   const [text, setText] = useState('');
 
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-     setText(event.target.value);
+    setText(event.target.value);
   };
 
   const isTextEntered = text.trim() !== '';
@@ -174,7 +174,7 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
                 >
                   Cancel
                 </Button>
-                {isTextEntered && value !== null && value > 0  ? (
+                {isTextEntered && value !== null && value > 0 ? (
                   <Button variant="contained" autoFocus onClick={handleClose}>
                     Send
                   </Button>

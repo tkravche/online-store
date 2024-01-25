@@ -1,28 +1,35 @@
 import { instance } from '@/hooks/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const setToken = token => {
+export const setToken = (token: any) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
-export const clearToken = token => {
+export const clearToken = (token: any) => {
   instance.defaults.headers.common['Authorization'] = ``;
 };
 
-export const loginUser = createAsyncThunk(
-  'auth/login',
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const user = await instance.post('auth/email/login', credentials);
-      return user.data;
-    } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
+// what is to be expected to return
+export type ITokensData = {
+  data:{accessToken: string;
+  refreshToken: string;}
+  };
+
+export const loginUser = createAsyncThunk<
+  ITokensData,
+  { email: string; password: string },
+  { rejectValue: string }
+>('auth/login', async (credentials, { rejectWithValue }) => {
+  try {
+    const user = await instance.post('auth/email/login', credentials);
+    return user.data;
+  } catch (error: any) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message);
+    } else {
+      return rejectWithValue(error.message);
     }
   }
-);
+});
 // export const registerUser = createAsyncThunk(
 //     'auth/register',
 //     async (data: IRegisterData, { rejectWithValue }) => {

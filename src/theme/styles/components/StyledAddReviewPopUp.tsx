@@ -23,7 +23,7 @@ export const StyledReviewPopUpWrapper = styled.div`
 `;
 
 export const StyledProductInfo = styled.div`
-  ${tw`max-h-[320px] w-[335px] md:w-[220px] grid grid-rows-[auto_22%]  gap-y-4 rounded-3xl py-3 px-2 bg-main-white`}
+  ${tw`max-h-[320px] w-[335px] md:w-[220px] grid grid-rows-[auto_22%] gap-y-4 rounded-3xl py-3 pt-14 px-2 bg-main-white`}
 `;
 
 export const StyledReviewInfo = styled.div`

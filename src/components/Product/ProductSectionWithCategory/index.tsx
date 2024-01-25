@@ -31,7 +31,7 @@ export const ProductSectionByCategory: FC<ICategoryProps> = ({ category }) => {
 
   useEffect(() => {
     if (!responseProducts && errorProducts === null) {
-      loadProducts().catch(e => console.log('Skateboard', e));
+      loadProducts().catch(e => console.log('ProductSectionWithCategory', e));
     }
   }, []);
 

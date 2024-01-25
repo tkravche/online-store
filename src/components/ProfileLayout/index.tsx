@@ -33,8 +33,8 @@ export const ProfileLayout: FC = () => {
   if (location === 'profile') {
     location = 'cart';
   }
-  // const isLogged = useSelector(selectIsLogged);
-  const isLogged = true;
+  const isLogged = useSelector(selectIsLogged);
+  // const isLogged = true;
   return (
     <StyledProfileSection>
       <StyledContainer>
