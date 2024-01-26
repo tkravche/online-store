@@ -32,7 +32,7 @@ export const Newsletter = () => {
           </Typography>
           <form onSubmit={handleSubmit(handleSendSubmit as any)}>
             <TextField
-              placeholder="What are you looking for?"
+              placeholder="example@example.com"
               {...register('email')}
               InputProps={{
                 startAdornment: (

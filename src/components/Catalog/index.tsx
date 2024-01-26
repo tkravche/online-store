@@ -4,6 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Breadcrumbs,
+  Button,
   Checkbox,
   FormControlLabel,
   FormGroup,
@@ -22,7 +23,7 @@ import { useAppSelector } from '@/lib/redux/init/store';
 import { useAppDispatch } from '@/hooks';
 import { selectArticles, selectTotalPages } from '@/lib/otherRedux/selectors';
 import { Card } from '../Card';
-import { ICardProps } from '@/types';
+import { EnumIcons, ICardProps } from '@/types';
 import {
   StyledArticles,
   StyledCatalog,
@@ -33,7 +34,10 @@ import {
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import {
   StyledAccordions,
+  StyledButton,
+  StyledEmptyStar,
   StyledFilteredNumber,
+  StyledFilteredRating,
   StyledFiltersTitle,
   StyledFiltersWrapper,
   StyledFormControl,
@@ -41,9 +45,11 @@ import {
   StyledPriceNumberInputWrapper,
   StyledPriceSlider,
   StyledPriceSliderWrapper,
+  StyledResetButton,
   StyledSaleFilter,
   StyledSetPrice,
 } from '@/theme/styles/components/StyledProductFilter';
+import { getIcon } from '@/helpers/getIcon';
 
 export const Catalog: FC = () => {
   const [page, setPage] = useState(1);
@@ -245,7 +251,7 @@ export const Catalog: FC = () => {
                     </StyledFormControl>
                   </FormGroup>
                 </AccordionDetails>
-              </Accordion >
+              </Accordion>
               <Accordion defaultExpanded>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -257,33 +263,50 @@ export const Catalog: FC = () => {
                 <AccordionDetails>
                   <FormGroup>
                     <StyledFormControl>
-                      <FormControlLabel
-                        control={<Checkbox />}
-                        label=""
-                      />
-                      <StyledFilteredNumber>*</StyledFilteredNumber>
+                      <FormControlLabel control={<Checkbox />} label="" />
+                      <StyledFilteredRating>
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                      </StyledFilteredRating>
                     </StyledFormControl>
                     <StyledFormControl>
-                      <FormControlLabel
-                        control={<Checkbox />}
-                        label=""
-                      />
-                      <StyledFilteredNumber>*</StyledFilteredNumber>
+                      <FormControlLabel control={<Checkbox />} label="" />
+                      <StyledFilteredRating>
+                        <StyledEmptyStar>
+                          {getIcon(EnumIcons.star)}
+                        </StyledEmptyStar>
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                      </StyledFilteredRating>
                     </StyledFormControl>
-
                     <StyledFormControl>
-                      <FormControlLabel
-                        control={<Checkbox />}
-                        label=""
-                      />
-                      <StyledFilteredNumber>*</StyledFilteredNumber>
+                      <FormControlLabel control={<Checkbox />} label="" />
+                      <StyledFilteredRating>
+                        <StyledEmptyStar>
+                          {getIcon(EnumIcons.star)}
+                        </StyledEmptyStar>
+                        <StyledEmptyStar>
+                          {getIcon(EnumIcons.star)}
+                        </StyledEmptyStar>
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                        {getIcon(EnumIcons.star)}
+                      </StyledFilteredRating>
                     </StyledFormControl>
-             
-                   
                   </FormGroup>
                 </AccordionDetails>
               </Accordion>
             </StyledAccordions>
+            <StyledResetButton>
+              <StyledButton variant="text" endIcon={getIcon(EnumIcons.close)}>
+                Reset all
+              </StyledButton>
+            </StyledResetButton>
           </StyledFilters>
           <StyledArticles>
             {articles?.map((item: ICardProps) => (

@@ -22,7 +22,11 @@ export const StyledCategory = styled.article`
   ${tw`block max-h-[266px]`}
 
   a {
-    ${tw`relative block overflow-hidden rounded-3xl`}
+    ${tw`relative block overflow-hidden rounded-3xl border-4 border-main-transparent`}
+    
+    &:hover {
+      border: 4px solid #d25;
+    }
 
     &:hover {
       img {

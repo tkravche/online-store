@@ -28,14 +28,14 @@ export const BestSellerSection = () => {
     return (
       <ProductSection
         data={responseBestSeller?.data.items}
-        title={'Best seller'}
+        title={'Sale'}
       />
     );
   }, [responseBestSeller, errorBestSeller]);
 
   useEffect(() => {
     if (!responseBestSeller && errorBestSeller === null) {
-      loadBestSeller().catch(e => console.log('Best Seller exception', e));
+      loadBestSeller().catch(e => console.log('Sale exception', e));
     }
   }, []);
 

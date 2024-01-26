@@ -53,7 +53,7 @@ export const Footer = () => {
                 <ul>
                   <li>
                     <Link to="/online-store/">
-                      <Typography component="span">Home</Typography>
+                      <Typography component="span" >Home</Typography>
                     </Link>
                   </li>
                   {navigation.map((item, index) => {

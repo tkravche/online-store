@@ -1,4 +1,4 @@
-import { Slider, Typography } from '@mui/material';
+import { Button, Slider, Typography } from '@mui/material';
 import { Unstable_NumberInput as BaseNumberInput } from '@mui/base/Unstable_NumberInput';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
@@ -87,13 +87,18 @@ export const StyledPriceNumberInput = styled(BaseNumberInput)`
 //Accordion
 
 export const StyledAccordions = styled.div`
+  ${tw`mb-4`}
   .css-1c35hjw-MuiPaper-root-MuiAccordion-root.Mui-expanded {
     ${tw`m-0`}
   }
+  .css-1c35hjw-MuiPaper-root-MuiAccordion-root {
+    ${tw`mb-4 shadow-none`}
+  }
+
   .MuiAccordionSummary-root {
     ${tw`bg-[#E2E7F1] px-6`}
   }
-  .MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
+  .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
     min-height: 0px;
   }
   .MuiAccordionSummary-content.Mui-expanded {
@@ -113,4 +118,33 @@ export const StyledFormControl = styled.div`
       ${tw`fill-secondary-gray`}
     }
   }
+`;
+export const StyledFilteredRating = styled.div`
+  ${tw`flex gap-x-2`}
+  svg {
+    ${tw`stroke-secondary-yellow fill-secondary-yellow`}
+  }
+}
+`;
+export const StyledEmptyStar = styled.div`
+    svg {
+      ${tw`stroke-secondary-yellow fill-main-transparent`}
+    }
+  }
+`;
+
+export const StyledResetButton = styled.div`
+  ${tw`flex justify-end`}
+  .css-hwqssc-MuiButtonBase-root-MuiButton-root {
+    ${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}
+  }
+  .css-hwqssc-MuiButtonBase-root-MuiButton-root:hover {
+    ${tw`bg-main-transparent`}
+  }
+  svg {
+    ${tw`w-6 h-6 stroke-secondary-gray`}
+  }
+`;
+export const StyledButton = styled(Button)`
+  ${tw`cursor-pointer`}
 `;

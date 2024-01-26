@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 export const StyledFooter = styled.footer`
-  ${tw`relative z-10 py-10 bg-main-white`}
+  ${tw`relative z-10 py-10 bg-main-white `}
 
   &::after {
     ${tw`content-[''] absolute inset-y-0 inset-x-0 z-[-1] bg-cover	bg-no-repeat opacity-[0.16]`}
@@ -67,6 +67,7 @@ export const StyledMenu = styled.div`
   }
 
   li {
+     ${tw`border-b border-main-transparent hover:border-b hover:border-main-red transition-all`}
     &:not(:last-child) {
       ${tw`mb-3`}
     }

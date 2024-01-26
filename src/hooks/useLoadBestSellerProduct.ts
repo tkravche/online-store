@@ -2,7 +2,7 @@ import useAxios from 'axios-hooks';
 
 export const useLoadBestSellerProduct = () => {
   const url =
-    'https://www.citywheels.website/api/articles?page=1&limit=20&rating=asc';
+    'https://www.citywheels.website/api/articles?page=1&limit=20&sale=inc';
 
   const [{ data, loading, error }, execute] = useAxios(
     {
