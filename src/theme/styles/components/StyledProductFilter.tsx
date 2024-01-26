@@ -12,7 +12,7 @@ export const StyledFiltersWrapper = styled.h3`
  }
 `;
 export const StyledSaleFilter = styled.div`
-  ${tw`flex justify-between items-center mb-8`}
+  ${tw`flex justify-between items-center mb-8 text-main-red`}
   .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
     background-color: transparent;
   }
@@ -22,7 +22,7 @@ export const StyledSaleFilter = styled.div`
     }
   }
   .css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
-    ${tw`text-main-red`}
+    // ${tw`text-main-red`}
   }
 `;
 
@@ -87,6 +87,9 @@ export const StyledPriceNumberInput = styled(BaseNumberInput)`
 //Accordion
 
 export const StyledAccordions = styled.div`
+  .css-1c35hjw-MuiPaper-root-MuiAccordion-root.Mui-expanded {
+    ${tw`m-0`}
+  }
   .MuiAccordionSummary-root {
     ${tw`bg-[#E2E7F1] px-6`}
   }
@@ -98,7 +101,7 @@ export const StyledAccordions = styled.div`
   }
   .css-15v22id-MuiAccordionDetails-root {
     padding: 4px 24px;
-}
+  }
 `;
 export const StyledFormControl = styled.div`
   ${tw`flex justify-between items-center px-2`}

@@ -190,7 +190,7 @@ export const Catalog: FC = () => {
               </StyledPriceSliderWrapper>
             </StyledFiltersWrapper>
             <StyledAccordions>
-              <Accordion>
+              <Accordion defaultExpanded>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1-content"
@@ -245,8 +245,8 @@ export const Catalog: FC = () => {
                     </StyledFormControl>
                   </FormGroup>
                 </AccordionDetails>
-              </Accordion>
-              <Accordion>
+              </Accordion >
+              <Accordion defaultExpanded>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel2-content"
@@ -254,7 +254,34 @@ export const Catalog: FC = () => {
                 >
                   Rating
                 </AccordionSummary>
-                <AccordionDetails>Lorem</AccordionDetails>
+                <AccordionDetails>
+                  <FormGroup>
+                    <StyledFormControl>
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label=""
+                      />
+                      <StyledFilteredNumber>*</StyledFilteredNumber>
+                    </StyledFormControl>
+                    <StyledFormControl>
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label=""
+                      />
+                      <StyledFilteredNumber>*</StyledFilteredNumber>
+                    </StyledFormControl>
+
+                    <StyledFormControl>
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label=""
+                      />
+                      <StyledFilteredNumber>*</StyledFilteredNumber>
+                    </StyledFormControl>
+             
+                   
+                  </FormGroup>
+                </AccordionDetails>
               </Accordion>
             </StyledAccordions>
           </StyledFilters>
