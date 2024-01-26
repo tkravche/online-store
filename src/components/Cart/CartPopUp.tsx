@@ -95,27 +95,27 @@
 //               <>
 //                 {cart?.map((item: any) => <CartItem key={item.id} {...item} />)}
 //                 <StyledCartBottom>
-                //   <StyledTotals>
-                //     <StyledCol1></StyledCol1>
-                //     <StyledCol2>
-                //       <StyledPriceTotal>
-                //         <Typography variant="body1">Price</Typography>
-                //         <Typography variant="body2" sx={{ color: '#878D99' }}>
-                //           ${priceTotal}
-                //         </Typography>
-                //       </StyledPriceTotal>
-                //       <StyledSaleTotal>
-                //         <Typography variant="body1">Sale</Typography>
-                //         <Typography variant="body2" sx={{ color: '#878D99' }}>
-                //           ${saleTotalChecked}
-                //         </Typography>
-                //       </StyledSaleTotal>
-                //       <StyledTotal>
-                //         <Typography variant="body1">Total</Typography>
-                //         <Typography variant="newPrice">${total}</Typography>
-                //       </StyledTotal>
-                //     </StyledCol2>
-                //   </StyledTotals>
+//                   <StyledTotals>
+//                     <StyledCol1></StyledCol1>
+//                     <StyledCol2>
+//                       <StyledPriceTotal>
+//                         <Typography variant="body1">Price</Typography>
+//                         <Typography variant="body2" sx={{ color: '#878D99' }}>
+//                           ${priceTotal}
+//                         </Typography>
+//                       </StyledPriceTotal>
+//                       <StyledSaleTotal>
+//                         <Typography variant="body1">Sale</Typography>
+//                         <Typography variant="body2" sx={{ color: '#878D99' }}>
+//                           ${saleTotalChecked}
+//                         </Typography>
+//                       </StyledSaleTotal>
+//                       <StyledTotal>
+//                         <Typography variant="body1">Total</Typography>
+//                         <Typography variant="newPrice">${total}</Typography>
+//                       </StyledTotal>
+//                     </StyledCol2>
+//                   </StyledTotals>
 //                   <StyledDialogActions>
 //                     <StyledContinueLink
 //                       onClick={handleClose}

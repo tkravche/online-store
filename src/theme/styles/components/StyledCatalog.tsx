@@ -7,10 +7,10 @@ export const StyledCatalogSection = styled.section`
   ${tw`mt-40 `}
 `;
 export const StyledCatalog = styled.div`
-  ${tw`grid grid-cols-[30% auto] gap-x-36`}
+  ${tw`grid grid-cols-[24% auto] gap-x-32 mt-14`}
 `;
 export const StyledFilters = styled.div`
-  ${tw``}
+  ${tw`bg-[#FBFBFB] max-h-[770]`}
 `;
 export const StyledArticles = styled.div`
   ${tw`grid grid-cols-4  gap-x-5 gap-y-6`}
