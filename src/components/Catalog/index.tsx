@@ -1,10 +1,9 @@
-import { FC, forwardRef, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Breadcrumbs,
-  Button,
   Checkbox,
   FormControlLabel,
   FormGroup,
@@ -12,16 +11,12 @@ import {
   PaginationItem,
   Typography,
 } from '@mui/material';
-import {
-  Unstable_NumberInput as BaseNumberInput,
-  NumberInputProps,
-} from '@mui/base/Unstable_NumberInput';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { getArticlesThunk } from '@/lib/otherRedux/thunks/catalog';
 import { useAppSelector } from '@/lib/redux/init/store';
 import { useAppDispatch } from '@/hooks';
-import { selectArticles, selectTotalPages } from '@/lib/otherRedux/selectors';
+import { selectArticles, selectIsLoadingArticles, selectTotalItems } from '@/lib/otherRedux/selectors';
 import { Card } from '../Card';
 import { EnumIcons, ICardProps } from '@/types';
 import {
@@ -52,6 +47,9 @@ import {
 import { getIcon } from '@/helpers/getIcon';
 
 export const Catalog: FC = () => {
+  const [checkedSale, setCheckedSale] = useState(false);
+  const [saleChecked, setSaleChecked] = useState(false);
+  const [category, setCategory] = useState(null);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(8);
 
@@ -59,12 +57,14 @@ export const Catalog: FC = () => {
   const limit = pageSize;
 
   useEffect(() => {
-    dispatch(getArticlesThunk({ page, limit }));
-  }, [dispatch, page, limit]);
+    dispatch(getArticlesThunk({ page, limit, saleChecked, category }));
+  }, [dispatch, page, limit, category, saleChecked]);
 
   const articles = useAppSelector(selectArticles);
-  const totalPages = Math.ceil(useAppSelector(selectTotalPages) / pageSize);
-
+  const totalItems = useAppSelector(selectTotalItems);
+  const isLoadingArticles = useAppSelector(selectIsLoadingArticles);
+  //For Pagination
+  const totalPages = Math.ceil(totalItems / pageSize);
   const handlePageChange = (
     event: React.MouseEvent<HTMLElement>,
     newPage: number
@@ -72,38 +72,7 @@ export const Catalog: FC = () => {
     setPage(newPage);
   };
 
-  // const handlePageSizeChange = (newPageSize: any) => {
-  //   setPageSize(newPageSize);
-  //   setPage(1); // Reset to the first page when changing page size
-  // };
-
-  // const NumberInput = forwardRef(function CustomNumberInput(
-  //   props: NumberInputProps,
-  //   ref: React.ForwardedRef<HTMLDivElement>
-  // ) {
-  //   return (
-  //     <BaseNumberInput
-  //       slots={{
-  //         root: StyledInputRoot,
-  //         input: StyledInput,
-  //         incrementButton: StyledButton,
-  //         decrementButton: StyledButton,
-  //       }}
-  //       slotProps={{
-  //         incrementButton: {
-  //           children: <AddIcon fontSize="small" />,
-  //           className: 'increment',
-  //         },
-  //         decrementButton: {
-  //           children: <RemoveIcon fontSize="small" />,
-  //         },
-  //       }}
-  //       {...props}
-  //       ref={ref}
-  //     />
-  //   );
-  // });
-
+  //For Slider
   const [value, setValue] = useState<number[]>([0, 20000]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
@@ -142,8 +111,23 @@ export const Catalog: FC = () => {
             <StyledFiltersTitle>Product filter</StyledFiltersTitle>
             <StyledFiltersWrapper>
               <StyledSaleFilter>
-                <FormControlLabel control={<Checkbox />} label="SALE" />
-                <StyledFilteredNumber>64</StyledFilteredNumber>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checkedSale}
+                      onChange={() => {
+                        setCheckedSale(!checkedSale);
+                        setSaleChecked(!saleChecked);
+                      }}
+                    />
+                  }
+                  label="SALE"
+                />
+                {!saleChecked||isLoadingArticles ? (
+                  <StyledFilteredNumber>--</StyledFilteredNumber>
+                ) : (
+                  <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
+                )}
               </StyledSaleFilter>
               <StyledSetPrice variant="body2" id="input-slider">
                 Set the price
@@ -211,14 +195,14 @@ export const Catalog: FC = () => {
                         control={<Checkbox />}
                         label="Bycicles"
                       />
-                      <StyledFilteredNumber>64</StyledFilteredNumber>
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
                     </StyledFormControl>
                     <StyledFormControl>
                       <FormControlLabel
                         control={<Checkbox />}
                         label="Skateboards"
                       />
-                      <StyledFilteredNumber>5</StyledFilteredNumber>
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
                     </StyledFormControl>
 
                     <StyledFormControl>
@@ -226,28 +210,28 @@ export const Catalog: FC = () => {
                         control={<Checkbox />}
                         label="Scooters"
                       />
-                      <StyledFilteredNumber>13</StyledFilteredNumber>
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
                     </StyledFormControl>
                     <StyledFormControl>
                       <FormControlLabel
                         control={<Checkbox />}
                         label="Gyroboards"
                       />
-                      <StyledFilteredNumber>4</StyledFilteredNumber>
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
                     </StyledFormControl>
                     <StyledFormControl>
                       <FormControlLabel
                         control={<Checkbox />}
                         label="Monowheels"
                       />
-                      <StyledFilteredNumber>4569</StyledFilteredNumber>
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
                     </StyledFormControl>
                     <StyledFormControl>
                       <FormControlLabel
                         control={<Checkbox />}
                         label="Accessories"
                       />
-                      <StyledFilteredNumber>9</StyledFilteredNumber>
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
                     </StyledFormControl>
                   </FormGroup>
                 </AccordionDetails>

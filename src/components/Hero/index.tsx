@@ -1,5 +1,6 @@
 import {
   StyledHero,
+  StyledHeroButton,
   StyledHeroContent,
 } from '@/theme/styles/components/StyledHomeBanner';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
@@ -19,9 +20,9 @@ export const Hero = () => {
           <Typography variant="body1" component="p">
             Buy new wheels for yourself and move with pleasure
           </Typography>
-          <Button variant="contained" size="large">
+          <StyledHeroButton >
             <Link to="catalog">View the catalog</Link>
-          </Button>
+          </StyledHeroButton>
         </StyledHeroContent>
       </StyledContainer>
     </StyledHero>

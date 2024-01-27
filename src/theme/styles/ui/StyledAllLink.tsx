@@ -5,18 +5,18 @@ export const StyledAllLink = styled.div`
   ${tw`flex justify-end`}
 
   a {
-    ${tw`flex items-center gap-x-2 font-bruno text-[24px] transition-all`}
+    ${tw`flex items-center gap-x-2  text-base font-bold transition-all`}
 
     &:hover {
       ${tw`text-main-red`}
 
       .icon-arrowLong {
-        ${tw`fill-main-red`}
+        ${tw`stroke-main-red fill-main-red`}
       }
     }
   }
 
   .icon-arrowLong {
-    ${tw`w-[81px] fill-main-black transition-all`}
+    ${tw`w-[48px]  stroke-1 stroke-main-black fill-main-black transition-all`}
   }
 `;

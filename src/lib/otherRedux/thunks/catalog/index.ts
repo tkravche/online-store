@@ -10,19 +10,30 @@ export type IArticlesData = {
 
 export const getArticlesThunk = createAsyncThunk<
   IArticlesData,
-  { page: number; limit: number },
+  {
+    page: number;
+    limit: number;
+    saleChecked: boolean;
+    category: null | string;
+  },
   { rejectValue: string }
->('catalog/getArticles', async ({ page, limit }, { rejectWithValue }) => {
-  try {
-    const params = { page, limit };
-
-    const articles = await instance('articles', { params });
-    return articles.data;
-  } catch (error) {
-    if (error.response && error.response.data.message) {
-      return rejectWithValue(error.response.data.message);
-    } else {
-      return rejectWithValue(error.message);
+>(
+  'catalog/getArticles',
+  async ({ saleChecked, category, page, limit }, { rejectWithValue }) => {
+    try {
+      let sale = null;
+      if (saleChecked) {
+        sale = 'inc';
+      }
+      const params = { page, limit, category, sale };
+      const articles = await instance('articles', { params });
+      return articles.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
     }
   }
-});
+);

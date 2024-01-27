@@ -12,4 +12,5 @@ export const selectCart = state => state.user.cart;
 export const selectFavorites = state => state.user.currentUser?.data?.favorites;
 
 export const selectArticles = state => state.catalog?.articles.data?.items;
-export const selectTotalPages = state =>state.catalog?.articles.data?.meta.itemCount;
+export const selectTotalItems = state =>state.catalog?.articles.data?.meta.itemCount;
+export const selectIsLoadingArticles = state =>state.catalog.isLoading;

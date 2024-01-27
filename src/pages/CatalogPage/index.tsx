@@ -12,10 +12,12 @@ export const CatalogPage: FC = () => {
   
   const page = 1;
   const limit = 8;
-
+  const saleChecked=false;
+  const category='';
+  
   useEffect(() => {
     if (articlesList?.length === 0) {
-      dispatch(getArticlesThunk({ page, limit }));
+      dispatch(getArticlesThunk({ page, limit, saleChecked, category }));
     }
     return;
   }, [dispatch, articlesList]);
