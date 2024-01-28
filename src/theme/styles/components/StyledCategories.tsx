@@ -30,7 +30,7 @@ export const StyledCategory = styled.article`
 
     &:hover {
       img {
-        ${tw`scale-105 sepia-[.4]`}
+        ${tw`scale-105`}
       }
     }
   }
