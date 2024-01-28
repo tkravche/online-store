@@ -13,19 +13,44 @@ export const getArticlesThunk = createAsyncThunk<
   {
     page: number;
     limit: number;
-    saleChecked: boolean;
+  },
+  { rejectValue: string }
+>('catalog/getArticles', async ({ page, limit }, { rejectWithValue }) => {
+  try {
+    const params = { page, limit };
+    const articles = await instance('articles', { params });
+    return articles.data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message);
+    } else {
+      return rejectWithValue(error.message);
+    }
+  }
+});
+
+export const getFilteredArticlesThunk = createAsyncThunk<
+  IArticlesData,
+  {
+    page: null |number;
+    limit: null |number;
+    saleChecked: null | boolean;
     category: null | string;
+    starsCount: null | number;
   },
   { rejectValue: string }
 >(
-  'catalog/getArticles',
-  async ({ saleChecked, category, page, limit }, { rejectWithValue }) => {
+  'catalog/getFilteredArticles',
+  async (
+    { saleChecked, category, page, limit, starsCount },
+    { rejectWithValue }
+  ) => {
     try {
       let sale = null;
       if (saleChecked) {
         sale = 'inc';
       }
-      const params = { page, limit, category, sale };
+      const params = { page, limit, category, sale, starsCount };
       const articles = await instance('articles', { params });
       return articles.data;
     } catch (error) {

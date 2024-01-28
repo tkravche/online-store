@@ -13,10 +13,16 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { getArticlesThunk } from '@/lib/otherRedux/thunks/catalog';
+import { getFilteredArticlesThunk } from '@/lib/otherRedux/thunks/catalog';
 import { useAppSelector } from '@/lib/redux/init/store';
 import { useAppDispatch } from '@/hooks';
-import { selectArticles, selectIsLoadingArticles, selectTotalItems } from '@/lib/otherRedux/selectors';
+import {
+  selectArticles,
+  selectFilteredArticles,
+  selectFilteredTotalItems,
+  selectIsLoadingArticles,
+  selectTotalItems,
+} from '@/lib/otherRedux/selectors';
 import { Card } from '../Card';
 import { EnumIcons, ICardProps } from '@/types';
 import {
@@ -49,7 +55,20 @@ import { getIcon } from '@/helpers/getIcon';
 export const Catalog: FC = () => {
   const [checkedSale, setCheckedSale] = useState(false);
   const [saleChecked, setSaleChecked] = useState(false);
+
+  const [categoryBChecked, setCategoryBChecked] = useState(false);
+  const [categorySkChecked, setCategorySkChecked] = useState(false);
+  const [categoryScChecked, setCategoryScChecked] = useState(false);
+  const [categoryGChecked, setCategoryGChecked] = useState(false);
+  const [categoryMChecked, setCategoryMChecked] = useState(false);
+  const [categoryAChecked, setCategoryAChecked] = useState(false);
   const [category, setCategory] = useState(null);
+
+  const [category5Checked, setCategory5Checked] = useState(false);
+  const [category4Checked, setCategory4Checked] = useState(false);
+  const [category3Checked, setCategory3Checked] = useState(false);
+  const [starsCount, setStars] = useState(null);
+
   const [page, setPage] = useState(1);
   const [pageSize] = useState(8);
 
@@ -57,11 +76,11 @@ export const Catalog: FC = () => {
   const limit = pageSize;
 
   useEffect(() => {
-    dispatch(getArticlesThunk({ page, limit, saleChecked, category }));
-  }, [dispatch, page, limit, category, saleChecked]);
+    dispatch(getFilteredArticlesThunk({ page, limit, saleChecked, category, starsCount }));
+  }, [dispatch, page, limit, category, saleChecked, starsCount]);
 
-  const articles = useAppSelector(selectArticles);
-  const totalItems = useAppSelector(selectTotalItems);
+  const articles = useAppSelector(selectFilteredArticles);
+  const totalItems = useAppSelector(selectFilteredTotalItems);
   const isLoadingArticles = useAppSelector(selectIsLoadingArticles);
   //For Pagination
   const totalPages = Math.ceil(totalItems / pageSize);
@@ -123,7 +142,7 @@ export const Catalog: FC = () => {
                   }
                   label="SALE"
                 />
-                {!saleChecked||isLoadingArticles ? (
+                {!saleChecked || isLoadingArticles ? (
                   <StyledFilteredNumber>--</StyledFilteredNumber>
                 ) : (
                   <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
@@ -192,46 +211,142 @@ export const Catalog: FC = () => {
                   <FormGroup>
                     <StyledFormControl>
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={
+                          <Checkbox
+                            checked={categoryBChecked}
+                            onChange={() => {
+                              setCategoryBChecked(!categoryBChecked);
+                              category
+                                ? setCategory(null)
+                                : setCategory('bicycle');
+                            }}
+                          />
+                        }
                         label="Bycicles"
                       />
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                      {!categoryBChecked || isLoadingArticles ? (
+                        <StyledFilteredNumber>--</StyledFilteredNumber>
+                      ) : (
+                        <StyledFilteredNumber>
+                          {totalItems}
+                        </StyledFilteredNumber>
+                      )}
                     </StyledFormControl>
                     <StyledFormControl>
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={
+                          <Checkbox
+                            checked={categorySkChecked}
+                            onChange={() => {
+                              setCategorySkChecked(!categorySkChecked);
+                              category
+                                ? setCategory(null)
+                                : setCategory('skateboard');
+                            }}
+                          />
+                        }
                         label="Skateboards"
                       />
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                      {!categorySkChecked || isLoadingArticles ? (
+                        <StyledFilteredNumber>--</StyledFilteredNumber>
+                      ) : (
+                        <StyledFilteredNumber>
+                          {totalItems}
+                        </StyledFilteredNumber>
+                      )}
                     </StyledFormControl>
 
                     <StyledFormControl>
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={
+                          <Checkbox
+                            checked={categoryScChecked}
+                            onChange={() => {
+                              setCategoryScChecked(!categoryScChecked);
+                              category
+                                ? setCategory(null)
+                                : setCategory('scooter');
+                            }}
+                          />
+                        }
                         label="Scooters"
                       />
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                      {!categoryScChecked || isLoadingArticles ? (
+                        <StyledFilteredNumber>--</StyledFilteredNumber>
+                      ) : (
+                        <StyledFilteredNumber>
+                          {totalItems}
+                        </StyledFilteredNumber>
+                      )}
                     </StyledFormControl>
                     <StyledFormControl>
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={
+                          <Checkbox
+                            checked={categoryGChecked}
+                            onChange={() => {
+                              setCategoryGChecked(!categoryGChecked);
+                              category
+                                ? setCategory(null)
+                                : setCategory('gyroboard');
+                            }}
+                          />
+                        }
                         label="Gyroboards"
                       />
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                      {!categoryGChecked || isLoadingArticles ? (
+                        <StyledFilteredNumber>--</StyledFilteredNumber>
+                      ) : (
+                        <StyledFilteredNumber>
+                          {totalItems}
+                        </StyledFilteredNumber>
+                      )}
                     </StyledFormControl>
                     <StyledFormControl>
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={
+                          <Checkbox
+                            checked={categoryMChecked}
+                            onChange={() => {
+                              setCategoryMChecked(!categoryMChecked);
+                              category
+                                ? setCategory(null)
+                                : setCategory('monowheel');
+                            }}
+                          />
+                        }
                         label="Monowheels"
                       />
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                      {!categoryMChecked || isLoadingArticles ? (
+                        <StyledFilteredNumber>--</StyledFilteredNumber>
+                      ) : (
+                        <StyledFilteredNumber>
+                          {totalItems}
+                        </StyledFilteredNumber>
+                      )}
                     </StyledFormControl>
                     <StyledFormControl>
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={
+                          <Checkbox
+                            checked={categoryAChecked}
+                            onChange={() => {
+                              setCategoryAChecked(!categoryAChecked);
+                              category
+                                ? setCategory(null)
+                                : setCategory('accessory');
+                            }}
+                          />
+                        }
                         label="Accessories"
                       />
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                      {!categoryAChecked || isLoadingArticles ? (
+                        <StyledFilteredNumber>--</StyledFilteredNumber>
+                      ) : (
+                        <StyledFilteredNumber>
+                          {totalItems}
+                        </StyledFilteredNumber>
+                      )}
                     </StyledFormControl>
                   </FormGroup>
                 </AccordionDetails>
@@ -247,7 +362,18 @@ export const Catalog: FC = () => {
                 <AccordionDetails>
                   <FormGroup>
                     <StyledFormControl>
-                      <FormControlLabel control={<Checkbox />} label="" />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={category5Checked}
+                            onChange={() => {
+                              setCategory5Checked(!category5Checked);
+                              category ? setStars(null) : setStars(5);
+                            }}
+                          />
+                        }
+                        label=""
+                      />
                       <StyledFilteredRating>
                         {getIcon(EnumIcons.star)}
                         {getIcon(EnumIcons.star)}
@@ -257,7 +383,18 @@ export const Catalog: FC = () => {
                       </StyledFilteredRating>
                     </StyledFormControl>
                     <StyledFormControl>
-                      <FormControlLabel control={<Checkbox />} label="" />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={category4Checked}
+                            onChange={() => {
+                              setCategory4Checked(!category4Checked);
+                              category ? setStars(null) : setStars(4);
+                            }}
+                          />
+                        }
+                        label=""
+                      />
                       <StyledFilteredRating>
                         <StyledEmptyStar>
                           {getIcon(EnumIcons.star)}
@@ -269,7 +406,18 @@ export const Catalog: FC = () => {
                       </StyledFilteredRating>
                     </StyledFormControl>
                     <StyledFormControl>
-                      <FormControlLabel control={<Checkbox />} label="" />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={category3Checked}
+                            onChange={() => {
+                              setCategory3Checked(!category3Checked);
+                              category ? setStars(null) : setStars(3);
+                            }}
+                          />
+                        }
+                        label=""
+                      />
                       <StyledFilteredRating>
                         <StyledEmptyStar>
                           {getIcon(EnumIcons.star)}

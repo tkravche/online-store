@@ -8,7 +8,7 @@ interface IHeroProps
 }
 
 export const StyledHero = styled.section<IHeroProps>`
-  ${tw`relative max-w-full min-h-[846px] py-[100px] bg-no-repeat bg-cover bg-center`}
+  ${tw`relative max-w-full min-h-[715px] py-[100px] bg-no-repeat bg-cover bg-center`}
   background-image: url(${props => props.bg});
 `;
 
