@@ -22,6 +22,7 @@ import { SettingIcon } from './SettingIcon';
 import { OrdersIcon } from './OrdersIcon';
 import { LogOutIcon } from './LogOutIcon';
 import { DotIcon } from './DotIcon';
+import { CheckCircleIcon } from './CheckCircleIcon';
 
 export interface Icons {
   [key: string]: FC<{ iconClass: string }>;
@@ -51,4 +52,5 @@ export const icons: Icons = {
   setting: SettingIcon,
   logOut: LogOutIcon,
   dot: DotIcon,
+  check: CheckCircleIcon,
 };

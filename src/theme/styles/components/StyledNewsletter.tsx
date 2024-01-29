@@ -1,5 +1,5 @@
 import { EnumBreakpoints } from '@/types';
-import { IconButton } from '@mui/material';
+import { Dialog, IconButton } from '@mui/material';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -64,6 +64,15 @@ export const StyledNewsletterButton = styled(IconButton)`
 
     svg {
       ${tw`stroke-main-red`};
+    }
+  }
+`;
+
+export const StyledNSDialog = styled(Dialog)`
+  .MuiPaper-root {
+    ${tw`flex items-center max-w-[460px] text-center rounded-3xl px-14 py-16 bg-secondary-bg`}
+    .icon-check {
+      ${tw`w-10 h-10 stroke-secondary-green`}
     }
   }
 `;

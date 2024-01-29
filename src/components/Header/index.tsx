@@ -17,7 +17,7 @@ import { HeaderSearch } from './HeaderSearch';
 import { HeaderSearchModal } from './HeaderSearchModal';
 import { setSearch } from '@/lib/otherRedux/slice/header';
 import { setAuth } from '@/lib/otherRedux/slice/ui';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCart } from '@/lib/otherRedux/selectors';
 

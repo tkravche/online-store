@@ -21,7 +21,8 @@ export enum EnumIcons {
   orders = 'orders',
   setting = 'setting',
   logOut = 'logOut',
-  dot= 'dot'
+  dot= 'dot',
+  check= 'check'
 }
 
 export enum EnumBreakpoints {
