@@ -19,10 +19,19 @@ export const Footer = () => {
   return (
     <StyledFooter>
       <StyledContainer>
-        <Grid container spacing={{ xs: 4, md: 2 }}>
+        <Grid container spacing={{ xs: 2, md: 2 }}>
           <Grid item xs={12} md={6}>
             <div className="flex flex-col h-full">
-              <Logo link="/online-store/" alt="City Wheels" />
+              <div
+                onClick={() => {
+                  window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                  });
+                }}
+              >
+                <Logo link="/online-store/" alt="City Wheels" />
+              </div>
               <StyledSocials>
                 <Typography variant="body1" component="h3">
                   Socials
@@ -45,7 +54,7 @@ export const Footer = () => {
             </div>
           </Grid>
           <Grid item xs={12} md={6}>
-            <div className="flex justify-start sm:justify-end">
+            <div className="flex justify-start gap-x-36 sm:justify-end">
               <StyledMenu>
                 <Typography variant="body1" component="h3">
                   Sitemap
@@ -53,7 +62,7 @@ export const Footer = () => {
                 <ul>
                   <li>
                     <Link to="/online-store/">
-                      <Typography component="span" >Home</Typography>
+                      <Typography component="span">Home</Typography>
                     </Link>
                   </li>
                   {navigation.map((item, index) => {

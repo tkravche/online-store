@@ -3,6 +3,7 @@ import tw from 'twin.macro';
 
 export const StyledCard = styled.div`
   ${tw`relative flex flex-col gap-y-6 w-full h-full py-4 bg-main-white overflow-hidden rounded-3xl border-4 border-main-transparent transition-all`}
+  box-shadow: 0px 4px 4px 0px rgba(128, 131, 255, 0.08);
   &:hover {
       border: 4px solid #D25;}
   `;

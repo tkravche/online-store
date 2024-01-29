@@ -9,6 +9,7 @@ import { BestSellerSection } from './BestSellerSection';
 import { BicyclesSection } from './BicyclesSection';
 import { Categories } from './Categories';
 import { SkateboardsSection } from './SkateboardsSection';
+import { ScrollToTopButton } from '../ScrollToTopButton';
 
 export const Home: FC = () => {
   return (
@@ -24,7 +25,9 @@ export const Home: FC = () => {
             View All
             {getIcon(EnumIcons.arrowLong)}
           </Link>
+          <ScrollToTopButton />
         </StyledAllLink>
+        
       </StyledContainer>
     </>
   );

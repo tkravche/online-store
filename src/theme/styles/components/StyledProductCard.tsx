@@ -11,7 +11,8 @@ export const StyledProductCard = styled.div`
 
 export const StyledCardRight = styled.div`
   ${tw`relative flex flex-col h-[290px] lg:h-[580px] bg-main-white pb-8 lg:pb-16 pt-8 rounded-3xl`}
-`;
+  box-shadow: 0px 4px 4px 0px rgba(128, 131, 255, 0.08); 
+  `;
 export const StyledSale = styled.div`
   ${tw`w-[191px] flex items-center justify-center py-4 px-16 text-main-white bg-main-red rounded-r`}
   .MuiTypography-root {

@@ -29,7 +29,7 @@ export const StyledNewsletter = styled.div`
   }
 
   form {
-    ${tw`flex gap-x-4`}
+    ${tw`flex gap-x-2`}
 
     .MuiFormControl-root {
       ${tw`flex-1`}
@@ -53,18 +53,17 @@ export const StyledNewsletter = styled.div`
 
 export const StyledNewsletterButton = styled(IconButton)`
   &.MuiButtonBase-root {
-    ${tw`px-7 py-2 bg-secondary-gray rounded-lg	cursor-pointer transition-all`}
-
-    &:hover {
-      ${tw`bg-main-red`}
-    }
-
-    &:active {
-      ${tw`bg-main-darkRed`}
+    ${tw`px-2 py-2 rounded-xl border border-solid border-main-black cursor-pointer transition-all`}
+    svg {
+      ${tw`w-[23px] h-[22px] stroke-main-black`}
     }
   }
 
-  svg {
-    ${tw`w-6 h-6 stroke-main-white`}
+  &.MuiButtonBase-root:hover {
+    ${tw`border border-solid border-main-red bg-main-transparent`}
+
+    svg {
+      ${tw`stroke-main-red`};
+    }
   }
 `;

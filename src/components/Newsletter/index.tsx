@@ -1,12 +1,13 @@
+import { useForm } from 'react-hook-form';
+import { InputAdornment, TextField, Typography } from '@mui/material';
+
 import { getIcon } from '@/helpers/getIcon';
+import { EnumIcons } from '@/types';
 import {
   StyledNewsletter,
   StyledNewsletterButton,
 } from '@/theme/styles/components/StyledNewsletter';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
-import { EnumIcons } from '@/types';
-import { InputAdornment, TextField, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
 
 interface IData {
   email: string;

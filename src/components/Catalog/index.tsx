@@ -368,7 +368,7 @@ export const Catalog: FC = () => {
                             checked={category5Checked}
                             onChange={() => {
                               setCategory5Checked(!category5Checked);
-                              category ? setStars(null) : setStars(5);
+                              starsCount ? setStars(null) : setStars(5);
                             }}
                           />
                         }
@@ -389,7 +389,7 @@ export const Catalog: FC = () => {
                             checked={category4Checked}
                             onChange={() => {
                               setCategory4Checked(!category4Checked);
-                              category ? setStars(null) : setStars(4);
+                              starsCount? setStars(null) : setStars(4);
                             }}
                           />
                         }
@@ -412,7 +412,7 @@ export const Catalog: FC = () => {
                             checked={category3Checked}
                             onChange={() => {
                               setCategory3Checked(!category3Checked);
-                              category ? setStars(null) : setStars(3);
+                              starsCount ? setStars(null) : setStars(3);
                             }}
                           />
                         }

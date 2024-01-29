@@ -25,5 +25,6 @@ export const App = () => {
         </Route>
       </Route>
     </Routes>
+    
   );
 };
