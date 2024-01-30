@@ -10,10 +10,7 @@ export type IArticlesData = {
 
 export const getArticlesThunk = createAsyncThunk<
   IArticlesData,
-  {
-    page: number;
-    limit: number;
-  },
+  { page: number; limit: number },
   { rejectValue: string }
 >('catalog/getArticles', async ({ page, limit }, { rejectWithValue }) => {
   try {
@@ -32,8 +29,8 @@ export const getArticlesThunk = createAsyncThunk<
 export const getFilteredArticlesThunk = createAsyncThunk<
   IArticlesData,
   {
-    page: null |number;
-    limit: null |number;
+    page: null | number;
+    limit: null | number;
     saleChecked: null | boolean;
     category: null | string;
     starsCount: null | number;
@@ -51,6 +48,27 @@ export const getFilteredArticlesThunk = createAsyncThunk<
         sale = 'inc';
       }
       const params = { page, limit, category, sale, starsCount };
+      const articles = await instance('articles', { params });
+      return articles.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const searchArticlesThunk = createAsyncThunk<
+  IArticlesData,
+  { page: null | number; limit: null | number; search: string },
+  { rejectValue: string }
+>(
+  'catalog/searchArticles',
+  async ({ page, limit, search }, { rejectWithValue }) => {
+    try {
+      const params = { page, limit, search };
       const articles = await instance('articles', { params });
       return articles.data;
     } catch (error) {

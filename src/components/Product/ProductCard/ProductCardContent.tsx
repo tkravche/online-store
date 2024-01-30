@@ -12,6 +12,8 @@ import {
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import { TabContext } from '@mui/lab';
+import { Slide, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getIcon } from '@/helpers/getIcon';
 import {
@@ -45,10 +47,9 @@ import { useDispatch, useSelector } from 'react-redux';
 //   addToFavoritesThunk,
 //   removeFromFavoritesThunk,
 // } from '@/lib/otherRedux/thunks/user';
-// import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import { addItemToCart } from '@/lib/otherRedux/slice/user';
-import { SkateboardsSection } from '@/components/Home/SkateboardsSection';
+import { useAppSelector } from '@/hooks';
 
 export const ProductCardContent: FC<ICardProps> = props => {
   const {
@@ -71,7 +72,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
   // const [favorite, setFavorite] = useState(isFavorite);
 
   const [value, setValue] = useState('1');
-
+  const isLogged = useAppSelector(selectIsLogged);
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -86,7 +87,21 @@ export const ProductCardContent: FC<ICardProps> = props => {
   const quantity = 1;
   const infoForCart = { id, name, url: images[0].url, price, sale, quantity };
   const handleFavoritesChange = () => {
-    console.log('favorites');
+    if (!isLogged) {
+      toast.info('You need to be logged in to like!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Slide,
+      });
+    } else {
+      console.log('favorite');
+    }
   };
 
   return (
@@ -214,20 +229,8 @@ export const ProductCardContent: FC<ICardProps> = props => {
                 checkedIcon={getIcon(EnumIcons.heart)}
                 // checked={favorite}
                 // disabled={!isLogged}
-                onClick={handleFavoritesChange}
+                onChange={handleFavoritesChange}
               />
-              {/* <ToastContainer
-                position="top-right"
-                autoClose={2500}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-              /> */}
             </StyledButtonHeartGroup>
             <Box>
               <TabContext value={value}>

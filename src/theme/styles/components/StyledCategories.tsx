@@ -12,9 +12,11 @@ export const StyledCategoriesContainer = styled.div`
   @media (max-width: ${EnumBreakpoints.desktopSmall}) {
     ${tw`grid-cols-2`}
   }
-
+  @media (max-width: ${EnumBreakpoints.tablet}) {
+    ${tw`gap-x-20`}
+  }
   @media (max-width: ${EnumBreakpoints.mobile}) {
-    ${tw`grid-cols-1`}
+    ${tw`grid-cols-1 gap-5`}
   }
 `;
 

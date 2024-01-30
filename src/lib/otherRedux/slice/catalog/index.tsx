@@ -3,17 +3,20 @@ import {
   IArticlesData,
   getArticlesThunk,
   getFilteredArticlesThunk,
+  searchArticlesThunk,
 } from '../../thunks/catalog';
 
-type catalogState = {
+type catalogStateProps = {
   articles: IArticlesData;
   filteredArticles: IArticlesData;
+  searchedArticles: IArticlesData;
   isLoading: boolean;
   error: string | null;
 };
-const initialState: catalogState = {
+const initialState: catalogStateProps = {
   articles: { items: [], links: {}, meta: {} },
   filteredArticles: { items: [], links: {}, meta: {} },
+  searchedArticles: { items: [], links: {}, meta: {} },
   isLoading: false,
   error: null,
 };
@@ -43,6 +46,17 @@ const catalogSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(getFilteredArticlesThunk.rejected, (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(searchArticlesThunk.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(searchArticlesThunk.fulfilled, (state, action) => {
+      state.searchedArticles = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(searchArticlesThunk.rejected, (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
     });

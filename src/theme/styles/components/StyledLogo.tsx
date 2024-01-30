@@ -10,6 +10,6 @@ export const StyledLogo = styled.div`
   }
 
   @media (max-width: ${EnumBreakpoints.mobile}) {
-    ${tw`max-w-[50px]`}
+    ${tw`max-w-[70px]`}
   }
 `;

@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
 
@@ -17,6 +18,7 @@ import { selectIsLoading, selectIsLogged } from '@/lib/otherRedux/selectors';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { FC, useEffect } from 'react';
 import { currentUserThunk } from '@/lib/otherRedux/thunks/user';
+import { loginSchema } from '@/helpers/yup';
 
 interface ISignIn {
   email: string;
@@ -25,11 +27,22 @@ interface ISignIn {
 
 export const SignIn: FC = () => {
   const loading = useAppSelector(selectIsLoading);
-  const form = useForm({
-    mode: 'onTouched',
-  });
-  const dispatch = useAppDispatch();
   const isLogged = useAppSelector(selectIsLogged);
+  const dispatch = useAppDispatch();
+
+  const form = useForm({
+    mode: 'onChange',
+    resolver: yupResolver(loginSchema),
+  });
+
+  let disabled = false;
+  if (form.formState.errors.email || form.formState.errors.password) {
+    disabled = true;
+  }
+  const handleSendSubmit = async (data: ISignIn) => {
+    await dispatch(loginUser(data));
+    dispatch(setAuth(false));
+  };
 
   // const handleSendSubmit = async (data: ISignIn) => {
   //   await dispatch(loginUser(data)).then(r => {
@@ -39,16 +52,18 @@ export const SignIn: FC = () => {
   //     }
   //   });
   // };
-
-  const handleSendSubmit = async (data: ISignIn) => {
-    await dispatch(loginUser(data));
-    dispatch(setAuth(false));
-  };
-
   return (
     <StyledAuthorizationForm
       onSubmit={form.handleSubmit(handleSendSubmit as any)}
     >
+      {/* <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          fontSize: '10px',
+          lineHeight: '140%',
+        }}
+      > */}
       <Field
         id="email"
         type="email"
@@ -58,7 +73,18 @@ export const SignIn: FC = () => {
         error={form.formState.errors.email}
         register={form.register('email')}
       />
-
+      {/* {form.formState.errors.email && (
+          <span style={{ color: '#D25' }}>This field is required</span>
+        )} */}
+      {/* </div> */}
+      {/* <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          fontSize: '10px',
+          lineHeight: '140%',
+        }}
+      > */}
       <Field
         id="password"
         type="password"
@@ -68,6 +94,10 @@ export const SignIn: FC = () => {
         error={form.formState.errors.password}
         register={form.register('password')}
       />
+      {/* {form.formState.errors.password && (
+          <span style={{ color: '#D25' }}>This field is required</span>
+        )} */}
+      {/* </div> */}
       <StyledForgotPassText>
         Forgot your password? <Link to="#">Restore</Link>
       </StyledForgotPassText>
@@ -78,7 +108,12 @@ export const SignIn: FC = () => {
         {getIcon(EnumIcons.google)}
         Log In with Google
       </StyledGoogleBtn>
-      <LoadingButton type="submit" loading={loading} variant="contained">
+      <LoadingButton
+        type="submit"
+        loading={loading}
+        disabled={disabled}
+        variant="contained"
+      >
         <span>Continue</span>
       </LoadingButton>
     </StyledAuthorizationForm>

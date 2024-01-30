@@ -15,7 +15,7 @@ export const StyledAuthorizationContainer = styled(DialogContent)`
 `;
 
 export const StyledAuthorizationContent = styled.div`
-  ${tw`flex flex-col justify-center w-full lg:w-1/2	gap-y-4 px-5 lg:px-10 py-10`}
+  ${tw`flex flex-col justify-start w-full lg:w-1/2	gap-y-4 px-5 lg:px-16 py-10`}
 `;
 
 export const StyledAuthorizationTitle = styled(Typography)`

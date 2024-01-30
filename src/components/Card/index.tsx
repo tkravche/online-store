@@ -1,7 +1,7 @@
 import { Button, Checkbox, Typography } from '@mui/material';
 import { memo } from 'react';
 import Image from 'react-image-webp';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { getIcon } from '@/helpers/getIcon';
 import {
@@ -15,9 +15,15 @@ import { StyledSale } from '@/theme/styles/components/StyledSale';
 import { StyledRating } from '@/theme/styles/ui/StyledRating';
 import { EnumIcons, ICardProps } from '@/types';
 import Default from '@/assets/default.webp';
+import { addItemToCart } from '@/lib/otherRedux/slice/user';
+import { useDispatch } from 'react-redux';
 
 export const Card = memo(
   ({ name, price, sale, id, images, rating }: ICardProps) => {
+    const dispatch = useDispatch();
+
+    const quantity = 1;
+    const infoForCart = { id, name, url: images[0].url, price, sale, quantity };
     return (
       <StyledCard>
         <StyledCardTop>
@@ -74,7 +80,14 @@ export const Card = memo(
               </Typography>
             )}
           </StyledPrices>
-          <Button variant="contained">Buy</Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              dispatch(addItemToCart(infoForCart));
+            }}
+          >
+            Buy
+          </Button>
         </StyledCardInfo>
       </StyledCard>
     );

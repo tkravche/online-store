@@ -7,6 +7,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // import { theme } from 'twin.macro';
 import { App } from './App.js';
 import './index.css';
+import { ToastContainer} from 'react-toastify';
+
 // import { store } from './lib/redux/init/store.js';
 import theme from './theme/theme';
 import { otherStore, persistor } from './lib/otherRedux/otherStore.js';
@@ -23,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <Router>
             <ScrollToTop />
             <App />
+            <ToastContainer />
           </Router>
         </ThemeProvider>
       </Provider>

@@ -12,6 +12,7 @@ import { SkateboardsSection } from './SkateboardsSection';
 import { ScrollToTopButton } from '../ScrollToTopButton';
 
 export const Home: FC = () => {
+
   return (
     <>
       <Hero />

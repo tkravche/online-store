@@ -1,6 +1,5 @@
 import { instance } from '@/hooks/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
 export const setToken = (token: any) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
@@ -27,6 +26,7 @@ export const loginUser = createAsyncThunk<
       return rejectWithValue(error.response.data.message);
     } else {
       return rejectWithValue(error.message);
+           
     }
   }
 });

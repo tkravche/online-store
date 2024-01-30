@@ -48,8 +48,15 @@ export const Field: FC<ISignInTypes> = ({
           </InputAdornment>
         }
       />
-      {!!error && <FormHelperText>{error.message}</FormHelperText>}
+      {!!error && (
+        <FormHelperText
+          sx={{
+            color: '#D25',
+          }}
+        >
+          {error.message}
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };
-

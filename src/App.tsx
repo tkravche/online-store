@@ -8,7 +8,6 @@ import { OrdersPage } from './pages/OrdersPage';
 import { FavoritesPage } from './pages/FavoritesPage';
 import { SettingsPage } from './pages/SettingsPage';
 
-
 export const App = () => {
   return (
     <Routes>
@@ -25,6 +24,5 @@ export const App = () => {
         </Route>
       </Route>
     </Routes>
-    
   );
 };
