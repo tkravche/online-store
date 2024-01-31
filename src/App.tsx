@@ -17,9 +17,9 @@ export const App = () => {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector(selectIsLogged);
 
-  if (isLogged) {
-    dispatch(currentUserThunk());
-  }
+  // if (isLogged) {
+  //   dispatch(currentUserThunk());
+  // }
 
   instance.interceptors.response.use(
     function (response) {
