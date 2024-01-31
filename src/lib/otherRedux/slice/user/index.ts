@@ -50,17 +50,18 @@ const userSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(currentUserThunk.pending, (state, action) => {
+    builder.addCase(currentUserThunk.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(currentUserThunk.fulfilled, (state, action) => {
       state.currentUser = action.payload;
+      state.isLoading = false;
     });
     builder.addCase(currentUserThunk.rejected, (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
     });
-    builder.addCase(getCurrentUserCartThunk.pending, (state, action) => {
+    builder.addCase(getCurrentUserCartThunk.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(getCurrentUserCartThunk.fulfilled, (state, action) => {
@@ -70,7 +71,7 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     });
-    builder.addCase(addToFavoritesThunk.pending, (state, action) => {
+    builder.addCase(addToFavoritesThunk.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(addToFavoritesThunk.fulfilled, (state, action) => {
@@ -81,7 +82,7 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     });
-    builder.addCase(removeFromFavoritesThunk.pending, (state, action) => {
+    builder.addCase(removeFromFavoritesThunk.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(removeFromFavoritesThunk.fulfilled, (state, action) => {

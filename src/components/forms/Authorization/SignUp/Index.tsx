@@ -3,23 +3,54 @@ import { StyledAuthorizationForm } from '@/theme/styles/components/StyledAuthori
 import { StyledDivider } from '@/theme/styles/ui/StyledDivider';
 import { StyledGoogleBtn } from '@/theme/styles/ui/StyledGoogleLink';
 import { EnumIcons } from '@/types';
-import { Button } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Field } from '../../elements/Field';
+import { FC, useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { registerSchema } from '@/helpers/yup';
+import { registerUser } from '@/lib/otherRedux/thunks/auth';
+import { useAppDispatch } from '@/hooks';
 
-interface ISignIn {
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { setAuth } from '@/lib/otherRedux/slice/auth';
+
+interface ISignUp {
+  name: string;
   email: string;
   password: string;
 }
 
-export const SignUp = () => {
+export const SignUp: FC = () => {
+  const dispatch = useAppDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+
+
   const form = useForm({
-    mode: 'onTouched',
+    mode: 'onChange',
+    resolver: yupResolver(registerSchema),
   });
 
-  const handleSendSubmit = (data: ISignIn) => {
-    console.log(data);
+  const handleSendSubmit = async (data: ISignUp) => {
+    await dispatch(registerUser(data));
+    dispatch(setAuth(false));
   };
+  let disabled = false;
+  if (
+    form.formState.errors.name ||
+    form.formState.errors.email ||
+    form.formState.errors.password ||
+    form.formState.errors.confirm
+  ) {
+    disabled = true;
+  }
 
   return (
     <StyledAuthorizationForm
@@ -47,18 +78,19 @@ export const SignUp = () => {
 
       <Field
         id="password"
-        type="password"
         label="Create a Password"
-        icon="pass"
+        type="password"
+        icon="password"
         placeholder="***********"
         error={form.formState.errors.password}
         register={form.register('password')}
       />
+
       <Field
         id="confirmPassword"
-        type="password"
         label="Confirm Your Password"
-        icon="pass"
+        type="password"
+        icon="password"
         placeholder="***********"
         error={form.formState.errors.confirm}
         register={form.register('confirm')}
@@ -71,7 +103,7 @@ export const SignUp = () => {
         {getIcon(EnumIcons.google)}
         Sign Up with Google
       </StyledGoogleBtn>
-      <Button type="submit" variant="contained">
+      <Button type="submit" disabled={disabled} variant="contained">
         Registration
       </Button>
     </StyledAuthorizationForm>

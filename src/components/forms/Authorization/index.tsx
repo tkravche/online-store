@@ -20,7 +20,7 @@ import { selectAuthOpen } from '@/lib/otherRedux/selectors';
 import { setSearch } from '@/lib/otherRedux/slice/header';
 import { uiActions } from '@/lib/redux/actions';
 import { getAuthOpen } from '@/lib/redux/selectors';
-import { setAuth } from '@/lib/otherRedux/slice/ui';
+import { setAuth } from '@/lib/otherRedux/slice/auth';
 
 export const Authorization: FC = () => {
   const [open, setOpen] = useState(true);

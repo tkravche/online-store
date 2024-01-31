@@ -15,6 +15,7 @@ export enum EnumIcons {
   arrowRight = 'arrowRight',
   arrowLong = 'arrowLong',
   pass = 'pass',
+  passoff = 'passoff',
   google = 'google',
   add = 'add',
   delete = 'delete',

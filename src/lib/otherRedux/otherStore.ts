@@ -20,7 +20,7 @@ const persistConfig = {
   key: 'data',
   version: 1,
   storage,
-  whitelist: ['accessToken'],
+  whitelist: ['accessToken','refreshToken','isLogged'],
 };
 
 export const otherStore = configureStore({

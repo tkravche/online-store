@@ -37,7 +37,7 @@ export const StyledForgotPassText = styled(Typography)`
 `;
 
 export const StyledAuthorizationForm = styled.form`
-  ${tw`flex flex-col gap-y-4`}
+  ${tw`flex flex-col gap-y-2`}
 
   .MuiFormLabel-root {
     ${tw`relative font-lato text-sm text-main-black	translate-x-0	translate-y-0	scale-100`}
@@ -50,6 +50,7 @@ export const StyledAuthorizationForm = styled.form`
     &::after {
       ${tw`hidden`}
     }
+    .css-1x51dt5-MuiInputBase-input-MuiInput-input { ${tw`pb-2 pt-2`}}
 
     input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0 50px #f8faff inset;

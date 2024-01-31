@@ -25,8 +25,11 @@ import {
 import { selectIsLogged } from '@/lib/otherRedux/selectors';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { logoutUser } from '@/lib/otherRedux/slice/auth';
+import { useAppDispatch } from '@/hooks';
 
 export const ProfileLayout: FC = () => {
+  const dispatch=useAppDispatch();
   const pathname = useLocation().pathname;
   const lastSlash = pathname.lastIndexOf('/');
   let location = pathname.slice(lastSlash + 1);
@@ -149,7 +152,7 @@ export const ProfileLayout: FC = () => {
                     </StyledToolbarLink>
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton onClick={()=>dispatch(logoutUser())}>
                       <ListItemIcon>{getIcon(EnumIcons.logOut)}</ListItemIcon>
                       <ListItemText
                         primary={'Log out'}

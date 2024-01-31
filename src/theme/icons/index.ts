@@ -23,6 +23,7 @@ import { OrdersIcon } from './OrdersIcon';
 import { LogOutIcon } from './LogOutIcon';
 import { DotIcon } from './DotIcon';
 import { CheckCircleIcon } from './CheckCircleIcon';
+import { PassOffIcon } from './PassOffIcon';
 
 export interface Icons {
   [key: string]: FC<{ iconClass: string }>;
@@ -45,6 +46,7 @@ export const icons: Icons = {
   arrowRight: ArrowIconRight,
   arrowLong: ArrowIconLong,
   pass: PassIcon,
+  passoff: PassOffIcon,
   google: GoogleIcon,
   add: AddIcon,
   delete: DeleteIcon,

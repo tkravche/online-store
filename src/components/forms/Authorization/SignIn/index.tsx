@@ -13,12 +13,13 @@ import { StyledGoogleBtn } from '@/theme/styles/ui/StyledGoogleLink';
 import { EnumIcons } from '@/types';
 import { Field } from '../../elements/Field';
 import { loginUser } from '@/lib/otherRedux/thunks/auth';
-import { setAuth } from '@/lib/otherRedux/slice/ui';
+
 import { selectIsLoading, selectIsLogged } from '@/lib/otherRedux/selectors';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { FC, useEffect } from 'react';
 import { currentUserThunk } from '@/lib/otherRedux/thunks/user';
 import { loginSchema } from '@/helpers/yup';
+import { setAuth } from '@/lib/otherRedux/slice/auth';
 
 interface ISignIn {
   email: string;
@@ -69,6 +70,7 @@ export const SignIn: FC = () => {
         type="email"
         label="E-mail"
         icon="mail"
+        
         placeholder="example@example.com"
         error={form.formState.errors.email}
         register={form.register('email')}
@@ -89,7 +91,7 @@ export const SignIn: FC = () => {
         id="password"
         type="password"
         label="Password"
-        icon="pass"
+        icon="password"
         placeholder="***********"
         error={form.formState.errors.password}
         register={form.register('password')}
