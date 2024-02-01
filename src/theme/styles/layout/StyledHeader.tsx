@@ -114,6 +114,12 @@ export const StyledHeaderSearch = styled.div`
     }
   }
 
+  .css-9b3yv1-MuiInputBase-root-MuiOutlinedInput-root {
+    ${tw`rounded-3xl`}
+    .icon-search {
+      ${tw`w-8 h-8 pr-2 stroke-main-black`}
+    }
+   }
   .MuiButtonBase-root {
     ${tw`p-0 cursor-pointer`}
 
@@ -121,7 +127,7 @@ export const StyledHeaderSearch = styled.div`
       ${tw`w-8 h-8 stroke-secondary-gray`}
     }
 
-    &:hover {
+        &:hover {
       ${tw`bg-main-transparent`}
     }
 

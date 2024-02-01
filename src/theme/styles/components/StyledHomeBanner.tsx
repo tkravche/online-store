@@ -26,7 +26,6 @@ export const StyledHeroButton = styled.button`
   font-size: 1rem;
   background: #212121;
   letter-spacing: 200%;
-  transition: width 0.9s ease-in;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -39,9 +38,9 @@ export const StyledHeroButton = styled.button`
     width: 100%;
     height: 100%;
     opacity: 0%;
-    border-radius: 1rem;
+    border-radius: 2rem;
     background: #d25;
-    transition: opacity 1.5s ease-out 0.1s;
+    transition: opacity 0.6s ease-out 0.2s;
     z-index: -1;
   }
 
@@ -54,7 +53,7 @@ export const StyledHeroButton = styled.button`
     height: 100%;
     background: linear-gradient(to right, #d25 4%, #8083ff 60%);
     transition: width 0.8s ease-out;
-    border-radius: 1rem;
+    border-radius: 2rem;
     z-index: -2;
   }
   &:hover:before {

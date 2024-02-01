@@ -48,7 +48,7 @@ export const Field: FC<ISignInTypes> = ({
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
         id={id}
-        type={id === 'password'|| id === 'confirmPpassword' ? (showPassword ? 'text' : 'password') : type}
+        type={id === 'password'|| id === 'confirmPassword' ? (showPassword ? 'text' : 'password') : type}
         error={!!error}
         placeholder={placeholder}
         {...register}

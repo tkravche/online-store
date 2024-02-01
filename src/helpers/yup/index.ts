@@ -47,6 +47,6 @@ export const registerSchema = yup.object().shape({
   confirm: yup
     .string()
     .required('Please confirm your password.')
-    .oneOf([yup.ref('email')], 'Your passwords do not match.')
+    .oneOf([yup.ref('password')], 'Your passwords do not match.')
 });
 

@@ -1,25 +1,17 @@
+import { FC } from 'react';
+import { Button } from '@mui/material';
+import { useForm } from 'react-hook-form';
+
 import { getIcon } from '@/helpers/getIcon';
 import { StyledAuthorizationForm } from '@/theme/styles/components/StyledAuthorization';
 import { StyledDivider } from '@/theme/styles/ui/StyledDivider';
 import { StyledGoogleBtn } from '@/theme/styles/ui/StyledGoogleLink';
 import { EnumIcons } from '@/types';
-import {
-  Button,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from '@mui/material';
-import { useForm } from 'react-hook-form';
 import { Field } from '../../elements/Field';
-import { FC, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from '@/helpers/yup';
 import { registerUser } from '@/lib/otherRedux/thunks/auth';
 import { useAppDispatch } from '@/hooks';
-
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { setAuth } from '@/lib/otherRedux/slice/auth';
 
 interface ISignUp {
@@ -30,8 +22,6 @@ interface ISignUp {
 
 export const SignUp: FC = () => {
   const dispatch = useAppDispatch();
-  const [showPassword, setShowPassword] = useState(false);
-
 
   const form = useForm({
     mode: 'onChange',

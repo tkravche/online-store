@@ -24,7 +24,7 @@ export const HeaderSearch = () => {
       <StyledContainer>
         <div className="search-content">
           <TextField
-            placeholder="What are you looking for?"
+            placeholder="Start typing the name or description."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
