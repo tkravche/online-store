@@ -3,14 +3,18 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/online-store/vite.svg" />
+  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CityWheel</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/online-store/assets/apple-touch-icon-e85b37e1.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEiUlEQVRYR+1WSUtkZxQ9NahVllpOZTtgoziLiiI4EaIuNOKEEy4kLkJAiL8g4F8I+QFCQAgYpUVxiGNwwFY3uomiMSrOGpyH0rKsKe/cpCp2bHrVJL3wg+JVvfd9955z7rn3lcpms7nwPy7VC4AXBV4U+KQUcLlccDgcnqmgVqkAm/LbSwub3QZvb2+oeO8jLpkDTKxccX19jaurKzidTmg0GgT6+EK/fw4kR+O37S2kpqZCr9d/xPSAAGDy9fV1TExMQKvVQq1WQ+ejQ2ZcIsIurbCnRGN48heUlZXBaDTCx8dH1OCHYG9vb+Hv7y+gPcvpgvPOAmUDVAY9VNonz55QEABkPjg4iLS0NERFRUkggrDeW9D35g3siuyzc2+RmJgoieLi4pCQkIDk5GSYzWZ0dnaiqakJwcHBf4VmKc+vYe5/C9f1HQy1n0P7+hVUGvUz9QTA+fm5BGloaEB4eLinzhcXF+ju7kZ+fj4mJydRXV0t7FdWVhASEoKMjAxh397ejpaWFphMJkngtFjxMPsrrr77CS6bHQEt1TBUfwa1Qfd+ADc3N6JAfHw8YmJi4OXlJQpYLBb09/ejpKREytPY2AidToeFhQVhnp2dLXsIvrW1FSYFlOPKDOflLWzbx7j6vktMbGytg/6LHKh9fd4PwG63Y2dnBwMDA4p6LmFJs1Hyra0tFBcXY3Z2FpWVlVKCvb09dHV1CUiuo6MjtLW1IUQx7e0PP+Px9z0Yv6mBbesILrMFvmW50JgCFcc976B3uoBKkBE/DB4QECBtaTAYYLVaERQUJCZ9eHjA2tqadM3l5SXWVlfR8tXXMDrUMP84BtvuHwj69kuoTUbYHh/hbfSH+qlB/21CJmH7kR0Xa0+3E8j9/T0ODw+Rnp4OX19fec578/Pzso9AY6NfI9HbCPXhGbwz4oWo5lUwHhx2rCrgPtS+ogDrOTU1Jaby8/PDyMgISktLcXx8jN3dXZG8vLxcADIhr3d3dwKaJdMrvvBT2lblcOHeaRepNUrbsbTDw8OoqKiQc9zLKxVlmTnUBAClHx0dFVMxeF9fnzj+4OAA29vbwoKtyQM0YVVVlagzPj4uV5o2KSlJns3NzUmZqFZOTg6Wl5eRm5srZqbSjE8yVFQmqxvA2NgYsrKypO49PT2ora0V6QmACtTU1IgxNzc3sbGxIfLHxsZK61ENeuLk5ARFRUWS/PT0VKYrSeTl5WF6elqYU2ECSklJ+QcAA8zMzEhvc0Nvby/q6upwdnYmwZmwublZTMjAHR0d4Ozg4n4GzszMFJb0DplRjYKCAiwuLko59/f3pSSPiil5tr6+XvZ6RjGZDQ0NSULKGhgYKFIWFhYKOyrAA3Q+FQoNDZXglJ97OaaXlpYELEvFe5SafgoLCxN12EksA+cNQRG8pw2JjOw422kQysdAZE1Q7hYkC7YeGdKEbEn6IzIy0vNCIwGCj4iIEDJMTKMzNk3IsrkN/c6/Ym7gYmI69ul399CRUcsXzN973GfcJuXvD93jefdeif9J/SF5Nqj/gxsvCrwo8KLAnydbyj/iYpd/AAAAAElFTkSuQmCC">
+  <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABkUlEQVQ4T92SP4taQRTFf6Pv+d7T1Y0WKqYQlBQB0UI7O4ttBFuLQCDFQj5IPkDyOZLOUkGwULRXG112ERKI1ao81+efycwspAsspNvpZu6Zc88994jj8Sj5jyNeCcHhcGCz2WCHLbwT+DYkk8kXOSN835fdbpdoNEryKsHvu3tmv1bUajVKpRLr9Zp8Po9t2xzvfiKfAiLv8yCEaSC2260cDAbU63VOpxPD4dCAM5kM4XCY5XJJo9HAVct6/PYd6T+R+nKLsK1ngiAI5HQ6ZbVakUqliMfjeJ5HOp2m0+mY988fPxF8/cHVhxuIOjiFt3/HE/v9XmrQ5XIhFouhyarVKo7jMJvNCCmp79w3yOsYxD3uHx4oFotGncaI3W4nJ5OJIchms/T7fXK5HFJK1HionKBUmg/aJ8uyDHGlUqHVamEU9Ho9FouFkR0KhWg2m4zHY0ajkbkXCgXm8znlctmQadLz+Uy73cYkUZGYR901Eonguq4BalN1LZFIoJSamlAjqc0Z+dqv1xLlF2X2H6A/gP7T8Lu8bGkAAAAASUVORK5CYII=">
+  <link rel="manifest" href="data:application/manifest+json;base64,eyJuYW1lIjoiIiwic2hvcnRfbmFtZSI6IiIsImljb25zIjpbeyJzcmMiOiIvYW5kcm9pZC1jaHJvbWUtMTkyeDE5Mi5wbmciLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn0seyJzcmMiOiIvYW5kcm9pZC1jaHJvbWUtNTEyeDUxMi5wbmciLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dLCJ0aGVtZV9jb2xvciI6IiNmZmZmZmYiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIn0=">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Lato:wght@400;700;900&display=swap"
     rel="stylesheet">
-  <script type="module" crossorigin src="/online-store/assets/index-b9d384a3.js"></script>
+  <script type="module" crossorigin src="/online-store/assets/index-ac393f6b.js"></script>
   <link rel="stylesheet" href="/online-store/assets/index-fe9cdf28.css">
 </head>
 
