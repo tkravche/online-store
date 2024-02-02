@@ -18,4 +18,4 @@ export const selectFilteredArticles = state => state.catalog?.filteredArticles.d
 export const selectFilteredTotalItems = state =>state.catalog?.filteredArticles.data?.meta.itemCount;
 export const selectIsLoadingArticles = state =>state.catalog.isLoading;
 
-export const selectFoundArticles = state => state.catalog?.searchedArticles.data?.items;
+export const selectFoundArticles = state => state.catalog?.searchedArticles?.data?.items;

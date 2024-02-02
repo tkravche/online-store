@@ -111,7 +111,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
           <Link underline="hover" color="inherit" href="/">
             Home
           </Link>
-          <Link underline="hover" color="inherit" href="/">
+          <Link underline="hover" color="inherit" href="catalog">
             Catalog
           </Link>
           <Link underline="hover" color="inherit" href={categories[0].name}>

@@ -11,15 +11,17 @@ import { useAppDispatch, useAppSelector } from './hooks';
 import { refreshThunk } from './lib/otherRedux/thunks/auth';
 import { currentUserThunk } from './lib/otherRedux/thunks/user';
 import { instance } from './hooks/axios';
-import { selectIsLogged } from './lib/otherRedux/selectors';
+import { selectCurrentUser, selectIsLogged } from './lib/otherRedux/selectors';
+import { useEffect } from 'react';
 
 export const App = () => {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector(selectIsLogged);
+  const userCurrent = useAppSelector(selectCurrentUser);
 
-  // if (isLogged) {
-  //   dispatch(currentUserThunk());
-  // }
+  useEffect(() => {
+    dispatch(currentUserThunk());
+  }, []);
 
   instance.interceptors.response.use(
     function (response) {

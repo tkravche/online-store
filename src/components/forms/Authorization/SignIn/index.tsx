@@ -40,19 +40,19 @@ export const SignIn: FC = () => {
   if (form.formState.errors.email || form.formState.errors.password) {
     disabled = true;
   }
-  const handleSendSubmit = async (data: ISignIn) => {
-    await dispatch(loginUser(data));
-    dispatch(setAuth(false));
-  };
-
   // const handleSendSubmit = async (data: ISignIn) => {
-  //   await dispatch(loginUser(data)).then(r => {
-  //     if (r.payload && r.meta.requestStatus === 'fulfilled') {
-  //       dispatch(currentUserThunk());
-  //       dispatch(setAuth(false));
-  //     }
-  //   });
+  //   await dispatch(loginUser(data));
+  //   dispatch(setAuth(false));
   // };
+
+  const handleSendSubmit = async (data: ISignIn) => {
+    await dispatch(loginUser(data)).then(r => {
+      if (r.payload && r.meta.requestStatus === 'fulfilled') {
+        dispatch(currentUserThunk());
+        dispatch(setAuth(false));
+      }
+    });
+  };
   return (
     <StyledAuthorizationForm
       onSubmit={form.handleSubmit(handleSendSubmit as any)}

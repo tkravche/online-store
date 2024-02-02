@@ -6,7 +6,9 @@ import { HomePage } from '@/pages/Home';
 import { Monowheels } from '@/pages/Monowheels';
 import { ProductPage } from '@/pages/ProductPage';
 import { Scooters } from '@/pages/Scooters';
+import { SearchPage } from '@/pages/Search';
 import { Skateboards } from '@/pages/Skateboards';
+import { Search } from '@mui/icons-material';
 
 export const routes = [
   {
@@ -52,6 +54,11 @@ export const routes = [
   {
     path: '/online-store/catalog',
     element: CatalogPage,
+    exact: true,
+  },
+  {
+    path: '/online-store/search',
+    element: SearchPage,
     exact: true,
   },
 ];

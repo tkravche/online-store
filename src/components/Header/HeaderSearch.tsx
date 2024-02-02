@@ -1,45 +1,121 @@
 import { getIcon } from '@/helpers/getIcon';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { instance } from '@/hooks/axios';
+import { selectFoundArticles } from '@/lib/otherRedux/selectors';
 import { setSearch } from '@/lib/otherRedux/slice/header';
+import { searchArticlesThunk } from '@/lib/otherRedux/thunks/catalog';
 // import { headerActions } from '@/lib/redux/actions';
 import { StyledHeaderSearch } from '@/theme/styles/layout/StyledHeader';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import { EnumBreakpoints, EnumIcons } from '@/types';
 import {
+  Autocomplete,
   IconButton,
   InputAdornment,
   TextField,
   useMediaQuery,
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 export const HeaderSearch = () => {
-  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
+  const [options, setOptions] = useState(['Options are loading']);
+  const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+  const handleInput = e => {
+    console.log(e.target.value);
+    setSearch(e.target.value.toLowerCase().trim());
+  };
   const isMobileScreen = useMediaQuery(
     `(min-width: ${EnumBreakpoints.tablet})`
   );
+  useEffect(() => {
+    instance
+      .get(`articles?search=${search}`)
+      .then(res => {
+        setOptions(
+          res?.data?.data?.items?.map(
+            item => item.name + ' ' + item.categories[0].name
+          )
+        );
+      })
+      .catch(e => {
+        console.log(e.message);
+      });
+  }, [search]);
+  // if (options?.length < 2) {
+  //   instance
+  //     .get(`articles?search=${search}`)
+  //     .then(res => {
+  //       setOptions(res?.data?.data?.items?.map(item => item.name));
+  //     })
+  //     .catch(e => {
+  //       console.log(e.message);
+  //     });
+  // }
+  // console.log(options);
+
+  // const handleSearch = async search => {
+  //   try {
+  //     const res = await instance.get(`articles?search=${search}`);
+  //     setOptions(res?.data?.data?.items?.map(item => item.name));
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
+  const onSearch = async search => {
+    try {
+      console.log(search);
+
+      const res = await instance.get(`articles?search=${search}`);
+      console.log(res?.data?.data?.items);
+      navigate(`search`);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   return (
     <StyledHeaderSearch>
       <StyledContainer>
         <div className="search-content">
-          <TextField
-            placeholder="Start typing the name or description."
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {getIcon(EnumIcons.search)}
-                </InputAdornment>
-              ),
+          <Autocomplete
+            // autoComplete
+            disablePortal
+            clearOnEscape
+            openOnFocus
+            autoSelect
+            id="search"
+            onInputChange={(event, value) => {
+              setSearch(value.toLowerCase().trim());
+              // handleSearch(value);
             }}
+            options={options}
+            onChange={(event, value) => onSearch(value)}
+            renderInput={params => (
+              <TextField
+                {...params}
+                placeholder="Start typing the name or description."
+                onSelect={handleInput}
+              />
+            )}
+            // InputProps={{
+            //   startAdornment: (
+            //     <InputAdornment position="start">
+            //       {getIcon(EnumIcons.search)}
+            //     </InputAdornment>
+            //   ),
+            // }}
           />
+          {/* 
           {isMobileScreen && (
-            <IconButton
-              onClick={() => dispatch(setSearch(false))}
-            >
+            <IconButton onClick={() => dispatch(setSearch(false))}>
               {getIcon(EnumIcons.close)}
             </IconButton>
-          )}
+          )} */}
         </div>
       </StyledContainer>
     </StyledHeaderSearch>

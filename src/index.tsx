@@ -15,6 +15,7 @@ import { otherStore, persistor } from './lib/otherRedux/otherStore.js';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ScrollToTop } from './components/ScrollToTop/index.js';
 
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // Наш store прокидаємо у Provider
   <React.StrictMode>

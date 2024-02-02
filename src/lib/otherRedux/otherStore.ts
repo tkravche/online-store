@@ -28,7 +28,7 @@ export const otherStore = configureStore({
     auth: persistReducer(persistConfig, authSlice),
     user: userSlice,
     headerSearch: headerSlice,
-    ui: uiSlice,
+    // ui: uiSlice,
     catalog: catalogSlice
   },
   middleware: getDefaultMiddleware =>

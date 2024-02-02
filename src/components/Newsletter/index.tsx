@@ -18,13 +18,16 @@ import {
   StyledNewsletterButton,
 } from '@/theme/styles/components/StyledNewsletter';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
+import { newsSchema } from '@/helpers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface IData {
   email: string;
 }
 export const Newsletter = () => {
-  const { register, handleSubmit } = useForm({
-    mode: 'onTouched',
+  const { register, handleSubmit} = useForm({
+    mode: 'onChange',
+    resolver: yupResolver(newsSchema),
   });
 
   const handleSendSubmit = (data: IData) => {
@@ -51,6 +54,8 @@ export const Newsletter = () => {
           </Typography>
           <form onSubmit={handleSubmit(handleSendSubmit as any)}>
             <TextField
+              id="emailSubs"
+              type="text"
               placeholder="example@example.com"
               {...register('email')}
               InputProps={{

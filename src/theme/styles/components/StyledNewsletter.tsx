@@ -34,7 +34,7 @@ export const StyledNewsletter = styled.div`
     .MuiFormControl-root {
       ${tw`flex-1`}
     }
-
+    
     .MuiInputBase-root {
       ${tw`border-main-black`}
     }
