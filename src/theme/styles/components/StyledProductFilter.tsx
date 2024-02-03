@@ -173,16 +173,16 @@ export const StyledEmptyStar = styled.div`
 
 export const StyledResetButton = styled.div`
   ${tw`flex justify-end`}
-  .css-hwqssc-MuiButtonBase-root-MuiButton-root {
+  .css-jmcxfm-MuiButtonBase-root-MuiButton-root{
     ${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}
   }
-  .css-hwqssc-MuiButtonBase-root-MuiButton-root:hover {
-    ${tw`bg-main-transparent`}
+   .css-jmcxfm-MuiButtonBase-root-MuiButton-root:hover {
+    ${tw`bg-main-transparent font-bold`}
   }
   svg {
     ${tw`w-6 h-6 stroke-secondary-gray`}
   }
 `;
 export const StyledButton = styled(Button)`
-  ${tw`cursor-pointer`}
+  ${tw`text-[#212121] cursor-pointer`}
 `;

@@ -82,6 +82,15 @@ export const Catalog: FC = () => {
     );
   }, [dispatch, page, limit, category, saleChecked, starsCount]);
 
+  const resetAllFilters = () => {
+    setCheckedSale(false);
+    setSaleChecked(false);
+    // setPrice(null);
+    setCategory(null);
+    setStars(null);
+  };
+  console.log(checkedSale)
+
   const articles = useAppSelector(selectFilteredArticles);
   const totalItems = useAppSelector(selectFilteredTotalItems);
   const isLoadingArticles = useAppSelector(selectIsLoadingArticles);
@@ -355,83 +364,14 @@ export const Catalog: FC = () => {
                     </StyledFilteredRating>
                   </StyledRatingInfo>
                 </StyledAccordionRatingDetails>
-                {/* <AccordionDetails>
-                  <FormGroup>
-                    <StyledFormControl>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={category5Checked}
-                            onChange={() => {
-                              setCategory5Checked(!category5Checked);
-                              starsCount ? setStars(null) : setStars(5);
-                            }}
-                          />
-                        }
-                        label=""
-                      />
-                      <StyledFilteredRating>
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                      </StyledFilteredRating>
-                    </StyledFormControl>
-                    <StyledFormControl>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={category4Checked}
-                            onChange={() => {
-                              setCategory4Checked(!category4Checked);
-                              starsCount ? setStars(null) : setStars(4);
-                            }}
-                          />
-                        }
-                        label=""
-                      />
-                      <StyledFilteredRating>
-                        <StyledEmptyStar>
-                          {getIcon(EnumIcons.star)}
-                        </StyledEmptyStar>
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                      </StyledFilteredRating>
-                    </StyledFormControl>
-                    <StyledFormControl>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={category3Checked}
-                            onChange={() => {
-                              setCategory3Checked(!category3Checked);
-                              starsCount ? setStars(null) : setStars(3);
-                            }}
-                          />
-                        }
-                        label=""
-                      />
-                      <StyledFilteredRating>
-                        <StyledEmptyStar>
-                          {getIcon(EnumIcons.star)}
-                        </StyledEmptyStar>
-                        <StyledEmptyStar>
-                          {getIcon(EnumIcons.star)}
-                        </StyledEmptyStar>
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                        {getIcon(EnumIcons.star)}
-                      </StyledFilteredRating>
-                    </StyledFormControl> 
-                  </FormGroup>
-                </AccordionDetails> */}
               </Accordion>
             </StyledAccordions>
             <StyledResetButton>
-              <StyledButton variant="text" endIcon={getIcon(EnumIcons.close)}>
+              <StyledButton
+                onClick={resetAllFilters}
+                variant="text"
+                endIcon={getIcon(EnumIcons.close)}
+              >
                 Reset all
               </StyledButton>
             </StyledResetButton>
