@@ -5,10 +5,14 @@ import {
   AccordionSummary,
   Breadcrumbs,
   Checkbox,
+  FormControl,
   FormControlLabel,
   FormGroup,
+  FormLabel,
   Link,
   PaginationItem,
+  Radio,
+  RadioGroup,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -34,18 +38,21 @@ import {
 } from '@/theme/styles/components/StyledCatalog';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import {
+  StyledAccordionDetails,
   StyledAccordions,
   StyledButton,
   StyledEmptyStar,
+  StyledFilteredNoNumber,
   StyledFilteredNumber,
   StyledFilteredRating,
   StyledFiltersTitle,
   StyledFiltersWrapper,
-  StyledFormControl,
   StyledPriceNumberInput,
   StyledPriceNumberInputWrapper,
   StyledPriceSlider,
   StyledPriceSliderWrapper,
+  StyledRadioInfo,
+  StyledRatingInfo,
   StyledResetButton,
   StyledSaleFilter,
   StyledSetPrice,
@@ -56,17 +63,7 @@ export const Catalog: FC = () => {
   const [checkedSale, setCheckedSale] = useState(false);
   const [saleChecked, setSaleChecked] = useState(false);
 
-  const [categoryBChecked, setCategoryBChecked] = useState(false);
-  const [categorySkChecked, setCategorySkChecked] = useState(false);
-  const [categoryScChecked, setCategoryScChecked] = useState(false);
-  const [categoryGChecked, setCategoryGChecked] = useState(false);
-  const [categoryMChecked, setCategoryMChecked] = useState(false);
-  const [categoryAChecked, setCategoryAChecked] = useState(false);
-  const [category, setCategory] = useState(null);
-
-  const [category5Checked, setCategory5Checked] = useState(false);
-  const [category4Checked, setCategory4Checked] = useState(false);
-  const [category3Checked, setCategory3Checked] = useState(false);
+  const [category, setCategory] = useState('bicycle');
   const [starsCount, setStars] = useState(null);
 
   const [page, setPage] = useState(1);
@@ -76,7 +73,15 @@ export const Catalog: FC = () => {
   const limit = pageSize;
 
   useEffect(() => {
-    dispatch(getFilteredArticlesThunk({ page, limit, saleChecked, category, starsCount }));
+    dispatch(
+      getFilteredArticlesThunk({
+        page,
+        limit,
+        saleChecked,
+        category,
+        starsCount,
+      })
+    );
   }, [dispatch, page, limit, category, saleChecked, starsCount]);
 
   const articles = useAppSelector(selectFilteredArticles);
@@ -98,6 +103,14 @@ export const Catalog: FC = () => {
     setValue(newValue as number[]);
   };
 
+  //For radio buttons category
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory((event.target as HTMLInputElement).value);
+  };
+  //For radio buttons rating
+  const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStars((event.target as HTMLInputElement).value);
+  };
   // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setValue(event.target.value === '' ? 0 : Number(event.target.value));
   // };
@@ -207,149 +220,80 @@ export const Catalog: FC = () => {
                 >
                   Categories
                 </AccordionSummary>
-                <AccordionDetails>
-                  <FormGroup>
-                    <StyledFormControl>
+                <StyledAccordionDetails>
+                  <FormControl>
+                    <FormLabel id="categories-controlled-radio-buttons-group"></FormLabel>
+                    <RadioGroup
+                      aria-labelledby="categories-controlled-radio-buttons-group"
+                      name="categories-controlled-radio-buttons-group"
+                      value={category}
+                      onChange={handleRadioChange}
+                    >
                       <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={categoryBChecked}
-                            onChange={() => {
-                              setCategoryBChecked(!categoryBChecked);
-                              category
-                                ? setCategory(null)
-                                : setCategory('bicycle');
-                            }}
-                          />
-                        }
-                        label="Bycicles"
+                        value="bicycle"
+                        control={<Radio />}
+                        label="Bicycles"
                       />
-                      {!categoryBChecked || isLoadingArticles ? (
-                        <StyledFilteredNumber>--</StyledFilteredNumber>
-                      ) : (
-                        <StyledFilteredNumber>
-                          {totalItems}
-                        </StyledFilteredNumber>
-                      )}
-                    </StyledFormControl>
-                    <StyledFormControl>
                       <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={categorySkChecked}
-                            onChange={() => {
-                              setCategorySkChecked(!categorySkChecked);
-                              category
-                                ? setCategory(null)
-                                : setCategory('skateboard');
-                            }}
-                          />
-                        }
+                        value="skateboard"
+                        control={<Radio />}
                         label="Skateboards"
                       />
-                      {!categorySkChecked || isLoadingArticles ? (
-                        <StyledFilteredNumber>--</StyledFilteredNumber>
-                      ) : (
-                        <StyledFilteredNumber>
-                          {totalItems}
-                        </StyledFilteredNumber>
-                      )}
-                    </StyledFormControl>
-
-                    <StyledFormControl>
                       <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={categoryScChecked}
-                            onChange={() => {
-                              setCategoryScChecked(!categoryScChecked);
-                              category
-                                ? setCategory(null)
-                                : setCategory('scooter');
-                            }}
-                          />
-                        }
+                        value="scooter"
+                        control={<Radio />}
                         label="Scooters"
                       />
-                      {!categoryScChecked || isLoadingArticles ? (
-                        <StyledFilteredNumber>--</StyledFilteredNumber>
-                      ) : (
-                        <StyledFilteredNumber>
-                          {totalItems}
-                        </StyledFilteredNumber>
-                      )}
-                    </StyledFormControl>
-                    <StyledFormControl>
                       <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={categoryGChecked}
-                            onChange={() => {
-                              setCategoryGChecked(!categoryGChecked);
-                              category
-                                ? setCategory(null)
-                                : setCategory('gyroboard');
-                            }}
-                          />
-                        }
+                        value="gyroboard"
+                        control={<Radio />}
                         label="Gyroboards"
                       />
-                      {!categoryGChecked || isLoadingArticles ? (
-                        <StyledFilteredNumber>--</StyledFilteredNumber>
-                      ) : (
-                        <StyledFilteredNumber>
-                          {totalItems}
-                        </StyledFilteredNumber>
-                      )}
-                    </StyledFormControl>
-                    <StyledFormControl>
                       <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={categoryMChecked}
-                            onChange={() => {
-                              setCategoryMChecked(!categoryMChecked);
-                              category
-                                ? setCategory(null)
-                                : setCategory('monowheel');
-                            }}
-                          />
-                        }
-                        label="Monowheels"
+                        value="monowheel"
+                        control={<Radio />}
+                        label="Monowheel"
                       />
-                      {!categoryMChecked || isLoadingArticles ? (
-                        <StyledFilteredNumber>--</StyledFilteredNumber>
-                      ) : (
-                        <StyledFilteredNumber>
-                          {totalItems}
-                        </StyledFilteredNumber>
-                      )}
-                    </StyledFormControl>
-                    <StyledFormControl>
                       <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={categoryAChecked}
-                            onChange={() => {
-                              setCategoryAChecked(!categoryAChecked);
-                              category
-                                ? setCategory(null)
-                                : setCategory('accessory');
-                            }}
-                          />
-                        }
+                        value="accessory"
+                        control={<Radio />}
                         label="Accessories"
                       />
-                      {!categoryAChecked || isLoadingArticles ? (
-                        <StyledFilteredNumber>--</StyledFilteredNumber>
-                      ) : (
-                        <StyledFilteredNumber>
-                          {totalItems}
-                        </StyledFilteredNumber>
-                      )}
-                    </StyledFormControl>
-                  </FormGroup>
-                </AccordionDetails>
+                    </RadioGroup>
+                  </FormControl>
+                  <StyledRadioInfo>
+                    {category === 'bicycle' && !isLoadingArticles ? (
+                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
+                    ) : (
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                    )}
+                    {category === 'skateboard' && !isLoadingArticles ? (
+                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
+                    ) : (
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                    )}
+                    {category === 'scooter' && !isLoadingArticles ? (
+                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
+                    ) : (
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                    )}
+                    {category === 'gyroboard' && !isLoadingArticles ? (
+                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
+                    ) : (
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                    )}
+                    {category === 'monowheel' && !isLoadingArticles ? (
+                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
+                    ) : (
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                    )}
+                    {category === 'accessory' && !isLoadingArticles ? (
+                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
+                    ) : (
+                      <StyledFilteredNumber>--</StyledFilteredNumber>
+                    )}
+                  </StyledRadioInfo>
+                </StyledAccordionDetails>
               </Accordion>
               <Accordion defaultExpanded>
                 <AccordionSummary
@@ -359,7 +303,61 @@ export const Catalog: FC = () => {
                 >
                   Rating
                 </AccordionSummary>
-                <AccordionDetails>
+                <StyledAccordionDetails>
+                  <FormControl>
+                    <FormLabel id="categories-controlled-radio-buttons-group"></FormLabel>
+                    <RadioGroup
+                      aria-labelledby="categories-controlled-radio-buttons-group"
+                      name="categories-controlled-radio-buttons-group"
+                      value={starsCount}
+                      onChange={handleRatingChange}
+                    >
+                      <FormControlLabel
+                        value="5"
+                        control={<Radio />}
+                        label=""
+                      />
+                      <FormControlLabel
+                        value="4"
+                        control={<Radio />}
+                        label=""
+                      />
+                      <FormControlLabel
+                        value="3"
+                        control={<Radio />}
+                        label=""
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                  <StyledRatingInfo>
+                    <StyledFilteredRating>
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                    </StyledFilteredRating>
+                    <StyledFilteredRating>
+                      <StyledEmptyStar>
+                        {getIcon(EnumIcons.star)}
+                      </StyledEmptyStar>
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                    </StyledFilteredRating>
+                    <StyledFilteredRating>
+                      <StyledEmptyStar>
+                        {getIcon(EnumIcons.star)}
+                      </StyledEmptyStar>
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                      {getIcon(EnumIcons.star)}
+                    </StyledFilteredRating>
+                  </StyledRatingInfo>
+                </StyledAccordionDetails>
+                {/* <AccordionDetails>
                   <FormGroup>
                     <StyledFormControl>
                       <FormControlLabel
@@ -389,7 +387,7 @@ export const Catalog: FC = () => {
                             checked={category4Checked}
                             onChange={() => {
                               setCategory4Checked(!category4Checked);
-                              starsCount? setStars(null) : setStars(4);
+                              starsCount ? setStars(null) : setStars(4);
                             }}
                           />
                         }
@@ -429,9 +427,9 @@ export const Catalog: FC = () => {
                         {getIcon(EnumIcons.star)}
                         {getIcon(EnumIcons.star)}
                       </StyledFilteredRating>
-                    </StyledFormControl>
+                    </StyledFormControl> 
                   </FormGroup>
-                </AccordionDetails>
+                </AccordionDetails> */}
               </Accordion>
             </StyledAccordions>
             <StyledResetButton>

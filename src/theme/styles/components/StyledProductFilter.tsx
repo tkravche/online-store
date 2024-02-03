@@ -1,4 +1,4 @@
-import { Button, Slider, Typography } from '@mui/material';
+import { AccordionDetails, Button, Slider, Typography } from '@mui/material';
 import { Unstable_NumberInput as BaseNumberInput } from '@mui/base/Unstable_NumberInput';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
@@ -27,7 +27,7 @@ export const StyledSaleFilter = styled.div`
 `;
 
 export const StyledFilteredNumber = styled.span`
-  ${tw`px-2 py-1`}
+  ${tw`px-[6px] py-1`}
   border-radius: 4px;
   border: 1px solid #e2e7f1;
   background: #e2e7f1;
@@ -35,8 +35,8 @@ export const StyledFilteredNumber = styled.span`
   font-size: 0.625rem;
   font-weight: 400;
   line-height: 140%;
+  tex-align: center;
 `;
-
 //Slider
 export const StyledPriceSliderWrapper = styled.div`
     ${tw``}}
@@ -108,17 +108,42 @@ export const StyledAccordions = styled.div`
     padding: 4px 24px;
   }
 `;
-export const StyledFormControl = styled.div`
-  ${tw`flex justify-between items-center px-2`}
-  .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
-    background-color: transparent;
+
+export const StyledAccordionDetails = styled(AccordionDetails)`
+  ${tw`flex justify-between items-center`}
+  .css-dmmspl-MuiFormGroup-root {
+    ${tw`pb-4`}
   }
-  .Mui-checked {
-    svg {
-      ${tw`fill-secondary-gray`}
+  .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+    color: #878d99;
+  }
+  .MuiRadio-root {
+    svg { 
+           color: #e2e7f1;
     }
   }
+  .css-1hbvpl3-MuiSvgIcon-root {
+    stroke: #e2e7f1;
+  }
 `;
+export const StyledRadioInfo = styled.div`
+  ${tw`flex flex-col items-center gap-y-5 pb-5`}
+`;
+export const StyledRatingInfo = styled.div`
+  ${tw`flex flex-col items-center gap-y-7 pb-5`}
+`;
+
+// export const StyledFormControl = styled.div`
+//   ${tw`flex justify-between items-center px-2`}
+//   .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
+//     background-color: transparent;
+//   }
+//   .Mui-checked {
+//     svg {
+//       ${tw`fill-secondary-gray`}
+//     }
+//   }
+// `;
 export const StyledFilteredRating = styled.div`
   ${tw`flex gap-x-2`}
   svg {
