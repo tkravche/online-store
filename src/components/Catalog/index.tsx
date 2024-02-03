@@ -1,13 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import {
   Accordion,
-  AccordionDetails,
   AccordionSummary,
   Breadcrumbs,
   Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
   FormLabel,
   Link,
   PaginationItem,
@@ -42,7 +40,6 @@ import {
   StyledAccordions,
   StyledButton,
   StyledEmptyStar,
-  StyledFilteredNoNumber,
   StyledFilteredNumber,
   StyledFilteredRating,
   StyledFiltersTitle,
