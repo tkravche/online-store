@@ -874,35 +874,35 @@ const store = createStore(
   }
 `,FX=X(B5)`
   ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
-  .css-dmmspl-MuiFormGroup-root {
+  .MuiFormGroup-root {
     ${{paddingBottom:"1rem"}}
   }
-  
+
   .MuiRadio-root {
     color: #e2e7f1;
   }
-  .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+  .MuiRadio-root.Mui-checked {
     color: #878d99;
   }
-
 `,DX=X.div`
   ${{display:"flex",flexDirection:"column",alignItems:"center",rowGap:"1.25rem",paddingBottom:"1.25rem",paddingTop:"0.25rem"}}
 `,BX=X(B5)`
   ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
-  .css-dmmspl-MuiFormGroup-root {
+  .MuiFormGroup-root {
     ${{paddingBottom:"1rem"}}
   }
-  .css-vqmohf-MuiButtonBase-root-MuiRadio-root {${{paddingTop:"0.25rem",paddingBottom:"0.25rem"}}}
+  .MuiRadio-root {
+    ${{paddingTop:"0.25rem",paddingBottom:"0.25rem"}}
+  }
   .MuiRadio-root {
     color: #e2e7f1;
   }
-  .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+  .MuiRadio-root.Mui-checked {
     color: #878d99;
   }
-
 `,WX=X.div`
-  ${{display:"flex",flexDirection:"column",alignItems:"center",rowGap:"1.25rem",paddingBottom:"1.25rem"}}
-  `,og=X.div`
+  ${{display:"flex",flexDirection:"column",alignItems:"center",rowGap:"1.25rem",paddingBottom:"1rem"}}
+`,og=X.div`
   ${{display:"flex",columnGap:"0.5rem"}}
   svg {
     ${{fill:"#ffd700",stroke:"#ffd700"}}
@@ -915,16 +915,12 @@ const store = createStore(
   }
 `,UX=X.div`
   ${{display:"flex",justifyContent:"flex-end"}}
-  // .css-9m6vcm {${{cursor:"pointer",padding:"0px",fontSize:"0.875rem",lineHeight:"1.25rem",fontWeight:"400","--tw-text-opacity":"1",color:"rgb(33 33 33 / var(--tw-text-opacity))"}}}
-  // .css-jmcxfm-MuiButtonBase-root-MuiButton-root{
-  //   ${{cursor:"pointer",padding:"0px",fontSize:"0.875rem",lineHeight:"1.25rem",fontWeight:"400","--tw-text-opacity":"1",color:"rgb(33 33 33 / var(--tw-text-opacity))"}}
-  // }
-  .MuiButton-root{
+  .MuiButton-root {
     ${{cursor:"pointer",padding:"0px",fontSize:"0.875rem",lineHeight:"1.25rem",fontWeight:"400","--tw-text-opacity":"1",color:"rgb(33 33 33 / var(--tw-text-opacity))"}}
   }
-  //  .css-jmcxfm-MuiButtonBase-root-MuiButton-root:hover {
-  //   ${{backgroundColor:"transparent",fontWeight:"700"}}
-  // }
+  .MuiButton-root:hover {
+    ${{backgroundColor:"transparent",fontWeight:"700"}}
+  }
   svg {
     ${{height:"1.5rem",width:"1.5rem",stroke:"#878d99",paddingRight:"0.25rem"}}
   }
