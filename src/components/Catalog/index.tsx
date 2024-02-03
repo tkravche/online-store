@@ -89,7 +89,7 @@ export const Catalog: FC = () => {
     setCategory(null);
     setStars(null);
   };
-  console.log(checkedSale)
+  
 
   const articles = useAppSelector(selectFilteredArticles);
   const totalItems = useAppSelector(selectFilteredTotalItems);

@@ -172,17 +172,21 @@ export const StyledEmptyStar = styled.div`
 `;
 
 export const StyledResetButton = styled.div`
-  ${tw`flex justify-end`}
-  .css-jmcxfm-MuiButtonBase-root-MuiButton-root{
+  ${tw`flex justify-end `}
+  // .css-9m6vcm {${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}}
+  // .css-jmcxfm-MuiButtonBase-root-MuiButton-root{
+  //   ${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}
+  // }
+  .MuiButton-root{
     ${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}
   }
-   .css-jmcxfm-MuiButtonBase-root-MuiButton-root:hover {
-    ${tw`bg-main-transparent font-bold`}
-  }
+  //  .css-jmcxfm-MuiButtonBase-root-MuiButton-root:hover {
+  //   ${tw`bg-main-transparent font-bold`}
+  // }
   svg {
-    ${tw`w-6 h-6 stroke-secondary-gray`}
+    ${tw`w-6 h-6 stroke-secondary-gray pr-1`}
   }
 `;
 export const StyledButton = styled(Button)`
-  ${tw`text-[#212121] cursor-pointer`}
+  ${tw`cursor-pointer`}
 `;
