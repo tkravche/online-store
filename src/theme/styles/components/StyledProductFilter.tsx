@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 
 export const StyledFiltersTitle = styled.h3`
     ${tw`text-[#FBFBFB] bg-main-black rounded-t-lg px-6 py-4`}}
- }
+     }
 `;
 export const StyledFiltersWrapper = styled.h3`
     ${tw`px-6 py-4`}}
@@ -94,7 +94,9 @@ export const StyledAccordions = styled.div`
   .css-1c35hjw-MuiPaper-root-MuiAccordion-root {
     ${tw`mb-4 shadow-none`}
   }
-
+  .css-1wz20g3 {
+    ${tw`mb-4 shadow-none`}
+  }
   .MuiAccordionSummary-root {
     ${tw`bg-[#E2E7F1] px-6`}
   }
@@ -114,24 +116,35 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
   .css-dmmspl-MuiFormGroup-root {
     ${tw`pb-4`}
   }
+  
+  .MuiRadio-root {
+    color: #e2e7f1;
+  }
   .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
     color: #878d99;
   }
-  .MuiRadio-root {
-    svg { 
-           color: #e2e7f1;
-    }
-  }
-  .css-1hbvpl3-MuiSvgIcon-root {
-    stroke: #e2e7f1;
-  }
+
 `;
 export const StyledRadioInfo = styled.div`
-  ${tw`flex flex-col items-center gap-y-5 pb-5`}
+  ${tw`flex flex-col items-center gap-y-5 pt-1 pb-5`}
+`;
+export const StyledAccordionRatingDetails = styled(AccordionDetails)`
+  ${tw`flex justify-between items-center`}
+  .css-dmmspl-MuiFormGroup-root {
+    ${tw`pb-4`}
+  }
+  .css-vqmohf-MuiButtonBase-root-MuiRadio-root {${tw`py-1`}}
+  .MuiRadio-root {
+    color: #e2e7f1;
+  }
+  .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked {
+    color: #878d99;
+  }
+
 `;
 export const StyledRatingInfo = styled.div`
-  ${tw`flex flex-col items-center gap-y-7 pb-5`}
-`;
+  ${tw`flex flex-col items-center gap-y-5 pb-5`}
+  `;
 
 // export const StyledFormControl = styled.div`
 //   ${tw`flex justify-between items-center px-2`}

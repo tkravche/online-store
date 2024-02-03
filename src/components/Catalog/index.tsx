@@ -37,6 +37,7 @@ import {
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import {
   StyledAccordionDetails,
+  StyledAccordionRatingDetails,
   StyledAccordions,
   StyledButton,
   StyledEmptyStar,
@@ -300,12 +301,12 @@ export const Catalog: FC = () => {
                 >
                   Rating
                 </AccordionSummary>
-                <StyledAccordionDetails>
+                <StyledAccordionRatingDetails>
                   <FormControl>
-                    <FormLabel id="categories-controlled-radio-buttons-group"></FormLabel>
+                    <FormLabel id="rating-controlled-radio-buttons-group"></FormLabel>
                     <RadioGroup
-                      aria-labelledby="categories-controlled-radio-buttons-group"
-                      name="categories-controlled-radio-buttons-group"
+                      aria-labelledby="rating-controlled-radio-buttons-group"
+                      name="rating-controlled-radio-buttons-group"
                       value={starsCount}
                       onChange={handleRatingChange}
                     >
@@ -353,7 +354,7 @@ export const Catalog: FC = () => {
                       {getIcon(EnumIcons.star)}
                     </StyledFilteredRating>
                   </StyledRatingInfo>
-                </StyledAccordionDetails>
+                </StyledAccordionRatingDetails>
                 {/* <AccordionDetails>
                   <FormGroup>
                     <StyledFormControl>

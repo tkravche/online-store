@@ -10,7 +10,7 @@ export const StyledCatalog = styled.div`
   ${tw`grid grid-cols-[24% auto] gap-x-32 mt-14`}
 `;
 export const StyledFilters = styled.div`
-  ${tw`bg-[#FBFBFB] max-h-[770]`}
+  ${tw`bg-main-white h-[779px] rounded-lg` }
 `;
 export const StyledArticles = styled.div`
   ${tw`grid grid-cols-4  gap-x-5 gap-y-6`}
