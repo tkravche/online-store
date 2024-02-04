@@ -871,10 +871,11 @@ const store = createStore(
     ${{marginTop:"0.75rem",marginBottom:"0.75rem"}}
   }
   .css-15v22id-MuiAccordionDetails-root {
-    padding: 4px 24px;
-    
+    ${{paddingLeft:"1.5rem",paddingRight:"1.5rem",paddingTop:"0.25rem",paddingBottom:"0.25rem"}}
   }
-  .MuiFormGroup-root {width: 290px;}
+  .MuiFormGroup-root {
+    width: 300px;
+  }
 `,BX=X(U5)`
   ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
   .MuiFormGroup-root {
@@ -887,11 +888,8 @@ const store = createStore(
     color: #878d99;
   }
 `,Ns=X.div`
-${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
-  
-`;X.div`
-  ${{display:"flex",flexDirection:"column",alignItems:"center",rowGap:"19px",paddingBottom:"1.25rem",paddingTop:"0.25rem"}}
-`;const WX=X(U5)`
+  ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
+`,WX=X(U5)`
   ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
   .MuiFormGroup-root {
     ${{paddingBottom:"1rem"}}
@@ -906,7 +904,7 @@ ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
     color: #878d99;
   }
 `,ig=X.div`
-  ${{display:"flex",alignItems:"center",gap:"8rem"}}
+  ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
 `,sg=X.div`
   ${{display:"flex",columnGap:"0.5rem"}}
   svg {
