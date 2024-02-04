@@ -40,6 +40,7 @@ import {
   StyledAccordionRatingDetails,
   StyledAccordions,
   StyledButton,
+  StyledCategoryFilter,
   StyledEmptyStar,
   StyledFilteredNumber,
   StyledFilteredRating,
@@ -50,6 +51,7 @@ import {
   StyledPriceSlider,
   StyledPriceSliderWrapper,
   StyledRadioInfo,
+  StyledRatingFilter,
   StyledRatingInfo,
   StyledResetButton,
   StyledSaleFilter,
@@ -89,7 +91,6 @@ export const Catalog: FC = () => {
     setCategory(null);
     setStars(null);
   };
-  
 
   const articles = useAppSelector(selectFilteredArticles);
   const totalItems = useAppSelector(selectFilteredTotalItems);
@@ -236,70 +237,92 @@ export const Catalog: FC = () => {
                       value={category}
                       onChange={handleRadioChange}
                     >
-                      <FormControlLabel
-                        value="bicycle"
-                        control={<Radio />}
-                        label="Bicycles"
-                      />
-                      <FormControlLabel
-                        value="skateboard"
-                        control={<Radio />}
-                        label="Skateboards"
-                      />
-                      <FormControlLabel
-                        value="scooter"
-                        control={<Radio />}
-                        label="Scooters"
-                      />
-                      <FormControlLabel
-                        value="gyroboard"
-                        control={<Radio />}
-                        label="Gyroboards"
-                      />
-                      <FormControlLabel
-                        value="monowheel"
-                        control={<Radio />}
-                        label="Monowheel"
-                      />
-                      <FormControlLabel
-                        value="accessory"
-                        control={<Radio />}
-                        label="Accessories"
-                      />
+                      <StyledCategoryFilter>
+                        <FormControlLabel
+                          value="bicycle"
+                          control={<Radio />}
+                          label="Bicycles"
+                        />
+                        {category === 'bicycle' && !isLoadingArticles ? (
+                          <StyledFilteredNumber>
+                            {totalItems}
+                          </StyledFilteredNumber>
+                        ) : (
+                          <StyledFilteredNumber>--</StyledFilteredNumber>
+                        )}
+                      </StyledCategoryFilter>
+                      <StyledCategoryFilter>
+                        <FormControlLabel
+                          value="skateboard"
+                          control={<Radio />}
+                          label="Skateboards"
+                        />
+                        {category === 'skateboard' && !isLoadingArticles ? (
+                          <StyledFilteredNumber>
+                            {totalItems}
+                          </StyledFilteredNumber>
+                        ) : (
+                          <StyledFilteredNumber>--</StyledFilteredNumber>
+                        )}
+                      </StyledCategoryFilter>
+                      <StyledCategoryFilter>
+                        <FormControlLabel
+                          value="scooter"
+                          control={<Radio />}
+                          label="Scooters"
+                        />
+                        {category === 'scooter' && !isLoadingArticles ? (
+                          <StyledFilteredNumber>
+                            {totalItems}
+                          </StyledFilteredNumber>
+                        ) : (
+                          <StyledFilteredNumber>--</StyledFilteredNumber>
+                        )}
+                      </StyledCategoryFilter>
+                      <StyledCategoryFilter>
+                        <FormControlLabel
+                          value="gyroboard"
+                          control={<Radio />}
+                          label="Gyroboards"
+                        />
+                        {category === 'gyroboard' && !isLoadingArticles ? (
+                          <StyledFilteredNumber>
+                            {totalItems}
+                          </StyledFilteredNumber>
+                        ) : (
+                          <StyledFilteredNumber>--</StyledFilteredNumber>
+                        )}
+                      </StyledCategoryFilter>
+                      <StyledCategoryFilter>
+                        <FormControlLabel
+                          value="monowheel"
+                          control={<Radio />}
+                          label="Monowheel"
+                        />
+                        {category === 'monowheel' && !isLoadingArticles ? (
+                          <StyledFilteredNumber>
+                            {totalItems}
+                          </StyledFilteredNumber>
+                        ) : (
+                          <StyledFilteredNumber>--</StyledFilteredNumber>
+                        )}
+                      </StyledCategoryFilter>
+                      <StyledCategoryFilter>
+                        <FormControlLabel
+                          value="accessory"
+                          control={<Radio />}
+                          label="Accessories"
+                        />
+                        {category === 'accessory' && !isLoadingArticles ? (
+                          <StyledFilteredNumber>
+                            {totalItems}
+                          </StyledFilteredNumber>
+                        ) : (
+                          <StyledFilteredNumber>--</StyledFilteredNumber>
+                        )}
+                      </StyledCategoryFilter>
                     </RadioGroup>
                   </FormControl>
-                  <StyledRadioInfo>
-                    {category === 'bicycle' && !isLoadingArticles ? (
-                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
-                    ) : (
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
-                    )}
-                    {category === 'skateboard' && !isLoadingArticles ? (
-                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
-                    ) : (
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
-                    )}
-                    {category === 'scooter' && !isLoadingArticles ? (
-                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
-                    ) : (
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
-                    )}
-                    {category === 'gyroboard' && !isLoadingArticles ? (
-                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
-                    ) : (
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
-                    )}
-                    {category === 'monowheel' && !isLoadingArticles ? (
-                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
-                    ) : (
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
-                    )}
-                    {category === 'accessory' && !isLoadingArticles ? (
-                      <StyledFilteredNumber>{totalItems}</StyledFilteredNumber>
-                    ) : (
-                      <StyledFilteredNumber>--</StyledFilteredNumber>
-                    )}
-                  </StyledRadioInfo>
                 </StyledAccordionDetails>
               </Accordion>
               <Accordion defaultExpanded>
@@ -319,50 +342,54 @@ export const Catalog: FC = () => {
                       value={starsCount}
                       onChange={handleRatingChange}
                     >
-                      <FormControlLabel
-                        value="5"
-                        control={<Radio />}
-                        label=""
-                      />
-                      <FormControlLabel
-                        value="4"
-                        control={<Radio />}
-                        label=""
-                      />
-                      <FormControlLabel
-                        value="3"
-                        control={<Radio />}
-                        label=""
-                      />
+                      <StyledRatingFilter>
+                        <FormControlLabel
+                          value="5"
+                          control={<Radio />}
+                          label=""
+                        />
+                        <StyledFilteredRating>
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                        </StyledFilteredRating>
+                      </StyledRatingFilter>
+                      <StyledRatingFilter>
+                        <FormControlLabel
+                          value="4"
+                          control={<Radio />}
+                          label=""
+                        />
+                        <StyledFilteredRating>
+                          <StyledEmptyStar>
+                            {getIcon(EnumIcons.star)}
+                          </StyledEmptyStar>
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                        </StyledFilteredRating>
+                      </StyledRatingFilter>
+                      <StyledRatingFilter>
+                        <FormControlLabel
+                          value="3"
+                          control={<Radio />}
+                          label=""
+                        />
+                        <StyledFilteredRating>
+                          <StyledEmptyStar>
+                            {getIcon(EnumIcons.star)}
+                          </StyledEmptyStar>
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                          {getIcon(EnumIcons.star)}
+                        </StyledFilteredRating>
+                      </StyledRatingFilter>
                     </RadioGroup>
                   </FormControl>
-                  <StyledRatingInfo>
-                    <StyledFilteredRating>
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                    </StyledFilteredRating>
-                    <StyledFilteredRating>
-                      <StyledEmptyStar>
-                        {getIcon(EnumIcons.star)}
-                      </StyledEmptyStar>
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                    </StyledFilteredRating>
-                    <StyledFilteredRating>
-                      <StyledEmptyStar>
-                        {getIcon(EnumIcons.star)}
-                      </StyledEmptyStar>
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                      {getIcon(EnumIcons.star)}
-                    </StyledFilteredRating>
-                  </StyledRatingInfo>
                 </StyledAccordionRatingDetails>
               </Accordion>
             </StyledAccordions>

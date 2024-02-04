@@ -108,7 +108,9 @@ export const StyledAccordions = styled.div`
   }
   .css-15v22id-MuiAccordionDetails-root {
     padding: 4px 24px;
+    
   }
+  .MuiFormGroup-root {width: 290px;}
 `;
 
 export const StyledAccordionDetails = styled(AccordionDetails)`
@@ -116,7 +118,6 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
   .MuiFormGroup-root {
     ${tw`pb-4`}
   }
-
   .MuiRadio-root {
     color: #e2e7f1;
   }
@@ -124,8 +125,13 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
     color: #878d99;
   }
 `;
+
+export const StyledCategoryFilter = styled.div`
+${tw`flex justify-between items-center`}
+  
+`;
 export const StyledRadioInfo = styled.div`
-  ${tw`flex flex-col items-center gap-y-5 pt-1 pb-5`}
+  ${tw`flex flex-col items-center gap-y-[19px] pt-1 pb-5`}
 `;
 export const StyledAccordionRatingDetails = styled(AccordionDetails)`
   ${tw`flex justify-between items-center`}
@@ -142,10 +148,12 @@ export const StyledAccordionRatingDetails = styled(AccordionDetails)`
     color: #878d99;
   }
 `;
-export const StyledRatingInfo = styled.div`
-  ${tw`flex flex-col items-center gap-y-5 pb-4`}
+// export const StyledRatingInfo = styled.div`
+//   ${tw`flex flex-col items-center gap-y-4 pb-4`}
+// `;
+export const StyledRatingFilter = styled.div`
+  ${tw`flex gap-32 items-center `}
 `;
-
 // export const StyledFormControl = styled.div`
 //   ${tw`flex justify-between items-center px-2`}
 //   .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
@@ -176,13 +184,14 @@ export const StyledResetButton = styled.div`
   .MuiButton-root {
     ${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}
   }
-  .MuiButton-root:hover {
-    ${tw`bg-main-transparent font-bold`}
-  }
+
   svg {
     ${tw`w-6 h-6 stroke-secondary-gray pr-1`}
   }
 `;
 export const StyledButton = styled(Button)`
   ${tw`cursor-pointer`}
+  &:hover {
+    ${tw`bg-main-transparent font-bold`}
+  }
 `;
