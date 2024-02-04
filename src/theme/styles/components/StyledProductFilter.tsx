@@ -107,10 +107,11 @@ export const StyledAccordions = styled.div`
     ${tw`my-3`}
   }
   .css-15v22id-MuiAccordionDetails-root {
-    padding: 4px 24px;
-    
+    ${tw`py-1 px-6`}
   }
-  .MuiFormGroup-root {width: 290px;}
+  .MuiFormGroup-root {
+    width: 300px;
+  }
 `;
 
 export const StyledAccordionDetails = styled(AccordionDetails)`
@@ -127,12 +128,11 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 `;
 
 export const StyledCategoryFilter = styled.div`
-${tw`flex justify-between items-center`}
-  
+  ${tw`flex justify-between items-center`}
 `;
-export const StyledRadioInfo = styled.div`
-  ${tw`flex flex-col items-center gap-y-[19px] pt-1 pb-5`}
-`;
+// export const StyledRadioInfo = styled.div`
+//   // ${tw`flex flex-col items-center gap-y-[19px] pt-1 pb-5`}
+// `;
 export const StyledAccordionRatingDetails = styled(AccordionDetails)`
   ${tw`flex justify-between items-center`}
   .MuiFormGroup-root {
@@ -152,7 +152,7 @@ export const StyledAccordionRatingDetails = styled(AccordionDetails)`
 //   ${tw`flex flex-col items-center gap-y-4 pb-4`}
 // `;
 export const StyledRatingFilter = styled.div`
-  ${tw`flex gap-32 items-center `}
+  ${tw`flex justify-between items-center `}
 `;
 // export const StyledFormControl = styled.div`
 //   ${tw`flex justify-between items-center px-2`}
