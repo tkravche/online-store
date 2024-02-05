@@ -50,6 +50,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addItemToCart } from '@/lib/otherRedux/slice/user';
 import { useAppSelector } from '@/hooks';
+import Default from '@/assets/default.webp';
 
 export const ProductCardContent: FC<ICardProps> = props => {
   const {
@@ -62,7 +63,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
     rating,
     categories,
     characteristic,
-    count,
+    inStock,
   } = props;
 
   const dispatch = useDispatch();
@@ -85,7 +86,8 @@ export const ProductCardContent: FC<ICardProps> = props => {
     });
   };
   const quantity = 1;
-  const infoForCart = { id, name, url: images[0].url, price, sale, quantity };
+  const urlImage = images[0]?.url === undefined ? Default : images[0]?.url;
+  const infoForCart = { id, name, url: urlImage, price, sale, quantity };
   const handleFavoritesChange = () => {
     if (!isLogged) {
       toast.info('You need to be logged in to like!', {
@@ -150,7 +152,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
               <Typography variant="body2" component="span">
                 Product code: {id}
               </Typography>
-              {count === 0 ? (
+              {!inStock ? (
                 <Typography
                   sx={{ color: '#D25' }}
                   variant="body2"
@@ -329,7 +331,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
         </StyledProductCard>
 
         <div ref={reviewSection}></div>
-        <ReviewsSection url={images[0]?.url} name={name} id={id} />
+        <ReviewsSection url={urlImage} name={name} id={id} />
         <ProductSectionByCategory category={categories[0].name} />
         <StyledAllLink>
           <NavLink to={`/online-store/${categories[0].name}s`}>

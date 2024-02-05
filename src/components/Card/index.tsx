@@ -17,13 +17,15 @@ import { EnumIcons, ICardProps } from '@/types';
 import Default from '@/assets/default.webp';
 import { addItemToCart } from '@/lib/otherRedux/slice/user';
 import { useDispatch } from 'react-redux';
+import { constants } from 'http2';
 
 export const Card = memo(
   ({ name, price, sale, id, images, rating }: ICardProps) => {
     const dispatch = useDispatch();
 
     const quantity = 1;
-    const infoForCart = { id, name, url: images[0].url, price, sale, quantity };
+    const urlImage = images[0]?.url === undefined ? Default : images[0]?.url;
+    const infoForCart = { id, name, url: urlImage, price, sale, quantity };
     return (
       <StyledCard>
         <StyledCardTop>

@@ -7,10 +7,14 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  InputLabel,
   Link,
+  MenuItem,
   PaginationItem,
   Radio,
   RadioGroup,
+  Select,
+  SelectChangeEvent,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -28,11 +32,15 @@ import {
 import { Card } from '../Card';
 import { EnumIcons, ICardProps } from '@/types';
 import {
+  Styled2SelectsWrapper,
   StyledArticles,
+  StyledArticlesWrapper,
   StyledCatalog,
   StyledCatalogSection,
   StyledFilters,
+  StyledFormControlPage,
   StyledPagination,
+  StyledSelectsWrapper,
 } from '@/theme/styles/components/StyledCatalog';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import {
@@ -65,11 +73,26 @@ export const Catalog: FC = () => {
   const [starsCount, setStars] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [pageSize] = useState(8);
+  const [pageSize, setPageSize] = useState(8);
 
   const dispatch = useAppDispatch();
   const limit = pageSize;
 
+  const handlePageSizeChange = event => {
+    setPageSize(event.target.value);
+  };
+  const [price, setPriceSort] = useState('asc');
+  const handlePriceSortChange = event => {
+    setPriceSort(event.target.value);
+  };
+  const [stock, setStock] = useState('in');
+  const handleStockChange = event => {
+    setStock(event.target.value);
+  };
+  // const [stock, setInStock] = useState(true);
+  // const handleStockChange = (event: SelectChangeEvent) => {
+  //   setInStock(event.target.value as string);
+  // };
   useEffect(() => {
     dispatch(
       getFilteredArticlesThunk({
@@ -78,9 +101,10 @@ export const Catalog: FC = () => {
         saleChecked,
         category,
         starsCount,
+        price,
       })
     );
-  }, [dispatch, page, limit, category, saleChecked, starsCount]);
+  }, [dispatch, page, limit, category, saleChecked, starsCount, price]);
 
   const resetAllFilters = () => {
     setCheckedSale(false);
@@ -401,25 +425,80 @@ export const Catalog: FC = () => {
               </StyledButton>
             </StyledResetButton>
           </StyledFilters>
-          <StyledArticles>
-            {articles?.map((item: ICardProps) => (
-              <Card key={item.id} {...item} />
-            ))}
-            <StyledPagination
-              count={totalPages}
-              page={page}
-              onChange={handlePageChange}
-              renderItem={item => (
-                <PaginationItem
-                  component="div"
-                  {...item}
-                  onClick={e => handlePageChange(e, item.page)}
-                />
-              )}
-              variant="outlined"
-              shape="rounded"
-            />
-          </StyledArticles>
+          {!articles?.length && (
+            <Typography component="p">
+              Sorry, there are no products corresponding to these filter values.
+            </Typography>
+          )}
+          <StyledArticlesWrapper>
+            <StyledSelectsWrapper>
+              <Styled2SelectsWrapper>
+                <FormControl sx={{ mb: 4, width: 122 }}>
+                  {/* <InputLabel id="inStock">In stock</InputLabel> */}
+                  <Select
+                    labelId="inStock"
+                    id="inStock"
+                    value={stock}
+                    label="All"
+                    onChange={handleStockChange}
+                  >
+                    <MenuItem value={'in'}>In stock</MenuItem>
+                    <MenuItem value={'all'}>All</MenuItem>
+                    <MenuItem value={'out'}>Out of stock</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ mb: 4, width: 169 }}>
+                  {/* <InputLabel id="inStock">In stock</InputLabel> */}
+                  <Select
+                    labelId="PriceSort"
+                    id="PriceSort"
+                    value={price}
+                    label="Price: Low to High"
+                    onChange={handlePriceSortChange}
+                  >
+                    <MenuItem value={'asc'}>Price: Low to High</MenuItem>
+                    <MenuItem value={'desc'}>Price: High to Low</MenuItem>
+                    <MenuItem value={null}>Default</MenuItem>
+                  </Select>
+                </FormControl>
+              </Styled2SelectsWrapper>
+              <StyledFormControlPage sx={{ mb: 4, width: 66 }}>
+                {/* <InputLabel id="Limit">8</InputLabel> */}
+                <Select
+                  labelId="Limit"
+                  id="Limit"
+                  value={pageSize}
+                  label="8"
+                  onChange={handlePageSizeChange}
+                >
+                  <MenuItem value={8}>8</MenuItem>
+                  <MenuItem value={16}>16</MenuItem>
+                  <MenuItem value={24}>24</MenuItem>
+                </Select>
+              </StyledFormControlPage>
+            </StyledSelectsWrapper>
+            <StyledArticles>
+              {articles?.map((item: ICardProps) => (
+                <Card key={item.id} {...item} />
+              ))}
+            </StyledArticles>
+            {articles?.length > 0 && (
+              <StyledPagination
+                count={totalPages}
+                page={page}
+                onChange={handlePageChange}
+                renderItem={item => (
+                  <PaginationItem
+                    component="div"
+                    {...item}
+                    onClick={e => handlePageChange(e, item.page)}
+                  />
+                )}
+                variant="outlined"
+                shape="rounded"
+              />
+            )}
+          </StyledArticlesWrapper>
         </StyledCatalog>
       </StyledContainer>
     </StyledCatalogSection>
