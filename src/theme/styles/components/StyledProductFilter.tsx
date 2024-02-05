@@ -134,7 +134,7 @@ export const StyledCategoryFilter = styled.div`
 //   // ${tw`flex flex-col items-center gap-y-[19px] pt-1 pb-5`}
 // `;
 export const StyledAccordionRatingDetails = styled(AccordionDetails)`
-  ${tw`flex justify-between items-center`}
+  ${tw`flex justify-between items-center pb-10`}
   .MuiFormGroup-root {
     ${tw`pb-4`}
   }
