@@ -6,7 +6,7 @@ export const StyledCatalogSection = styled.section`
   ${tw`mt-40`}
 `;
 export const StyledCatalog = styled.div`
-  ${tw`grid grid-cols-[24% 76%] justify-center gap-x-32 mt-14`}
+  ${tw`grid grid-cols-[24% auto] justify-center gap-x-32 mt-14`}
 `;
 export const StyledFilters = styled.div`
   ${tw`bg-main-white h-[800px] rounded-lg`}

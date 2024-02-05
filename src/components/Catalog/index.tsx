@@ -425,11 +425,7 @@ export const Catalog: FC = () => {
               </StyledButton>
             </StyledResetButton>
           </StyledFilters>
-          {!articles?.length && (
-            <Typography component="p">
-              Sorry, there are no products corresponding to these filter values.
-            </Typography>
-          )}
+
           <StyledArticlesWrapper>
             <StyledSelectsWrapper>
               <Styled2SelectsWrapper>
@@ -477,6 +473,12 @@ export const Catalog: FC = () => {
                 </Select>
               </StyledFormControlPage>
             </StyledSelectsWrapper>
+            {!articles?.length && (
+              <Typography component="p">
+                Sorry, there are no products corresponding to these filter
+                values.
+              </Typography>
+            )}
             <StyledArticles>
               {articles?.map((item: ICardProps) => (
                 <Card key={item.id} {...item} />
