@@ -775,7 +775,7 @@ const store = createStore(
 `,BX=X.div`
   ${{marginTop:"3.5rem",display:"grid",gridTemplateColumns:"24% auto",justifyContent:"center",columnGap:"8rem"}}
 `,WX=X.div`
-  ${{height:"800px",borderRadius:"0.5rem","--tw-bg-opacity":"1",backgroundColor:"rgb(255 255 255 / var(--tw-bg-opacity))"}}
+  ${{maxHeight:"850px",borderRadius:"0.5rem","--tw-bg-opacity":"1",backgroundColor:"rgb(255 255 255 / var(--tw-bg-opacity))"}}
 `,UX=X.div`
   ${{display:"grid",gridTemplateColumns:"repeat(2, minmax(0, 1fr))",justifyContent:"space-between"}}
 .MuiInputBase-root {
@@ -903,7 +903,7 @@ s}
 `,Fs=X.div`
   ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
 `,oQ=X(K5)`
-  ${{display:"flex",alignItems:"center",justifyContent:"space-between"}}
+  ${{display:"flex",alignItems:"center",justifyContent:"space-between",paddingBottom:"2.5rem"}}
   .MuiFormGroup-root {
     ${{paddingBottom:"1rem"}}
   }
