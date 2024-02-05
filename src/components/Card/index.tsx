@@ -17,7 +17,6 @@ import { EnumIcons, ICardProps } from '@/types';
 import Default from '@/assets/default.webp';
 import { addItemToCart } from '@/lib/otherRedux/slice/user';
 import { useDispatch } from 'react-redux';
-import { constants } from 'http2';
 
 export const Card = memo(
   ({ name, price, sale, id, images, rating }: ICardProps) => {

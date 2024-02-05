@@ -180,7 +180,7 @@ export const StyledEmptyStar = styled.div`
 `;
 
 export const StyledResetButton = styled.div`
-  ${tw`flex justify-end `}
+  ${tw`flex justify-end bg-main-white `}
   .MuiButton-root {
     ${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}
   }
