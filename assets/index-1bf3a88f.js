@@ -930,7 +930,7 @@ s}
     }
   }
 `,iQ=X.div`
-  ${{display:"flex",justifyContent:"flex-end"}}
+  ${{display:"flex",justifyContent:"flex-end","--tw-bg-opacity":"1",backgroundColor:"rgb(255 255 255 / var(--tw-bg-opacity))"}}
   .MuiButton-root {
     ${{cursor:"pointer",padding:"0px",fontSize:"0.875rem",lineHeight:"1.25rem",fontWeight:"400","--tw-text-opacity":"1",color:"rgb(33 33 33 / var(--tw-text-opacity))"}}
   }
