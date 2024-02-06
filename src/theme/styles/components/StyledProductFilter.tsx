@@ -75,7 +75,7 @@ export const StyledPriceSlider = styled(Slider)`
   }
 `;
 export const StyledPriceNumberInputWrapper = styled.div`
-    ${tw`flex flex-row items-center gap-x-3`}}
+    ${tw`flex sm:flex-col lg:flex-row items-center gap-x-3`}}
  }
 `;
 export const StyledPriceNumberInput = styled(Input)`
@@ -113,12 +113,12 @@ export const StyledAccordions = styled.div`
     ${tw`py-1 px-6`}
   }
   .MuiFormGroup-root {
-    width: 300px;
-  }
+    ${tw`md:w-[158px] lg:w-[175px] xl:w-[225px] 2xl:w-[300px]`}
+     }
 `;
 
 export const StyledAccordionDetails = styled(AccordionDetails)`
-  ${tw`flex justify-between items-center`}
+  ${tw`flex items-center`}
   .MuiFormGroup-root {
     ${tw`pb-4`}
   }
@@ -151,7 +151,7 @@ export const StyledAccordionRatingDetails = styled(AccordionDetails)`
 `;
 
 export const StyledRatingFilter = styled.div`
-  ${tw`flex justify-between items-center `}
+  ${tw`flex lg:gap-x-6 xl:gap-x-14 2xl:justify-between items-center  `}
 `;
 
 export const StyledFilteredRating = styled.div`

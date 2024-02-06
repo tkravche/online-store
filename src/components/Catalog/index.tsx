@@ -61,6 +61,7 @@ import {
   StyledSaleFilter,
   StyledSetPrice,
 } from '@/theme/styles/components/StyledProductFilter';
+import { useDebounce } from '@/helpers/debounce';
 
 export const Catalog: FC = () => {
   const dispatch = useAppDispatch();
@@ -72,6 +73,7 @@ export const Catalog: FC = () => {
   const [saleChecked, setSaleChecked] = useState(false);
 
   const [valueSlider, setValueSlider] = useState<number[]>([0, 20000]);
+  const debouncedInputValue = useDebounce(valueSlider, 500);
 
   const [category, setCategory] = useState(null);
   const [starsCount, setStars] = useState(null);
@@ -82,8 +84,8 @@ export const Catalog: FC = () => {
 
   const [page, setPage] = useState(1);
 
-  const minPrice = valueSlider[0];
-  const maxPrice = valueSlider[1];
+  const minPrice = debouncedInputValue[0];
+  const maxPrice = debouncedInputValue[1];
   const limit = pageSize;
 
   //For Slider
@@ -513,7 +515,10 @@ export const Catalog: FC = () => {
               </StyledFormControlPage>
             </StyledSelectsWrapper>
             {!articles?.length && (
-              <Typography component="p" sx={{width: '952px', textAlign: 'center'}}>
+              <Typography
+                component="p"
+                sx={{ width: '952px', textAlign: 'center' }}
+              >
                 Sorry, there are no products corresponding to these filter
                 values.
               </Typography>
