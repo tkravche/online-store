@@ -1,5 +1,10 @@
-import { AccordionDetails, Button, Input, Slider, Typography } from '@mui/material';
-import { Unstable_NumberInput as BaseNumberInput } from '@mui/base/Unstable_NumberInput';
+import {
+  AccordionDetails,
+  Button,
+  Input,
+  Slider,
+  Typography,
+} from '@mui/material';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
@@ -7,7 +12,7 @@ export const StyledFiltersTitle = styled.h3`
     ${tw`text-[#FBFBFB] bg-main-black rounded-t-lg px-6 py-4`}}
      }
 `;
-export const StyledFiltersWrapper = styled.h3`
+export const StyledFiltersWrapper = styled.div`
     ${tw`px-6 py-4`}}
  }
 `;
@@ -74,14 +79,12 @@ export const StyledPriceNumberInputWrapper = styled.div`
  }
 `;
 export const StyledPriceNumberInput = styled(Input)`
-    ${tw``}
-    .MuiInput-input{
-        border-radius: 4px; 
-        border: 1px solid #878D99;
-        width: 80px;
-        text-align: center;
-           }
-     }
+  .MuiInput-input {
+    border-radius: 4px;
+    border: 1px solid #878d99;
+    width: 80px;
+    text-align: center;
+  }
 `;
 
 //Accordion
@@ -130,9 +133,7 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 export const StyledCategoryFilter = styled.div`
   ${tw`flex justify-between items-center`}
 `;
-// export const StyledRadioInfo = styled.div`
-//   // ${tw`flex flex-col items-center gap-y-[19px] pt-1 pb-5`}
-// `;
+
 export const StyledAccordionRatingDetails = styled(AccordionDetails)`
   ${tw`flex justify-between items-center pb-10`}
   .MuiFormGroup-root {
@@ -148,23 +149,11 @@ export const StyledAccordionRatingDetails = styled(AccordionDetails)`
     color: #878d99;
   }
 `;
-// export const StyledRatingInfo = styled.div`
-//   ${tw`flex flex-col items-center gap-y-4 pb-4`}
-// `;
+
 export const StyledRatingFilter = styled.div`
   ${tw`flex justify-between items-center `}
 `;
-// export const StyledFormControl = styled.div`
-//   ${tw`flex justify-between items-center px-2`}
-//   .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
-//     background-color: transparent;
-//   }
-//   .Mui-checked {
-//     svg {
-//       ${tw`fill-secondary-gray`}
-//     }
-//   }
-// `;
+
 export const StyledFilteredRating = styled.div`
   ${tw`flex gap-x-2`}
   svg {

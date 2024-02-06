@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -7,14 +7,12 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
-  InputLabel,
   Link,
   MenuItem,
   PaginationItem,
   Radio,
   RadioGroup,
   Select,
-  SelectChangeEvent,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -23,14 +21,13 @@ import { getFilteredArticlesThunk } from '@/lib/otherRedux/thunks/catalog';
 import { useAppSelector } from '@/lib/redux/init/store';
 import { useAppDispatch } from '@/hooks';
 import {
-  selectArticles,
   selectFilteredArticles,
   selectFilteredTotalItems,
   selectIsLoadingArticles,
-  selectTotalItems,
 } from '@/lib/otherRedux/selectors';
 import { Card } from '../Card';
 import { EnumIcons, ICardProps } from '@/types';
+import { getIcon } from '@/helpers/getIcon';
 import {
   Styled2SelectsWrapper,
   StyledArticles,
@@ -39,6 +36,7 @@ import {
   StyledCatalogSection,
   StyledFilters,
   StyledFormControlPage,
+  StyledPageSelect,
   StyledPagination,
   StyledSelectsWrapper,
 } from '@/theme/styles/components/StyledCatalog';
@@ -63,7 +61,6 @@ import {
   StyledSaleFilter,
   StyledSetPrice,
 } from '@/theme/styles/components/StyledProductFilter';
-import { getIcon } from '@/helpers/getIcon';
 
 export const Catalog: FC = () => {
   const dispatch = useAppDispatch();
@@ -76,7 +73,7 @@ export const Catalog: FC = () => {
 
   const [valueSlider, setValueSlider] = useState<number[]>([0, 20000]);
 
-  const [category, setCategory] = useState('bicycle');
+  const [category, setCategory] = useState(null);
   const [starsCount, setStars] = useState(null);
 
   const [stock, setStock] = useState('in');
@@ -104,9 +101,7 @@ export const Catalog: FC = () => {
       setValueSlider([Number(e.target.value), valueSlider[1]]);
     }
   };
-  // const handleMinInputChange = e => {
-  //   setValueSlider([Number(e.target.value), valueSlider[1]]);
-  // };
+
   const handleMaxInputChange = e => {
     if (
       e.target.value < 0 ||
@@ -118,9 +113,6 @@ export const Catalog: FC = () => {
       setValueSlider([valueSlider[0], Number(e.target.value)]);
     }
   };
-  // const handleMaxInputChange = e => {
-  //   setValueSlider([valueSlider[0], Number(e.target.value)]);
-  // };
 
   // const handleMinBlur = () => {
   //   if (valueSlider[0] < 0) {
@@ -155,8 +147,16 @@ export const Catalog: FC = () => {
     setStock(event.target.value);
   };
   const handlePriceSortChange = event => {
-    setPriceSort(event.target.value);
+    if (event.target.value === 'null') {
+      setPriceSort(null);
+    } else {
+      setPriceSort(event.target.value);
+    }
   };
+  // const handlePriceSortChange = event => {
+  //   setPriceSort(event.target.value);
+  // };
+
   const handlePageSizeChange = event => {
     setPageSize(event.target.value);
   };
@@ -177,6 +177,7 @@ export const Catalog: FC = () => {
     // setPrice(null);
     setCategory(null);
     setStars(null);
+    setValueSlider([0, 20000]);
   };
 
   useEffect(() => {
@@ -358,7 +359,7 @@ export const Catalog: FC = () => {
                         <FormControlLabel
                           value="monowheel"
                           control={<Radio />}
-                          label="Monowheel"
+                          label="Monowheels"
                         />
                         {category === 'monowheel' && !isLoadingArticles ? (
                           <StyledFilteredNumber>
@@ -464,7 +465,6 @@ export const Catalog: FC = () => {
               </StyledButton>
             </StyledResetButton>
           </StyledFilters>
-
           <StyledArticlesWrapper>
             <StyledSelectsWrapper>
               <Styled2SelectsWrapper>
@@ -493,13 +493,13 @@ export const Catalog: FC = () => {
                   >
                     <MenuItem value={'asc'}>Price: Low to High</MenuItem>
                     <MenuItem value={'desc'}>Price: High to Low</MenuItem>
-                    <MenuItem value={null}>Default</MenuItem>
+                    <MenuItem value={'null'}>Default</MenuItem>
                   </Select>
                 </FormControl>
               </Styled2SelectsWrapper>
               <StyledFormControlPage sx={{ mb: 4, width: 66 }}>
                 {/* <InputLabel id="Limit">8</InputLabel> */}
-                <Select
+                <StyledPageSelect
                   labelId="Limit"
                   id="Limit"
                   value={pageSize}
@@ -509,11 +509,11 @@ export const Catalog: FC = () => {
                   <MenuItem value={8}>8</MenuItem>
                   <MenuItem value={16}>16</MenuItem>
                   <MenuItem value={24}>24</MenuItem>
-                </Select>
+                </StyledPageSelect>
               </StyledFormControlPage>
             </StyledSelectsWrapper>
             {!articles?.length && (
-              <Typography component="p">
+              <Typography component="p" sx={{width: '952px', textAlign: 'center'}}>
                 Sorry, there are no products corresponding to these filter
                 values.
               </Typography>
