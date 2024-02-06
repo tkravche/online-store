@@ -78,6 +78,10 @@ export const ProductCardContent: FC<ICardProps> = props => {
     setValue(newValue);
   };
 
+  const formatedCharacteristics = characteristic
+    .split('.')
+    .map(item => item.split(':')[1]);
+  console.log(formatedCharacteristics);
   const reviewSection = useRef(null);
   const scrollToSection = (elementRef: RefObject<any>) => {
     window.scrollTo({
@@ -264,7 +268,22 @@ export const ProductCardContent: FC<ICardProps> = props => {
                   sx={{ padding: '10px', whiteSpace: 'pre' }}
                 >
                   {characteristic}
+                  <StyledList>
+                    <ListItem disablePadding>
+                      <ListItemText primary={characteristic} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemText primary={characteristic} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemText primary={characteristic} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemText primary={characteristic} />
+                    </ListItem>
+                  </StyledList>
                 </StyledTabPanel>
+
                 <StyledTabPanel value="3" sx={{ padding: '0px 8px 8px 10px' }}>
                   <StyledList
                     sx={{

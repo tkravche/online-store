@@ -9,7 +9,7 @@ export const StyledCatalog = styled.div`
   ${tw`grid grid-cols-[24% auto] justify-center gap-x-32 mt-14`}
 `;
 export const StyledFilters = styled.div`
-  ${tw`bg-main-white max-h-[850px] rounded-lg`}
+  ${tw`bg-main-white max-h-[780px] rounded-lg`}
 `;
 export const StyledSelectsWrapper= styled.div`
   ${tw`grid grid-cols-2 justify-between`}

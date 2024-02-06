@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -66,72 +66,80 @@ import {
 import { getIcon } from '@/helpers/getIcon';
 
 export const Catalog: FC = () => {
+  const dispatch = useAppDispatch();
+  const articles = useAppSelector(selectFilteredArticles);
+  const totalItems = useAppSelector(selectFilteredTotalItems);
+  const isLoadingArticles = useAppSelector(selectIsLoadingArticles);
+
   const [checkedSale, setCheckedSale] = useState(false);
   const [saleChecked, setSaleChecked] = useState(false);
+
+  const [valueSlider, setValueSlider] = useState<number[]>([0, 20000]);
 
   const [category, setCategory] = useState('bicycle');
   const [starsCount, setStars] = useState(null);
 
-  const [page, setPage] = useState(1);
+  const [stock, setStock] = useState('in');
+  const [price, setPriceSort] = useState('asc');
   const [pageSize, setPageSize] = useState(8);
 
-  const dispatch = useAppDispatch();
+  const [page, setPage] = useState(1);
+
+  const minPrice = valueSlider[0];
+  const maxPrice = valueSlider[1];
   const limit = pageSize;
 
-  const handlePageSizeChange = event => {
-    setPageSize(event.target.value);
-  };
-  const [price, setPriceSort] = useState('asc');
-  const handlePriceSortChange = event => {
-    setPriceSort(event.target.value);
-  };
-  const [stock, setStock] = useState('in');
-  const handleStockChange = event => {
-    setStock(event.target.value);
-  };
-  // const [stock, setInStock] = useState(true);
-  // const handleStockChange = (event: SelectChangeEvent) => {
-  //   setInStock(event.target.value as string);
-  // };
-  useEffect(() => {
-    dispatch(
-      getFilteredArticlesThunk({
-        page,
-        limit,
-        saleChecked,
-        category,
-        starsCount,
-        price,
-      })
-    );
-  }, [dispatch, page, limit, category, saleChecked, starsCount, price]);
-
-  const resetAllFilters = () => {
-    setCheckedSale(false);
-    setSaleChecked(false);
-    // setPrice(null);
-    setCategory(null);
-    setStars(null);
-  };
-
-  const articles = useAppSelector(selectFilteredArticles);
-  const totalItems = useAppSelector(selectFilteredTotalItems);
-  const isLoadingArticles = useAppSelector(selectIsLoadingArticles);
-  //For Pagination
-  const totalPages = Math.ceil(totalItems / pageSize);
-  const handlePageChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newPage: number
-  ) => {
-    setPage(newPage);
-  };
-
   //For Slider
-  const [value, setValue] = useState<number[]>([0, 20000]);
-
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    setValueSlider(newValue as number[]);
   };
+  const handleMinInputChange = e => {
+    if (
+      e.target.value < 0 ||
+      e.target.value > 20000 ||
+      e.target.value > valueSlider[1]
+    ) {
+      setValueSlider([0, valueSlider[1]]);
+    } else {
+      setValueSlider([Number(e.target.value), valueSlider[1]]);
+    }
+  };
+  // const handleMinInputChange = e => {
+  //   setValueSlider([Number(e.target.value), valueSlider[1]]);
+  // };
+  const handleMaxInputChange = e => {
+    if (
+      e.target.value < 0 ||
+      e.target.value > 20000 ||
+      e.target.value < valueSlider[0]
+    ) {
+      setValueSlider([valueSlider[0], 20000]);
+    } else {
+      setValueSlider([valueSlider[0], Number(e.target.value)]);
+    }
+  };
+  // const handleMaxInputChange = e => {
+  //   setValueSlider([valueSlider[0], Number(e.target.value)]);
+  // };
+
+  // const handleMinBlur = () => {
+  //   if (valueSlider[0] < 0) {
+  //     setValueSlider([0, valueSlider[1]]);
+  //   } else if (valueSlider[0] > 20000) {
+  //     setValueSlider([200000, valueSlider[1]]);
+  //   } else if (valueSlider[0] > valueSlider[1]) {
+  //     setValueSlider([0, valueSlider[1]]);
+  //   }
+  // };
+  // const handleMaxBlur = () => {
+  //   if (valueSlider[1] < 0) {
+  //     setValueSlider([valueSlider[0], 20000]);
+  //   } else if (valueSlider[1] > 20000) {
+  //     setValueSlider([valueSlider[0], 20000]);
+  //   } else if (valueSlider[1] < valueSlider[0]) {
+  //     setValueSlider([valueSlider[0], 20000]);
+  //   }
+  // };
 
   //For radio buttons category
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,17 +149,60 @@ export const Catalog: FC = () => {
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStars((event.target as HTMLInputElement).value);
   };
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setValue(event.target.value === '' ? 0 : Number(event.target.value));
-  // };
 
-  // const handleBlur = () => {
-  //   if (value < 0) {
-  //     setValue(0);
-  //   } else if (value > 100) {
-  //     setValue(100);
-  //   }
-  // };
+  //For selectors
+  const handleStockChange = event => {
+    setStock(event.target.value);
+  };
+  const handlePriceSortChange = event => {
+    setPriceSort(event.target.value);
+  };
+  const handlePageSizeChange = event => {
+    setPageSize(event.target.value);
+  };
+
+  //For Pagination
+  const totalPages = Math.ceil(totalItems / pageSize);
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  //For Reset
+  const resetAllFilters = () => {
+    setCheckedSale(false);
+    setSaleChecked(false);
+    // setPrice(null);
+    setCategory(null);
+    setStars(null);
+  };
+
+  useEffect(() => {
+    dispatch(
+      getFilteredArticlesThunk({
+        page,
+        limit,
+        saleChecked,
+        category,
+        starsCount,
+        price,
+        minPrice,
+        maxPrice,
+      })
+    );
+  }, [
+    dispatch,
+    page,
+    limit,
+    category,
+    saleChecked,
+    starsCount,
+    price,
+    maxPrice,
+    minPrice,
+  ]);
 
   return (
     <StyledCatalogSection>
@@ -198,8 +249,9 @@ export const Catalog: FC = () => {
                 <StyledPriceSlider
                   min={0}
                   max={20000}
-                  value={value}
-                  onChange={handleChange}
+                  step={100}
+                  value={valueSlider}
+                  onChange={handleSliderChange}
                   valueLabelDisplay="auto"
                   aria-labelledby="input-slider"
                 />
@@ -207,10 +259,10 @@ export const Catalog: FC = () => {
                   <Typography component="span">$</Typography>
                   <StyledPriceNumberInput
                     aria-label="Price Input"
-                    min={0}
-                    max={20000}
-                    placeholder="0"
-                    // defaultValue="0"
+                    type="number"
+                    value={valueSlider[0]}
+                    // onBlur={handleMinBlur}
+                    onChange={handleMinInputChange}
                   />
                   <Typography
                     component="span"
@@ -220,24 +272,11 @@ export const Catalog: FC = () => {
                   </Typography>
                   <StyledPriceNumberInput
                     aria-label="Price Input"
-                    min={0}
-                    max={2000}
-                    placeholder="20000"
-                    // defaultValue="20000"
+                    type="number"
+                    value={valueSlider[1]}
+                    // onBlur={handleMaxBlur}
+                    onChange={handleMaxInputChange}
                   />
-                  {/* <StyledPriceInput
-                value={value}
-                size="small"
-                // onChange={handleInputChange}
-                // onBlur={handleBlur}
-                inputProps={{
-                  step: 1000,
-                  min: 0,
-                  max: 20000,
-                  type: 'number',
-                  'aria-labelledby': 'input-slider',
-                }}
-              /> */}
                 </StyledPriceNumberInputWrapper>
               </StyledPriceSliderWrapper>
             </StyledFiltersWrapper>

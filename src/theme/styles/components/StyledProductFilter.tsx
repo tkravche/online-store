@@ -1,4 +1,4 @@
-import { AccordionDetails, Button, Slider, Typography } from '@mui/material';
+import { AccordionDetails, Button, Input, Slider, Typography } from '@mui/material';
 import { Unstable_NumberInput as BaseNumberInput } from '@mui/base/Unstable_NumberInput';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
@@ -48,7 +48,7 @@ export const StyledSetPrice = styled(Typography)`
 `;
 export const StyledPriceSlider = styled(Slider)`
   span {
-    ${tw`text-main-darkRed`}
+    ${tw`text-main-red`}
   }
   .MuiSlider-rail {
     ${tw`text-[#E2E7F1]`}
@@ -70,12 +70,12 @@ export const StyledPriceSlider = styled(Slider)`
   }
 `;
 export const StyledPriceNumberInputWrapper = styled.div`
-    ${tw`flex flex-row gap-x-3`}}
+    ${tw`flex flex-row items-center gap-x-3`}}
  }
 `;
-export const StyledPriceNumberInput = styled(BaseNumberInput)`
+export const StyledPriceNumberInput = styled(Input)`
     ${tw``}
-    .MuiNumberInput-input{
+    .MuiInput-input{
         border-radius: 4px; 
         border: 1px solid #878D99;
         width: 80px;
