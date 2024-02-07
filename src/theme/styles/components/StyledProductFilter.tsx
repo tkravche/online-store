@@ -109,19 +109,20 @@ export const StyledAccordions = styled.div`
     ${tw`my-3`}
   }
   .css-15v22id-MuiAccordionDetails-root {
-    ${tw`pt-1 pb-0 px-6`}
+    ${tw`py-1  px-6`}
   }
   .MuiFormGroup-root {
     ${tw`md:w-[158px] lg:w-[175px] xl:w-[225px] 2xl:w-[300px]`}
      }
+    
 `;
 
 export const StyledAccordionDetails = styled(AccordionDetails)`
   ${tw`flex items-center`}
   .MuiFormGroup-root {
-    ${tw`pb-4`}
+    ${tw`pb-0`}
   }
-  .MuiRadio-root {
+   .MuiRadio-root {
     color: #878d99;
   }
   .MuiRadio-root.Mui-checked {
@@ -131,6 +132,7 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 
 export const StyledCategoryFilter = styled.div`
   ${tw`flex justify-between items-center`}
+   
 `;
 
 export const StyledAccordionRatingDetails = styled(AccordionDetails)`
