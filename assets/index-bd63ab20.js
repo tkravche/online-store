@@ -871,7 +871,6 @@ ${{"--tw-bg-opacity":"1",backgroundColor:"rgb(221 34 85 / var(--tw-bg-opacity))"
     text-align: center;
   }
 `,VX=Y.div`
-  ${{paddingBottom:"1rem"}}
   .css-1c35hjw-MuiPaper-root-MuiAccordion-root.Mui-expanded {
     ${{margin:"0px"}}
   }
@@ -937,7 +936,7 @@ ${{"--tw-bg-opacity":"1",backgroundColor:"rgb(221 34 85 / var(--tw-bg-opacity))"
     }
   }
 `,KX=Y.div`
-  ${{display:"flex",justifyContent:"flex-end","--tw-bg-opacity":"1",backgroundColor:"rgb(255 255 255 / var(--tw-bg-opacity))"}}
+  ${{display:"flex",justifyContent:"flex-end","--tw-bg-opacity":"1",backgroundColor:"rgb(255 255 255 / var(--tw-bg-opacity))",paddingTop:"1rem"}}
   .MuiButton-root {
     ${{cursor:"pointer",padding:"0px",fontSize:"0.875rem",lineHeight:"1.25rem",fontWeight:"400","--tw-text-opacity":"1",color:"rgb(33 33 33 / var(--tw-text-opacity))"}}
   }
