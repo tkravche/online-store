@@ -871,7 +871,7 @@ ${{"--tw-bg-opacity":"1",backgroundColor:"rgb(221 34 85 / var(--tw-bg-opacity))"
     text-align: center;
   }
 `,VX=Y.div`
-  ${{marginBottom:"1rem"}}
+  ${{paddingBottom:"1rem"}}
   .css-1c35hjw-MuiPaper-root-MuiAccordion-root.Mui-expanded {
     ${{margin:"0px"}}
   }
