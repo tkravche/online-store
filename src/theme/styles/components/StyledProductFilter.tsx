@@ -90,7 +90,7 @@ export const StyledPriceNumberInput = styled(Input)`
 //Accordion
 
 export const StyledAccordions = styled.div`
-  ${tw`mb-4`}
+  ${tw`pb-4`}
   .css-1c35hjw-MuiPaper-root-MuiAccordion-root.Mui-expanded {
     ${tw`m-0`}
   }
