@@ -90,7 +90,6 @@ export const StyledPriceNumberInput = styled(Input)`
 //Accordion
 
 export const StyledAccordions = styled.div`
-  ${tw`pb-4`}
   .css-1c35hjw-MuiPaper-root-MuiAccordion-root.Mui-expanded {
     ${tw`m-0`}
   }
@@ -169,7 +168,7 @@ export const StyledEmptyStar = styled.div`
 `;
 
 export const StyledResetButton = styled.div`
-  ${tw`flex justify-end bg-main-white `}
+  ${tw`flex justify-end bg-main-white pt-4`}
   .MuiButton-root {
     ${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}
   }
