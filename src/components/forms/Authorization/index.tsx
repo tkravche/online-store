@@ -26,21 +26,29 @@ import loginImg from '@/assets/login.jpg';
 import loginImgWebp from '@/assets/login.webp';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp/Index';
-import { selectAuthOpen } from '@/lib/otherRedux/selectors';
+import {
+  selectAuthOpen,
+  selectIsRegistered,
+  selectIsVerified,
+} from '@/lib/otherRedux/selectors';
 import { setSearch } from '@/lib/otherRedux/slice/header';
 import { uiActions } from '@/lib/redux/actions';
 import { getAuthOpen } from '@/lib/redux/selectors';
-import { setAuth } from '@/lib/otherRedux/slice/auth';
+import { setAuth, setVerified } from '@/lib/otherRedux/slice/auth';
 import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '@/hooks';
+import { Verification } from './Verification';
+import { FinishingRegistration } from './FinishingRegistration';
 
 export const Authorization: FC = () => {
   const [open, setOpen] = useState(true);
 
   const dispatch = useDispatch();
   const isAuthOpen = useSelector(selectAuthOpen);
-
+  const isRegistering = useAppSelector(selectIsRegistered);
+  const isVerified = useAppSelector(selectIsVerified);
   const [typeForm, setTypeForm] = useState('Sign In');
 
   const handleClose = () => {
@@ -53,34 +61,48 @@ export const Authorization: FC = () => {
     setTypeForm(value);
   };
 
+  if (isRegistering) {
+    setTimeout(() => {
+      dispatch(setVerified(true));
+    }, 10000);
+  }
+
   return (
-    <StyledAuthorization open={isAuthOpen} onClose={handleClose}>
-      <IconButton
-        aria-label="close"
-        onClick={handleClose}
-        sx={{
-          fill: '#FBFBFB',
-          position: 'absolute',
-          right: 20,
-          top: 20,
-          color: theme => theme.palette.grey[500],
-        }}
-      >
-        <CloseIcon />
-      </IconButton>
-      <StyledAuthorizationContainer>
-        <StyledAuthorizationContent>
-          <StyledAuthorizationTitle variant="h3" className="title">
-            {typeForm === 'Sign In' ? 'Welcome Back' : 'Create an account'}
-          </StyledAuthorizationTitle>
-          <Switch onChange={handleChange} />
-          {typeForm === 'Sign In' ? <SignIn /> : <SignUp />}
-        </StyledAuthorizationContent>
-        <StyledAuthorizationImg>
-          <Image src={loginImg} webp={loginImgWebp} alt="Online" />
-        </StyledAuthorizationImg>
-      </StyledAuthorizationContainer>
-    </StyledAuthorization>
+    <>
+      {!isRegistering ? (
+        <StyledAuthorization open={isAuthOpen} onClose={handleClose}>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              fill: '#FBFBFB',
+              position: 'absolute',
+              right: 20,
+              top: 20,
+              color: theme => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <StyledAuthorizationContainer>
+            <StyledAuthorizationContent>
+              <StyledAuthorizationTitle variant="h3" className="title">
+                {typeForm === 'Sign In' ? 'Welcome Back' : 'Create an account'}
+              </StyledAuthorizationTitle>
+              <Switch onChange={handleChange} />
+              {typeForm === 'Sign In' ? <SignIn /> : <SignUp />}
+            </StyledAuthorizationContent>
+            <StyledAuthorizationImg>
+              <Image src={loginImg} webp={loginImgWebp} alt="Online" />
+            </StyledAuthorizationImg>
+          </StyledAuthorizationContainer>
+        </StyledAuthorization>
+      ) : isVerified ? (
+        <FinishingRegistration />
+      ) : (
+        <Verification />
+      )}
+    </>
     // <StyledAuthorization open={isAuthOpen} onClose={handleClose}>
     //   <IconButton
     //     aria-label="close"

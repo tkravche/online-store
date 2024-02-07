@@ -1,12 +1,7 @@
 import { FC } from 'react';
 import Image from 'react-image-webp';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { DialogTitle, Divider, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import {
@@ -14,18 +9,21 @@ import {
   StyledAuthorizationContainer,
   StyledAuthorizationImg,
   StyledCheckButton,
+  StyledSuccessContent,
   StyledVWrapper,
-  StyledVerificationContent,
 } from '@/theme/styles/components/StyledAuthorization';
 
 import loginImg from '@/assets/login.jpg';
 import loginImgWebp from '@/assets/login.webp';
-import { selectAuthOpen, selectIsLoading } from '@/lib/otherRedux/selectors';
+
+import { selectAuthOpen } from '@/lib/otherRedux/selectors';
+
 import { setAuth } from '@/lib/otherRedux/slice/auth';
 import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
+import { Link } from 'react-router-dom';
 
-export const Verification: FC = () => {
+export const FinishingRegistration: FC = () => {
   const dispatch = useDispatch();
   const isAuthOpen = useSelector(selectAuthOpen);
 
@@ -49,25 +47,36 @@ export const Verification: FC = () => {
         <CloseIcon />
       </IconButton>
       <StyledAuthorizationContainer>
-        <StyledVerificationContent>
-          {getIcon(EnumIcons.mail)}
+        <StyledSuccessContent>
+          {getIcon(EnumIcons.check)}
           <StyledVWrapper>
             <DialogTitle
               sx={{ p: '8px', fontWeight: '900' }}
               id="customized-dialog-title"
             >
-              Verification
+              Registration is successful!
             </DialogTitle>
-            <DialogContent sx={{ m: 0, p: 0 }}>
-              <Typography variant="body2" component="p">
-                We have sent you a letter.
-              </Typography>
-            </DialogContent>
           </StyledVWrapper>
-          <StyledCheckButton type="button" variant="contained">
-            Check your mailbox.
+          {/* <StyledCheckButton type="button" onClick={...} variant="contained"> */}
+          <StyledCheckButton
+            type="button"
+            onClick={handleClose}
+            variant="contained"
+          >
+            Sign in
           </StyledCheckButton>
-        </StyledVerificationContent>
+          <Divider flexItem />
+          <Link to="/online-store">
+            <Typography
+              onClick={handleClose}
+              variant="body2"
+              component="p"
+              sx={{ color: '#8083FF' }}
+            >
+              View the site without logging in
+            </Typography>
+          </Link>
+        </StyledSuccessContent>
         <StyledAuthorizationImg>
           <Image src={loginImg} webp={loginImgWebp} alt="Online" />
         </StyledAuthorizationImg>

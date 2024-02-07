@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { clearToken, loginUser, refreshThunk } from '../../thunks/auth';
+import {
+  clearToken,
+  loginUser,
+  refreshThunk,
+  registerUser,
+} from '../../thunks/auth';
 import { Slide, toast } from 'react-toastify';
 
 type userStateProps = {
@@ -8,14 +13,18 @@ type userStateProps = {
   isLogged: boolean;
   isLoading: boolean;
   isAuthOpen: boolean;
+  isRegistered: boolean;
+  isVerified: boolean;
 };
 
 const initialState: userStateProps = {
   accessToken: null,
   refreshToken: null,
   isLogged: false,
+  isRegistered: false,
   isLoading: false,
   isAuthOpen: false,
+  isVerified: false,
 };
 
 export const authSlice = createSlice({
@@ -24,6 +33,9 @@ export const authSlice = createSlice({
   reducers: {
     setAuth: (state, { payload }) => {
       state.isAuthOpen = payload;
+    },
+    setVerified: (state, { payload }) => {
+      state.isVerified = payload;
     },
     logoutUser: state => {
       state.accessToken = null;
@@ -45,6 +57,40 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: builder => {
+    builder.addCase(registerUser.pending, state => {
+      state.isRegistered = false;
+      state.isLoading = true;
+    });
+    builder.addCase(registerUser.fulfilled, state => {
+      state.isRegistered = true;
+      state.isLoading = false;
+      toast.success('You are registering.', {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Slide,
+      });
+    });
+    builder.addCase(registerUser.rejected, state => {
+      state.isRegistered = false;
+      state.isLoading = false;
+      toast.error('Please try again.', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Slide,
+      });
+    });
     builder.addCase(loginUser.pending, state => {
       state.isLogged = false;
       state.isLoading = true;
@@ -109,5 +155,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logoutUser, setAuth } = authSlice.actions;
+export const { logoutUser, setAuth, setVerified } = authSlice.actions;
 export default authSlice.reducer;
