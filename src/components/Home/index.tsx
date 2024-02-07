@@ -10,9 +10,9 @@ import { BicyclesSection } from './BicyclesSection';
 import { Categories } from './Categories';
 import { SkateboardsSection } from './SkateboardsSection';
 import { ScrollToTopButton } from '../ScrollToTopButton';
+import { Newsletter } from '../Newsletter';
 
 export const Home: FC = () => {
-
   return (
     <>
       <Hero />
@@ -28,8 +28,8 @@ export const Home: FC = () => {
           </Link>
           <ScrollToTopButton />
         </StyledAllLink>
-        
       </StyledContainer>
+      <Newsletter />
     </>
   );
 };

@@ -3,13 +3,13 @@ import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 export const StyledCatalogSection = styled.section`
-  ${tw`mt-40`}
+  ${tw`mt-40 mb-14`}
 `;
 export const StyledCatalog = styled.div`
   ${tw`grid grid-cols-[24% auto] justify-center gap-x-32 mt-14`}
 `;
 export const StyledFilters = styled.div`
-  ${tw`bg-main-white max-h-[780px] rounded-lg`}
+  ${tw`bg-main-white max-h-[760px] rounded-lg`}
 `;
 export const StyledSelectsWrapper = styled.div`
   ${tw`grid grid-cols-2 justify-between`}

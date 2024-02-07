@@ -13,6 +13,7 @@ import { registerSchema } from '@/helpers/yup';
 import { registerUser } from '@/lib/otherRedux/thunks/auth';
 import { useAppDispatch } from '@/hooks';
 import { setAuth } from '@/lib/otherRedux/slice/auth';
+import { Verification } from '../Verification';
 
 interface ISignUp {
   name: string;
@@ -41,7 +42,9 @@ export const SignUp: FC = () => {
   ) {
     disabled = true;
   }
-
+  const handleRegistrationClick = () => {
+    <Verification />;
+  };
   return (
     <StyledAuthorizationForm
       onSubmit={form.handleSubmit(handleSendSubmit as any)}
@@ -93,7 +96,12 @@ export const SignUp: FC = () => {
         {getIcon(EnumIcons.google)}
         Sign Up with Google
       </StyledGoogleBtn>
-      <Button type="submit" disabled={disabled} variant="contained">
+      <Button
+        type="submit"
+        onClick={handleRegistrationClick}
+        disabled={disabled}
+        variant="contained"
+      >
         Registration
       </Button>
     </StyledAuthorizationForm>

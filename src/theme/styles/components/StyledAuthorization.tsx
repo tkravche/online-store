@@ -1,10 +1,17 @@
-import { Dialog, DialogContent, Typography } from '@mui/material';
+import { Button, Dialog, DialogContent, Typography } from '@mui/material';
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
 export const StyledAuthorization = styled(Dialog)`
   .MuiPaper-root {
     ${tw`flex max-w-full mx-4 my-4 xl:mx-8 xl:my-8 rounded-3xl`}
+         .icon-mail {
+    ${tw`w-14 h-14 stroke-secondary-blue`}
+  
+  }
+  .icon-check {
+    ${tw`w-14 h-14 stroke-secondary-green`}
+  
   }
 `;
 
@@ -16,7 +23,8 @@ export const StyledAuthorizationContainer = styled(DialogContent)`
 
 export const StyledAuthorizationContent = styled.div`
   ${tw`flex flex-col justify-start w-full lg:w-1/2	gap-y-4 px-5 lg:px-16 py-10`}
-`;
+  }
+  `;
 
 export const StyledAuthorizationTitle = styled(Typography)`
   &.title {
@@ -50,7 +58,9 @@ export const StyledAuthorizationForm = styled.form`
     &::after {
       ${tw`hidden`}
     }
-    .css-1x51dt5-MuiInputBase-input-MuiInput-input { ${tw`pb-2 pt-2`}}
+    .css-1x51dt5-MuiInputBase-input-MuiInput-input {
+      ${tw`pb-2 pt-2`}
+    }
 
     input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0 50px #f8faff inset;
@@ -65,4 +75,16 @@ export const StyledAuthorizationForm = styled.form`
       ${tw`stroke-secondary-gray`}
     }
   }
+`;
+export const StyledCheckButton = styled(Button)`
+  ${tw`self-stretch`}
+`;
+export const StyledVerificationContent = styled.div`
+  ${tw`flex flex-col items-center m-auto w-full lg:w-1/2	gap-y-6 px-5 lg:px-16 py-10`}
+`;
+export const StyledVWrapper = styled.div`
+  ${tw`text-center`}
+`;
+export const StyledSuccessContent= styled.div`
+${tw`flex flex-col items-center m-auto w-full lg:w-1/2	gap-y-6 px-5 lg:px-16 py-10`}
 `;

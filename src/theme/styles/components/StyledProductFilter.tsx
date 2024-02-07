@@ -32,15 +32,10 @@ export const StyledSaleFilter = styled.div`
 `;
 
 export const StyledFilteredNumber = styled.span`
-  ${tw`px-[6px] py-1`}
-  border-radius: 4px;
-  border: 1px solid #e2e7f1;
-  background: #e2e7f1;
-  color: #878d99;
+  ${tw`px-[6px] py-1 bg-[#e2e7f1] text-center  text-secondary-gray rounded border border-solid border-[#e2e7f1]` }
   font-size: 0.625rem;
-  font-weight: 400;
   line-height: 140%;
-  tex-align: center;
+ 
 `;
 //Slider
 export const StyledPriceSliderWrapper = styled.div`
@@ -75,15 +70,12 @@ export const StyledPriceSlider = styled(Slider)`
   }
 `;
 export const StyledPriceNumberInputWrapper = styled.div`
-    ${tw`flex sm:flex-col lg:flex-row items-center gap-x-3`}}
+    ${tw`flex flex-col lg:flex-row items-center gap-x-3`}}
  }
 `;
 export const StyledPriceNumberInput = styled(Input)`
   .MuiInput-input {
-    border-radius: 4px;
-    border: 1px solid #878d99;
-    width: 80px;
-    text-align: center;
+    ${tw`lg:w-16 xl:w-20 rounded text-center border border-solid border-secondary-gray`}
   }
 `;
 
@@ -113,8 +105,7 @@ export const StyledAccordions = styled.div`
   }
   .MuiFormGroup-root {
     ${tw`md:w-[158px] lg:w-[175px] xl:w-[225px] 2xl:w-[300px]`}
-     }
-    
+  }
 `;
 
 export const StyledAccordionDetails = styled(AccordionDetails)`
@@ -122,7 +113,7 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
   .MuiFormGroup-root {
     ${tw`pb-0`}
   }
-   .MuiRadio-root {
+  .MuiRadio-root {
     color: #878d99;
   }
   .MuiRadio-root.Mui-checked {
@@ -132,7 +123,6 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 
 export const StyledCategoryFilter = styled.div`
   ${tw`flex justify-between items-center`}
-   
 `;
 
 export const StyledAccordionRatingDetails = styled(AccordionDetails)`
@@ -172,7 +162,7 @@ export const StyledEmptyStar = styled.div`
 export const StyledResetButton = styled.div`
   ${tw`flex justify-end bg-main-white pt-4`}
   .MuiButton-root {
-    ${tw`text-[#212121] font-normal text-sm cursor-pointer p-0`}
+    ${tw`text-main-black font-normal text-sm cursor-pointer p-0`}
   }
 
   svg {
