@@ -109,7 +109,7 @@ export const StyledAccordions = styled.div`
     ${tw`my-3`}
   }
   .css-15v22id-MuiAccordionDetails-root {
-    ${tw`py-1  px-6`}
+    ${tw`pt-1 pb-0 px-6`}
   }
   .MuiFormGroup-root {
     ${tw`md:w-[158px] lg:w-[175px] xl:w-[225px] 2xl:w-[300px]`}
