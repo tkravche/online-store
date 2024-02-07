@@ -7,14 +7,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // import { theme } from 'twin.macro';
 import { App } from './App.js';
 import './index.css';
-import { ToastContainer} from 'react-toastify';
+import { Slide, ToastContainer } from 'react-toastify';
 
 // import { store } from './lib/redux/init/store.js';
 import theme from './theme/theme';
 import { otherStore, persistor } from './lib/otherRedux/otherStore.js';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ScrollToTop } from './components/ScrollToTop/index.js';
-
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // Наш store прокидаємо у Provider
@@ -26,7 +25,19 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <Router>
             <ScrollToTop />
             <App />
-            <ToastContainer />
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              transition= {Slide}
+            />
           </Router>
         </ThemeProvider>
       </Provider>

@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { selectAccessToken, selectRefreshToken } from '../../selectors';
 import { useAppSelector } from '@/hooks';
 
+
 export const setToken = (token: any) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };

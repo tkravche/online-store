@@ -94,17 +94,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
   const infoForCart = { id, name, url: urlImage, price, sale, quantity };
   const handleFavoritesChange = () => {
     if (!isLogged) {
-      toast.info('You need to be logged in to like!', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Slide,
-      });
+      toast.info('You need to be logged in to like!', {});
     } else {
       console.log('favorite');
     }

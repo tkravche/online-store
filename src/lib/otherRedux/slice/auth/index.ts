@@ -5,8 +5,8 @@ import {
   refreshThunk,
   registerUser,
 } from '../../thunks/auth';
-import { Slide, toast } from 'react-toastify';
-
+import { toast } from 'react-toastify';
+import type { PayloadAction } from '@reduxjs/toolkit';
 type userStateProps = {
   accessToken: null | string;
   refreshToken: null | string;
@@ -34,6 +34,9 @@ export const authSlice = createSlice({
     setAuth: (state, { payload }) => {
       state.isAuthOpen = payload;
     },
+    setRegistered: (state, { payload }) => {
+      state.isRegistered = payload;
+    },
     setVerified: (state, { payload }) => {
       state.isVerified = payload;
     },
@@ -43,17 +46,7 @@ export const authSlice = createSlice({
       state.isLogged = false;
       localStorage.removeItem('accessToken');
       clearToken();
-      toast.info('You were successfully logged out.', {
-        position: 'top-right',
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Slide,
-      });
+      toast.info('You were successfully logged out.', {});
     },
   },
   extraReducers: builder => {
@@ -64,33 +57,16 @@ export const authSlice = createSlice({
     builder.addCase(registerUser.fulfilled, state => {
       state.isRegistered = true;
       state.isLoading = false;
-      toast.success('You are registering.', {
-        position: 'top-right',
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Slide,
-      });
+      toast.success('You are registering.', {});
     });
-    builder.addCase(registerUser.rejected, state => {
-      state.isRegistered = false;
-      state.isLoading = false;
-      toast.error('Please try again.', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Slide,
-      });
-    });
+    builder.addCase(
+      registerUser.rejected,
+      (state, action: PayloadAction<any>) => {
+        state.isRegistered = false;
+        state.isLoading = false;
+        toast.error(action.payload.message, {});
+      }
+    );
     builder.addCase(loginUser.pending, state => {
       state.isLogged = false;
       state.isLoading = true;
@@ -100,32 +76,16 @@ export const authSlice = createSlice({
       state.refreshToken = action.payload.data.refreshToken;
       state.isLogged = true;
       state.isLoading = false;
-      toast.success('You are logged in.', {
-        position: 'top-right',
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Slide,
-      });
+      toast.success('You are logged in.', {});
     });
-    builder.addCase(loginUser.rejected, state => {
+    builder.addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
       state.isLogged = false;
       state.isLoading = false;
-      toast.error('Please try again. The email or login are wrong.', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Slide,
-      });
+      if (action.payload.message === 'User does not exist') {
+        toast.error('Please try again. The email or login are wrong.', {});
+      } else {
+        toast.error(action.payload.message, {});
+      }
     });
     builder.addCase(refreshThunk.pending, state => {
       state.isLoading = true;
@@ -140,20 +100,11 @@ export const authSlice = createSlice({
       state.isLogged = false;
       state.isLoading = false;
       state.isAuthOpen = true;
-      toast.error('Please login.', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Slide,
-      });
+      toast.error('Please login.', {});
     });
   },
 });
 
-export const { logoutUser, setAuth, setVerified } = authSlice.actions;
+export const { logoutUser, setAuth, setVerified, setRegistered } =
+  authSlice.actions;
 export default authSlice.reducer;
