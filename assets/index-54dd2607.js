@@ -890,7 +890,7 @@ ${{"--tw-bg-opacity":"1",backgroundColor:"rgb(221 34 85 / var(--tw-bg-opacity))"
     ${{marginTop:"0.75rem",marginBottom:"0.75rem"}}
   }
   .css-15v22id-MuiAccordionDetails-root {
-    ${{paddingLeft:"1.5rem",paddingRight:"1.5rem",paddingTop:"0.25rem",paddingBottom:"0.25rem"}}
+    ${{paddingLeft:"1.5rem",paddingRight:"1.5rem",paddingBottom:"0px",paddingTop:"0.25rem"}}
   }
   .MuiFormGroup-root {
     ${{"@media (min-width: 768px)":{width:"158px"},"@media (min-width: 1024px)":{width:"175px"},"@media (min-width: 1280px)":{width:"225px"},"@media (min-width: 1536px)":{width:"300px"}}}
