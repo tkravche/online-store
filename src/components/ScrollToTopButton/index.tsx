@@ -31,7 +31,7 @@ export const ScrollToTopButton = () => {
     <div
       className={`${
         isVisible ? 'opacity-100 visible' : 'opacity-0 invisible'
-      } fixed bottom-[413px] right-16 p-2 rounded-full border border-solid border-main-black cursor-pointer transition-opacity duration-100 z-50`}
+      } fixed bottom-[413px] right-26 p-2 rounded-full border border-solid border-main-black cursor-pointer transition-opacity duration-100 z-50`}
       onClick={scrollToTop}
     >
       <ArrowUpward className="text-white text-2xl" />
