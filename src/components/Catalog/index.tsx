@@ -26,7 +26,7 @@ import {
   selectIsLoadingArticles,
 } from '@/lib/otherRedux/selectors';
 import { Card } from '../Card';
-import { EnumIcons, ICardProps } from '@/types';
+import { EnumIcons, ICardProps, ICatalogProps } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
 import {
   Styled2SelectsWrapper,
@@ -63,7 +63,7 @@ import {
 } from '@/theme/styles/components/StyledProductFilter';
 import { useDebounce } from '@/helpers/debounce';
 
-export const Catalog: FC = () => {
+export const Catalog: FC<ICatalogProps> = ({categoryForPage}) => {
   const dispatch = useAppDispatch();
   const articles = useAppSelector(selectFilteredArticles);
   const totalItems = useAppSelector(selectFilteredTotalItems);
@@ -75,7 +75,7 @@ export const Catalog: FC = () => {
   const [valueSlider, setValueSlider] = useState<number[]>([0, 20000]);
   const debouncedInputValue = useDebounce(valueSlider, 500);
 
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState(categoryForPage);
   const [starsCount, setStars] = useState(null);
 
   const [stock, setStock] = useState('in');

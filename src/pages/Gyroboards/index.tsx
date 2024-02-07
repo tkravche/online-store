@@ -1,6 +1,11 @@
-import { Typography } from '@mui/material';
 import { FC } from 'react';
+import { Catalog } from '@/components/Catalog';
+
 
 export const Gyroboards: FC = () => {
-  return <Typography>Gyroboards</Typography>;
+  return (
+    <>
+      <Catalog categoryForPage={'gyroboard'} />
+    </>
+  );
 };

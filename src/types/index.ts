@@ -73,6 +73,9 @@ export interface ICardProps {
 export interface IProductProps {
   id?: number;
 }
+export interface ICatalogProps {
+  categoryForPage?: string;
+}
 
 export interface IReviewItem {
   stars: number;

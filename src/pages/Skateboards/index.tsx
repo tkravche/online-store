@@ -1,5 +1,10 @@
-import { Typography } from '@mui/material';
+import { FC } from 'react';
+import { Catalog } from '@/components/Catalog';
 
-export const Skateboards = () => {
-  return <Typography>Skateboards</Typography>;
+export const Skateboards: FC = () => {
+  return (
+    <>
+      <Catalog categoryForPage={'skateboard'} />
+    </>
+  );
 };

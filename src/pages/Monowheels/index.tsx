@@ -1,6 +1,10 @@
-import { Typography } from '@mui/material';
+import { Catalog } from '@/components/Catalog';
 import { FC } from 'react';
 
 export const Monowheels: FC = () => {
-  return <Typography>Monowheels</Typography>;
+  return (
+    <>
+      <Catalog categoryForPage={'monowheel'} />
+    </>
+  );
 };
