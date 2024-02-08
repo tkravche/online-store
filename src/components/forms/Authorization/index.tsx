@@ -44,7 +44,7 @@ export const Authorization: FC = () => {
   if (isRegistering) {
     setTimeout(() => {
       dispatch(setVerified(true));
-    }, 10000);
+    }, 7000);
   }
 
   return (

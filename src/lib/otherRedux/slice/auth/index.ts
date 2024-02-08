@@ -81,10 +81,11 @@ export const authSlice = createSlice({
     builder.addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
       state.isLogged = false;
       state.isLoading = false;
-      if (action.payload.message === 'User does not exist') {
-        toast.error('Please try again. The email or login are wrong.', {});
+      console.log(action);
+      if (action.payload === "Cannot read properties of undefined (reading 'data')") {
+        toast.error('Please make sure you verified the email', {}); 
       } else {
-        toast.error(action.payload.message, {});
+        toast.error('Please try again. The email or login are wrong.', {});
       }
     });
     builder.addCase(refreshThunk.pending, state => {
