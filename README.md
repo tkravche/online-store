@@ -13,7 +13,7 @@ This project is an online store designed for selling products through the intern
 
 - https:// tkravche.github.io/online-store/
 - backend https://github.com/mkloz/online-store
-- [**Figma**] ( https://www.figma.com/file/hYD908ySbdChm8mjagPNNE/Online-store?type=design&node-id=0-1&mode=design&t=RDzQyvxQhuKNNPBj-0 )
+- **Figma** https://www.figma.com/file/hYD908ySbdChm8mjagPNNE/Online-store?type=design&node-id=0-1&mode=design&t=RDzQyvxQhuKNNPBj-0
 
 ### Functionality
 
