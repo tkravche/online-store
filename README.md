@@ -5,7 +5,15 @@
 ### Project:
 
 Team challenge.
-This project is an online store designed for selling products through the internet. It provides a user-friendly interface for searching and purchasing items. https://k-oleksii.github.io/online-store/
+This project was started by Oleksii Kozyuberda as a frontend developer who is no longer a part of the team.
+
+Now the team includes project manager Maria Finoshkina, 2 designers Viktorya Ondovchik and OksanaM, backend developer Mykhailo Kloz, QA Oksana Sydorchuk and frontend developer Tetiana Kryshtalova.
+
+This project is an online store designed for selling products through the internet. It provides a user-friendly interface for searching and purchasing items.
+
+https:// tkravche.github.io/online-store/
+backend https://github.com/mkloz/online-store
+[Figma] (https://www.figma.com/file/hYD908ySbdChm8mjagPNNE/Online-store?type=design&node-id=0-1&mode=design&t=RDzQyvxQhuKNNPBj-0)
 
 ### Functionality
 
@@ -22,9 +30,9 @@ The online store project utilizes the following technologies:
 
 - HTML
 - CSS
-- JavaScript
+- TypeScript
 - React
-- Redux
+- Redux Toolkit
 - React Router
 - React Hook Form
 - Material UI
@@ -38,7 +46,7 @@ To get started with the React app, follow the instructions below:
 
 ###Installation
 
-1. Clone the repository: git clone https://github.com/k-oleksii/online-store.git
+1. Clone the repository: git clone https://github.com/tkravche/online-store
 2. Navigate to the project directory: `cd online-store`
 3. Install dependencies: `npm install`
 

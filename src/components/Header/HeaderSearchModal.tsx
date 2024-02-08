@@ -4,7 +4,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import { FC, ReactElement, forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HeaderSearch } from './HeaderSearch';
-import { setSearch } from '@/lib/otherRedux/slice/header';
+import { setHeaderSearch } from '@/lib/otherRedux/slice/header';
 import { selectSearchOpen } from '@/lib/otherRedux/selectors';
 
 interface TransitionComponentProps extends TransitionProps {
@@ -28,7 +28,7 @@ export const HeaderSearchModal: FC = () => {
   const dispatch = useDispatch();
   const isSearchOpen = useSelector(selectSearchOpen);
   const handleCloseClick = () => {
-    dispatch(setSearch(false));
+    dispatch(setHeaderSearch(false));
   };
 
   return (

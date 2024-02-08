@@ -15,7 +15,7 @@ import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { HeaderSearch } from './HeaderSearch';
 import { HeaderSearchModal } from './HeaderSearchModal';
-import { setSearch } from '@/lib/otherRedux/slice/header';
+import { setHeaderSearch } from '@/lib/otherRedux/slice/header';
 
 import { Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ export const Header: FC = () => {
   );
 
   const handleSearchBtnClick = () => {
-    dispatch(setSearch(true));
+    dispatch(setHeaderSearch(true));
   };
 
   return (

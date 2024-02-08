@@ -1,3 +1,60 @@
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  useMediaQuery,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { useDebounce } from '@/helpers/debounce';
+import { getIcon } from '@/helpers/getIcon';
+import { instance } from '@/hooks/axios';
+import { setHeaderSearch } from '@/lib/otherRedux/slice/header';
+import { StyledHeaderSearch } from '@/theme/styles/layout/StyledHeader';
+import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
+import { EnumBreakpoints, EnumIcons } from '@/types';
+
+
+export const HeaderSearch = () => {
+  const [search, setSearch] = useState('');
+  const handleInput = e => {
+    setSearch(e.target.value.toLowerCase().trim());
+  };
+  const debouncedSearch = useDebounce(search, 500);
+  useEffect(() => {
+    instance.get(`articles?search=${debouncedSearch}`);
+  }, [debouncedSearch]);
+  
+  const dispatch = useDispatch();
+  const isMobileScreen = useMediaQuery(
+    `(min-width: ${EnumBreakpoints.tablet})`
+  );
+  return (
+    <StyledHeaderSearch>
+      <StyledContainer>
+        <div className="search-content">
+          <TextField
+            placeholder="Start typing the name or description."
+            onInput={handleInput}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {getIcon(EnumIcons.search)}
+                </InputAdornment>
+              ),
+            }}
+          />
+          {isMobileScreen && (
+            <IconButton onClick={() => dispatch(setHeaderSearch(false))}>
+              {getIcon(EnumIcons.close)}
+            </IconButton>
+          )}
+        </div>
+      </StyledContainer>
+    </StyledHeaderSearch>
+  );
+};
 // import { useDebounce } from '@/helpers/debounce';
 // import { getIcon } from '@/helpers/getIcon';
 // import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -198,45 +255,45 @@
 //   );
 // };
 
-import { getIcon } from '@/helpers/getIcon';
-import { setSearch } from '@/lib/otherRedux/slice/header';
-import { StyledHeaderSearch } from '@/theme/styles/layout/StyledHeader';
-import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
-import { EnumBreakpoints, EnumIcons } from '@/types';
-import {
-  IconButton,
-  InputAdornment,
-  TextField,
-  useMediaQuery,
-} from '@mui/material';
-import { useDispatch } from 'react-redux';
+// import { getIcon } from '@/helpers/getIcon';
+// import { setSearch } from '@/lib/otherRedux/slice/header';
+// import { StyledHeaderSearch } from '@/theme/styles/layout/StyledHeader';
+// import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
+// import { EnumBreakpoints, EnumIcons } from '@/types';
+// import {
+//   IconButton,
+//   InputAdornment,
+//   TextField,
+//   useMediaQuery,
+// } from '@mui/material';
+// import { useDispatch } from 'react-redux';
 
-export const HeaderSearch = () => {
-  const dispatch = useDispatch();
-  const isMobileScreen = useMediaQuery(
-    `(min-width: ${EnumBreakpoints.tablet})`
-  );
-  return (
-    <StyledHeaderSearch>
-      <StyledContainer>
-        <div className="search-content">
-          <TextField
-            placeholder="Start typing the name or description."
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {getIcon(EnumIcons.search)}
-                </InputAdornment>
-              ),
-            }}
-          />
-          {isMobileScreen && (
-            <IconButton onClick={() => dispatch(setSearch(false))}>
-              {getIcon(EnumIcons.close)}
-            </IconButton>
-          )}
-        </div>
-      </StyledContainer>
-    </StyledHeaderSearch>
-  );
-};
+// export const HeaderSearch = () => {
+//   const dispatch = useDispatch();
+//   const isMobileScreen = useMediaQuery(
+//     `(min-width: ${EnumBreakpoints.tablet})`
+//   );
+//   return (
+//     <StyledHeaderSearch>
+//       <StyledContainer>
+//         <div className="search-content">
+//           <TextField
+//             placeholder="Start typing the name or description."
+//             InputProps={{
+//               startAdornment: (
+//                 <InputAdornment position="start">
+//                   {getIcon(EnumIcons.search)}
+//                 </InputAdornment>
+//               ),
+//             }}
+//           />
+//           {isMobileScreen && (
+//             <IconButton onClick={() => dispatch(setSearch(false))}>
+//               {getIcon(EnumIcons.close)}
+//             </IconButton>
+//           )}
+//         </div>
+//       </StyledContainer>
+//     </StyledHeaderSearch>
+//   );
+// };
