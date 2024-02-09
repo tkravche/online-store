@@ -9,7 +9,6 @@ import {
   FormLabel,
   Link,
   MenuItem,
-  PaginationItem,
   Radio,
   RadioGroup,
   Select,
@@ -25,19 +24,16 @@ import {
   selectFilteredTotalItems,
   selectIsLoadingArticles,
 } from '@/lib/otherRedux/selectors';
-import { Card } from '../Card';
-import { EnumIcons, ICardProps, ICatalogProps } from '@/types';
+import { EnumIcons, ICatalogProps } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
 import {
   Styled2SelectsWrapper,
-  StyledArticles,
   StyledArticlesWrapper,
   StyledCatalog,
   StyledCatalogSection,
   StyledFilters,
   StyledFormControlPage,
   StyledPageSelect,
-  StyledPagination,
   StyledSelectsWrapper,
 } from '@/theme/styles/components/StyledCatalog';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
@@ -62,12 +58,13 @@ import {
   StyledSetPrice,
 } from '@/theme/styles/components/StyledProductFilter';
 import { useDebounce } from '@/helpers/debounce';
+import { ProductsGallery } from './ProductsGallery';
 
-export const Catalog: FC<ICatalogProps> = ({categoryForPage}) => {
+export const Catalog: FC<ICatalogProps> = ({ categoryForPage }) => {
   const dispatch = useAppDispatch();
-  const articles = useAppSelector(selectFilteredArticles);
   const totalItems = useAppSelector(selectFilteredTotalItems);
   const isLoadingArticles = useAppSelector(selectIsLoadingArticles);
+  const articles = useAppSelector(selectFilteredArticles);
 
   const [checkedSale, setCheckedSale] = useState(false);
   const [saleChecked, setSaleChecked] = useState(false);
@@ -164,7 +161,6 @@ export const Catalog: FC<ICatalogProps> = ({categoryForPage}) => {
   };
 
   //For Pagination
-  const totalPages = Math.ceil(totalItems / pageSize);
   const handlePageChange = (
     event: React.MouseEvent<HTMLElement>,
     newPage: number
@@ -514,36 +510,13 @@ export const Catalog: FC<ICatalogProps> = ({categoryForPage}) => {
                 </StyledPageSelect>
               </StyledFormControlPage>
             </StyledSelectsWrapper>
-            {!articles?.length && (
-              <Typography
-                component="p"
-                sx={{ width: '952px', textAlign: 'center' }}
-              >
-                Sorry, there are no products corresponding to these filter
-                values.
-              </Typography>
-            )}
-            <StyledArticles>
-              {articles?.map((item: ICardProps) => (
-                <Card key={item.id} {...item} />
-              ))}
-            </StyledArticles>
-            {articles?.length > 0 && (
-              <StyledPagination
-                count={totalPages}
-                page={page}
-                onChange={handlePageChange}
-                renderItem={item => (
-                  <PaginationItem
-                    component="div"
-                    {...item}
-                    onClick={e => handlePageChange(e, item.page)}
-                  />
-                )}
-                variant="outlined"
-                shape="rounded"
-              />
-            )}
+            <ProductsGallery
+              totalItems={totalItems}
+              articles={articles}
+              page={page}
+              pageSize={pageSize}
+              handlePageChange={handlePageChange}
+            />
           </StyledArticlesWrapper>
         </StyledCatalog>
       </StyledContainer>

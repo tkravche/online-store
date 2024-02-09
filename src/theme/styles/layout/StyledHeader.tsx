@@ -107,7 +107,7 @@ export const StyledHeaderSearch = styled.div`
   }
 
   .MuiFormControl-root {
-    ${tw`relative z-20 w-[1000px] mx-auto`}
+    ${tw`relative z-20 w-[1390px] mx-auto`}
 
     @media (max-width: ${EnumBreakpoints.tablet}) {
       ${tw`w-full`}
@@ -115,7 +115,7 @@ export const StyledHeaderSearch = styled.div`
   }
 
   .css-9b3yv1-MuiInputBase-root-MuiOutlinedInput-root {
-    ${tw`rounded-3xl`}
+    ${tw`rounded-3xl mr-24`}
     .icon-search {
       ${tw`w-8 h-8 pr-2 stroke-main-black`}
     }
@@ -124,7 +124,7 @@ export const StyledHeaderSearch = styled.div`
     ${tw`p-0 cursor-pointer`}
 
     svg {
-      ${tw`w-8 h-8 stroke-secondary-gray`}
+      ${tw`w-6 h-6 stroke-secondary-gray`}
     }
 
         &:hover {

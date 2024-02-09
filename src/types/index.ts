@@ -77,6 +77,13 @@ export interface ICatalogProps {
   categoryForPage?: string;
 }
 
+export interface IProductsGalleryProps {
+  pageSize: number;
+  handlePageChange: any;
+  page: number;
+  articles: [];
+  totalItems: number;
+}
 export interface IReviewItem {
   stars: number;
   author: {
