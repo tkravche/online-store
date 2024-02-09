@@ -24,7 +24,7 @@ export const HeaderSearch = () => {
 
   const search = useDebounce(query, 700);
   const page = 1;
-  const limit = 16;
+  const limit = 20;
 
   const handleChange = e => {
     setQuery(e.target.value.toLowerCase().trim());
@@ -38,16 +38,6 @@ export const HeaderSearch = () => {
   useEffect(() => {
     dispatch(searchArticlesThunk({ page, limit, search }));
   }, [dispatch, search]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       await dispatch(searchArticlesThunk({ page, limit, search }));
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [dispatch, search]);
 
   const isMobileScreen = useMediaQuery(
     `(min-width: ${EnumBreakpoints.tablet})`

@@ -1,30 +1,33 @@
-import { FC, useState } from 'react';
-import { ProductsGallery } from '@/components/Catalog/ProductsGallery';
+import { FC } from 'react';
+
 import { useAppSelector } from '@/hooks';
-import { selectFoundArticles, selectFoundTotalItems } from '@/lib/otherRedux/selectors';
+import { selectFoundArticles } from '@/lib/otherRedux/selectors';
 import { StyledSearchSection } from '@/theme/styles/components/StyledSearch';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
+import { Typography } from '@mui/material';
+import { StyledArticles } from '@/theme/styles/components/StyledCatalog';
+import { ICardProps } from '@/types';
+import { Card } from '@/components/Card';
 
 export const SearchPage: FC = () => {
-  const [page, setPage] = useState(1);
   const foundArticles = useAppSelector(selectFoundArticles);
-  const totalFoundItems = useAppSelector(selectFoundTotalItems);
-  const handlePageChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newPage: number
-  ) => {
-    setPage(newPage);
-  };
+
   return (
     <StyledSearchSection>
       <StyledContainer>
-        <ProductsGallery
-          totalItems = {totalFoundItems}
-          handlePageChange={handlePageChange}
-          page={page}
-          pageSize={8}
-          articles={foundArticles}
-        />
+        {!foundArticles?.length && (
+          <Typography
+            component="p"
+            sx={{ width: '952px', textAlign: 'center' }}
+          >
+            Sorry, there are no products corresponding to these filter values.
+          </Typography>
+        )}
+        <StyledArticles>
+          {foundArticles?.map((item: ICardProps) => (
+            <Card key={item.id} {...item} />
+          ))}
+        </StyledArticles>
       </StyledContainer>
     </StyledSearchSection>
   );
