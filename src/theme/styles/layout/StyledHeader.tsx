@@ -101,22 +101,22 @@ export const StyledHeaderSearch = styled.div`
   @media (max-width: ${EnumBreakpoints.tablet}) {
     ${tw`mt-4 py-2`}
   }
-
   .search-content {
     ${tw`flex items-center`}
   }
 
   .MuiFormControl-root {
-    ${tw`relative z-20 w-[1390px] mx-auto`}
+    ${tw`relative z-20 w-[1390px] mx-auto pr-24`}
 
     @media (max-width: ${EnumBreakpoints.tablet}) {
       ${tw`w-full`}
     }
   }
-
-  .css-9b3yv1-MuiInputBase-root-MuiOutlinedInput-root {
-    ${tw`rounded-3xl mr-24`}
-    .icon-search {
+  .MuiInputBase-root {
+       ${tw`rounded-3xl`}
+  }
+  .MuiInputBase-root-MuiOutlinedInput-root {
+      .icon-search {
       ${tw`w-8 h-8 pr-2 stroke-main-black`}
     }
    }

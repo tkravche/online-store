@@ -51,7 +51,6 @@ export const HeaderSearch = () => {
               id="search-bar"
               placeholder="Start typing the name or description."
               onChange={handleChange}
-              value={query}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
