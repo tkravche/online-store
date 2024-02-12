@@ -1410,7 +1410,7 @@ z-index: 1;
   .MuiTab-root {
     text-transform: capitalize;
   }
-  .css-1pyy021-MuiTabs-flexContainer {
+  .MuiTabs-flexContainer {
     gap: 56px;
   }
   .MuiButtonBase-root {
