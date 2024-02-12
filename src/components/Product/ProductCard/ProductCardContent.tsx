@@ -1,5 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { FC, RefObject, SyntheticEvent, useRef, useState } from 'react';
+import {
+  FC,
+  RefObject,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   Box,
   Breadcrumbs,
@@ -32,7 +39,7 @@ import {
   StyledContainerSlider,
 } from '@/theme/styles/components/StyledProductCard';
 import { StyledRating } from '@/theme/styles/ui/StyledRating';
-import { StyledContainer} from '@/theme/styles/layout/StyledWrappers';
+import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import { EnumBreakpoints, EnumIcons, ICardProps } from '@/types';
 import {
   StyledList,
@@ -52,6 +59,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart } from '@/lib/otherRedux/slice/user';
 import { useAppSelector } from '@/hooks';
 import Default from '@/assets/default.webp';
+import { getArticleById, getReviewByArticleId } from '@/hooks/axios/service';
 
 export const ProductCardContent: FC<ICardProps> = props => {
   const {
@@ -72,6 +80,19 @@ export const ProductCardContent: FC<ICardProps> = props => {
   // const favoriteItems = useSelector(selectFavorites);
   // const isFavorite = favoriteItems?.some((item: any) => item.id === id);
   // const [favorite, setFavorite] = useState(isFavorite);
+  const [reviewsNumber, setReviewsNumber] = useState(0);
+
+  useEffect(() => {
+    const fetchReviewsNumber = async () => {
+      try {
+        const res = await getReviewByArticleId(id);
+        setReviewsNumber(res?.data?.meta?.totalItems);
+      } catch (error) {
+        console.error('Error fetching reviews number:', error);
+      }
+    };
+    fetchReviewsNumber();
+  }, [id]);
 
   const [value, setValue] = useState('1');
   const isLogged = useAppSelector(selectIsLogged);
@@ -82,7 +103,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
   const formatedCharacteristics = characteristic
     .split('.')
     .map(item => item.split(':')[1]);
-  console.log(formatedCharacteristics);
+  
   const reviewSection = useRef(null);
   const scrollToSection = (elementRef: RefObject<any>) => {
     window.scrollTo({
@@ -192,7 +213,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
                 component="span"
                 onClick={() => scrollToSection(reviewSection)}
               >
-                {/* {reviews.length} reviews */}
+                {reviewsNumber} reviews
               </Typography>
             </StyledRs>
             <StyledProductPrices>
