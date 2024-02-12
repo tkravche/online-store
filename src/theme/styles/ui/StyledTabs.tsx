@@ -7,7 +7,7 @@ export const StyledTabsList = styled(TabList)`
   .MuiTab-root {
     text-transform: capitalize;
   }
-  .css-1pyy021-MuiTabs-flexContainer {
+  .MuiTabs-flexContainer {
     gap: 56px;
   }
   .MuiButtonBase-root {
