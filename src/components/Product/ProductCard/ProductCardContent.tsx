@@ -8,11 +8,10 @@ import {
   Tab,
   ListItem,
   ListItemText,
-  Button,
 } from '@mui/material';
 import Link from '@mui/material/Link';
 import { TabContext } from '@mui/lab';
-import { Slide, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { getIcon } from '@/helpers/getIcon';
@@ -29,9 +28,11 @@ import {
   StyledNoSale,
   StyledProductCardSection,
   StyledAllLink,
+  StyledAddButton,
+  StyledContainerSlider,
 } from '@/theme/styles/components/StyledProductCard';
 import { StyledRating } from '@/theme/styles/ui/StyledRating';
-import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
+import { StyledContainer} from '@/theme/styles/layout/StyledWrappers';
 import { EnumBreakpoints, EnumIcons, ICardProps } from '@/types';
 import {
   StyledList,
@@ -110,15 +111,21 @@ export const ProductCardContent: FC<ICardProps> = props => {
           <Link underline="hover" color="inherit" href="catalog">
             Catalog
           </Link>
-          <Link underline="hover" color="inherit" href={categories[0].name}>
+          <Link
+            underline="hover"
+            color="inherit"
+            href={`${categories[0].name}s`}
+          >
             <Typography sx={{ textTransform: 'capitalize' }}>
-              {categories[0].name}
+              {categories[0].name}s
             </Typography>
           </Link>
           <Typography color="text.primary" className="line-clamp-1">
             {name}
           </Typography>
         </Breadcrumbs>
+      </StyledContainer>
+      <StyledContainerSlider>
         <StyledProductCard>
           <StyledCardRight>
             {sale?.newPrise ? (
@@ -213,12 +220,12 @@ export const ProductCardContent: FC<ICardProps> = props => {
                 price={price}
                 sale={sale?.newPrise}
               /> */}
-              <Button
+              <StyledAddButton
                 variant="addToCart"
                 onClick={() => dispatch(addItemToCart(infoForCart))}
               >
                 Add to cart
-              </Button>
+              </StyledAddButton>
               <Checkbox
                 aria-label="Like"
                 icon={getIcon(EnumIcons.heart)}
@@ -255,25 +262,10 @@ export const ProductCardContent: FC<ICardProps> = props => {
                 </StyledTabPanel>
                 <StyledTabPanel
                   value="2"
-                  sx={{ padding: '10px', whiteSpace: 'pre' }}
+                  sx={{ padding: '8px', whiteSpace: 'pre', lineHeight: '220%' }}
                 >
                   {characteristic}
-                  <StyledList>
-                    <ListItem disablePadding>
-                      <ListItemText primary={characteristic} />
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemText primary={characteristic} />
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemText primary={characteristic} />
-                    </ListItem>
-                    <ListItem disablePadding>
-                      <ListItemText primary={characteristic} />
-                    </ListItem>
-                  </StyledList>
                 </StyledTabPanel>
-
                 <StyledTabPanel value="3" sx={{ padding: '0px 8px 8px 10px' }}>
                   <StyledList
                     sx={{
@@ -287,49 +279,63 @@ export const ProductCardContent: FC<ICardProps> = props => {
                           gridTemplateColumns: '1fr 1fr',
                           columnGap: '30px',
                         },
-                      [`& li.MuiListItem-root`]: {
-                        display: 'list-item',
-                        listStyleType: 'disc',
-                        marginLeft: '1em',
-                      },
-                      [`& li.MuiListItem-root::marker`]: {
-                        fontSize: '29px',
-                        color: '#D25',
-                      },
+                      // [`& li.MuiListItem-root`]: {
+                      //   display: 'list-item',
+                      //   listStyleType: 'disc',
+                      //   marginLeft: '1.1em',
+                      // },
+                      // [`& li.MuiListItem-root::marker`]: {
+                      //   fontSize: '29px',
+                      //   color: '#D25',
+
+                      // },
                     }}
                   >
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="fast delivery — 1-5 days*" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="$20 one price for delivery" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="free shipping from $1000" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="swift processing" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="careful packaging" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="real-time tracking" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="timely shipping" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="international shipping" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="responsive customer support" />
                     </ListItem>
                     <ListItem disablePadding>
+                      {getIcon(EnumIcons.dot)}
                       <ListItemText primary="positive post-purchase experience" />
                     </ListItem>
                   </StyledList>
-                  <Typography component="p" sx={{ fontSize: '10px' }}>
+                  <Typography
+                    component="p"
+                    sx={{ fontSize: '10px', paddingTop: '38px' }}
+                  >
                     *Delivery terms depending on the destination and the
                     selected shipping method
                   </Typography>
@@ -338,7 +344,8 @@ export const ProductCardContent: FC<ICardProps> = props => {
             </Box>
           </StyledCardInfo>
         </StyledProductCard>
-
+      </StyledContainerSlider>
+      <StyledContainer>
         <div ref={reviewSection}></div>
         <ReviewsSection url={urlImage} name={name} id={id} />
         <ProductSectionByCategory category={categories[0].name} />

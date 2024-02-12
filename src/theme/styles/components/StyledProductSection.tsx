@@ -8,7 +8,7 @@ export const StyledProductSection = styled.section`
     ${tw`relative`}
 
     .button {
-      ${tw`absolute top-1/2 -left-10 -translate-y-2/4`}
+      ${tw`absolute top-1/2 -left-10 -translate-y-2/4 `}
     }
 
     .button-next {

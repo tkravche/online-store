@@ -96,7 +96,7 @@ export const StyledSearchDialog = styled(Dialog)<StyledHeaderSearchProps>`
 `;
 
 export const StyledHeaderSearch = styled.div`
-  ${tw`py-12 z-[1000] bg-main-white`}
+  ${tw`py-8 z-[1000] bg-main-white`}
 
   @media (max-width: ${EnumBreakpoints.tablet}) {
     ${tw`mt-4 py-2`}
@@ -119,6 +119,13 @@ export const StyledHeaderSearch = styled.div`
       .icon-search {
       ${tw`w-8 h-8 pr-2 stroke-main-black`}
     }
+   }
+   .MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
+    padding:0;
+    padding-left: 16px;
+   }
+   .MuiInputAdornment-root {
+    padding-left: 24px;
    }
   .MuiButtonBase-root {
     ${tw`p-0 cursor-pointer`}

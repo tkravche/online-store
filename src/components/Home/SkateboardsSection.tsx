@@ -22,7 +22,7 @@ export const SkateboardsSection = () => {
         title={'Skateboards'}
       />
     );
-  }, [errorProducts, responseProducts]);
+  }, [errorProducts, isLoadingProducts, responseProducts]);
 
   useEffect(() => {
     if (!responseProducts && errorProducts === null) {

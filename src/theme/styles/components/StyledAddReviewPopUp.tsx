@@ -10,16 +10,16 @@ export const StyledDialog = styled(Dialog)`
 `;
 
 export const StyledReviewPopUpTop = styled.div`
-  ${tw`grid grid-cols-1 gap-x-5 mb-4 md:grid-cols-[37%_auto]`}
+  // ${tw`grid grid-cols-1 md:justify-end gap-x-5 mb-4 md:grid-cols-[56.5%_auto]`}
 `;
 
 export const StyledReviewRating = styled.div`
-  ${tw` grid grid-cols-[35%_auto] gap-x-2 content-center items-center mt-1`}
+  ${tw` grid grid-cols-[35%_auto] gap-x-2 content-center items-center mb-3`}
 `;
 export const StyledRating = styled(Rating)``;
 
 export const StyledReviewPopUpWrapper = styled.div`
-  ${tw`grid grid-cols-1 gap-x-5 md:grid-cols-[37%_auto]`}
+  ${tw`grid grid-cols-1 gap-x-6 md:grid-cols-[34%_auto]`}
 `;
 
 export const StyledProductInfo = styled.div`
@@ -27,11 +27,11 @@ export const StyledProductInfo = styled.div`
 `;
 
 export const StyledReviewInfo = styled.div`
-  ${tw`mt-3 md:mt-0 pr-5`}
+  ${tw`mt-3 md:mt-0`}
 `;
 
 export const StyledTextArea = styled(TextareaAutosize)`
-  width: 335px;
+  width: 373px;
   padding: 16px;
   border-radius: 16px;
   border: 1px solid #8083ff;
@@ -44,5 +44,5 @@ export const StyledTextArea = styled(TextareaAutosize)`
 `;
 
 export const StyledDialogActions = styled.div`
-  ${tw`grid grid-cols-2 gap-x-4`}
+  ${tw`grid grid-cols-2 gap-x-4 mt-3`}
 `;

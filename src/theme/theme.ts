@@ -173,9 +173,6 @@ const theme = createTheme({
             fontSize: '26px',
             fontWeight: '700',
             lineHeight: '32px',
-            '&:hover': {
-              backgroundColor: '#dd2255',
-            },
             '&:active': {
               backgroundColor: '#c23158',
             },

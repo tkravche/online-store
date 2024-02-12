@@ -86,45 +86,20 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
         >
           <CloseIcon />
         </IconButton>
-        <StyledReviewPopUpTop>
-          <DialogTitle
-            sx={{ m: 0, p: 0, fontWeight: '900' }}
-            id="customized-dialog-title"
-          >
-            Leave your feedback
-          </DialogTitle>
-          <StyledReviewRating>
-            <Typography variant="body2" component="h3">
-              Rate the product
-            </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <StyledRating
-                name="hover-feedback"
-                value={value}
-                precision={0.5}
-                // icon={getIcon(EnumIcons.star)}
-                emptyIcon={<StarBorderIcon sx={{ color: '#FFD700' }} />}
-                getLabelText={getLabelText}
-                onChange={(_, newValue) => {
-                  setValue(newValue);
-                }}
-                // onChangeActive={(event, newHover) => {
-                //   setHover(newHover);
-                // }}
-              />
-              {value !== null && (
-                <Box sx={{ ml: 1, color: '#8083ff' }}>
-                  {labels[hover !== -1 ? hover : value]}
-                </Box>
-              )}
-            </Box>
-          </StyledReviewRating>
-        </StyledReviewPopUpTop>
+
+        <DialogTitle
+          sx={{
+            m: 0,
+            mb: '24px',
+            p: 0,
+            fontWeight: '900',
+            textAlign: 'center',
+          }}
+          id="customized-dialog-title"
+        >
+          Leave your feedback
+        </DialogTitle>
+
         <DialogContent sx={{ m: 0, p: 0 }}>
           <StyledReviewPopUpWrapper>
             <StyledProductInfo>
@@ -145,51 +120,84 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
                 {name}
               </Typography>
             </StyledProductInfo>
-            <StyledReviewInfo>
-              <Typography variant="body2" component="p" sx={{ mb: 1 }}>
-                Write a comment
-              </Typography>
-              <StyledTextArea
-                value={text}
-                onChange={handleTextChange}
-                aria-label="empty textarea"
-                minRows={8}
-                placeholder="Write here (up to 1500 characters)"
-              />
-
-              <StyledDialogActions>
-                <Button
-                  variant="contained"
-                  autoFocus
-                  onClick={handleClose}
+            <StyledReviewPopUpTop>
+              <StyledReviewRating>
+                <Typography variant="body2" component="h3">
+                  Rate the product
+                </Typography>
+                <Box
                   sx={{
-                    backgroundColor: 'transparent',
-                    color: '#878D99',
-                    border: '1px solid black',
-                    ':hover': {
-                      border: '1px solid transparent',
-                      color: 'white',
-                    },
+                    display: 'flex',
+                    alignItems: 'center',
                   }}
                 >
-                  Cancel
-                </Button>
-                {isTextEntered && value !== null && value > 0 ? (
-                  <Button variant="contained" autoFocus onClick={handleClose}>
-                    Send
-                  </Button>
-                ) : (
+                  <StyledRating
+                    name="hover-feedback"
+                    value={value}
+                    precision={0.5}
+                    // icon={getIcon(EnumIcons.star)}
+                    emptyIcon={<StarBorderIcon sx={{ color: '#FFD700' }} />}
+                    getLabelText={getLabelText}
+                    onChange={(_, newValue) => {
+                      setValue(newValue);
+                    }}
+                    // onChangeActive={(event, newHover) => {
+                    //   setHover(newHover);
+                    // }}
+                  />
+                  {value !== null && (
+                    <Box sx={{ ml: 1, color: '#8083ff' }}>
+                      {labels[hover !== -1 ? hover : value]}
+                    </Box>
+                  )}
+                </Box>
+              </StyledReviewRating>
+              <StyledReviewInfo>
+                <Typography variant="body2" component="p" sx={{ mb: 2 }}>
+                  Write a comment
+                </Typography>
+                <StyledTextArea
+                  value={text}
+                  onChange={handleTextChange}
+                  aria-label="empty textarea"
+                  minRows={6}
+                  placeholder="Write here (up to 1500 characters)"
+                />
+
+                <StyledDialogActions>
                   <Button
-                    disabled
                     variant="contained"
                     autoFocus
                     onClick={handleClose}
+                    sx={{
+                      backgroundColor: 'transparent',
+                      color: '#878D99',
+                      border: '1px solid black',
+                      ':hover': {
+                        border: '1px solid transparent',
+                        color: 'white',
+                      },
+                    }}
                   >
-                    Send
+                    Cancel
                   </Button>
-                )}
-              </StyledDialogActions>
-            </StyledReviewInfo>
+                  {isTextEntered && value !== null && value > 0 ? (
+                    <Button variant="contained" autoFocus onClick={handleClose}>
+                      Send
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled
+                      variant="contained"
+                      autoFocus
+                      onClick={handleClose}
+                    >
+                      Send
+                    </Button>
+                  )}
+                </StyledDialogActions>
+              </StyledReviewInfo>
+            </StyledReviewPopUpTop>
           </StyledReviewPopUpWrapper>
         </DialogContent>
       </StyledDialog>

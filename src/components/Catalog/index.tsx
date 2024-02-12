@@ -75,7 +75,7 @@ export const Catalog: FC<ICatalogProps> = ({ categoryForPage }) => {
   const [category, setCategory] = useState(categoryForPage);
   const [starsCount, setStars] = useState(null);
 
-  const [stock, setStock] = useState('in');
+  const [stock, setStock] = useState('inc');
   const [price, setPriceSort] = useState('asc');
   const [pageSize, setPageSize] = useState(8);
 
@@ -143,7 +143,11 @@ export const Catalog: FC<ICatalogProps> = ({ categoryForPage }) => {
 
   //For selectors
   const handleStockChange = event => {
-    setStock(event.target.value);
+    if (event.target.value === 'null') {
+      setStock(null);
+    } else {
+      setStock(event.target.value);
+    }
   };
   const handlePriceSortChange = event => {
     if (event.target.value === 'null') {
@@ -189,6 +193,7 @@ export const Catalog: FC<ICatalogProps> = ({ categoryForPage }) => {
         price,
         minPrice,
         maxPrice,
+        stock,
       })
     );
   }, [
@@ -201,6 +206,7 @@ export const Catalog: FC<ICatalogProps> = ({ categoryForPage }) => {
     price,
     maxPrice,
     minPrice,
+    stock,
   ]);
 
   return (
@@ -475,9 +481,9 @@ export const Catalog: FC<ICatalogProps> = ({ categoryForPage }) => {
                     label="All"
                     onChange={handleStockChange}
                   >
-                    <MenuItem value={'in'}>In stock</MenuItem>
-                    <MenuItem value={'all'}>All</MenuItem>
-                    <MenuItem value={'out'}>Out of stock</MenuItem>
+                    <MenuItem value={'inc'}>In stock</MenuItem>
+                    <MenuItem value={null}>All</MenuItem>
+                    <MenuItem value={'exc'}>Out of stock</MenuItem>
                   </Select>
                 </FormControl>
                 <FormControl sx={{ mb: 4, width: 169 }}>

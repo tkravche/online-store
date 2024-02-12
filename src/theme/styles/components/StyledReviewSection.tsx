@@ -8,7 +8,7 @@ export const StyledReviewSection = styled.section`
 `;
 
 export const StyledReview = styled.div`
-  ${tw`h-[254px] grid grid-cols-[29.2%, auto] gap-x-14`}
+  ${tw`h-[254px] grid grid-cols-[29.2%, auto] gap-x-16`}
 `;
 
 export const StyledFeedbackWrapper = styled.div`
@@ -55,7 +55,7 @@ export const StyledContainerReviewSlider = styled.div`
     ${tw`relative max-w-[250px] sm:max-w-[300px] md:max-w-[450px] lg:max-w-[600px] xl:max-w-[700px] 2xl:max-w-[940px]`}
 
     .button {
-      ${tw`absolute top-1/2 -left-10 -translate-y-2/4`}
+      ${tw`absolute top-1/2 -left-12 -translate-y-2/4`}
     }
 
     .button-next {
@@ -69,11 +69,11 @@ export const StyledContainerReviewSlider = styled.div`
         ${tw`stroke-secondary-gray`}
       }
 
-      svg {
+      svg:hover {
         ${tw`stroke-main-red`}
       }
     }
-  }
+
   .MuiIconButton-root:hover {
     background-color: transparent;
   }
