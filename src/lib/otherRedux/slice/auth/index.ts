@@ -7,6 +7,8 @@ import {
 } from '../../thunks/auth';
 import { toast } from 'react-toastify';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { logoutCurrentUser } from '../user';
+
 type userStateProps = {
   accessToken: null | string;
   refreshToken: null | string;
@@ -30,6 +32,7 @@ const initialState: userStateProps = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
+  
   reducers: {
     setAuth: (state, { payload }) => {
       state.isAuthOpen = payload;

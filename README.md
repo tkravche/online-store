@@ -7,7 +7,7 @@
 Team challenge.
 This project was started by Oleksii Kozyuberda as a frontend developer who is no longer a part of the team.
 
-Now the team includes project manager Maria Finoshkina, 2 designers Viktorya Ondovchik and OksanaM, backend developer Mykhailo Kloz, QA Oksana Sydorchuk and frontend developer Tetiana Kryshtalova.
+Now the team includes project manager Maria Finoshkina, 2 designers Viktorya Ondovchik and Oksana Tverdokhlib, backend developer Mykhailo Kloz, QA Oksana Sydorchuk and frontend developer Tetiana Kryshtalova.
 
 This project is an online store designed for selling products through the internet. It provides a user-friendly interface for searching and purchasing items.
 

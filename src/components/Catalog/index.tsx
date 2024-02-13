@@ -17,8 +17,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { getFilteredArticlesThunk } from '@/lib/otherRedux/thunks/catalog';
-import { useAppSelector } from '@/lib/redux/init/store';
-import { useAppDispatch } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import {
   selectFilteredArticles,
   selectFilteredTotalItems,

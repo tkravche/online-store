@@ -12,19 +12,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { Badge, IconButton, useMediaQuery } from '@mui/material';
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { HeaderSearch } from './HeaderSearch';
 import { HeaderSearchModal } from './HeaderSearchModal';
 import { setHeaderSearch } from '@/lib/otherRedux/slice/header';
 
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectCart } from '@/lib/otherRedux/selectors';
+import { selectCart, selectIsLogged } from '@/lib/otherRedux/selectors';
 import { setAuth } from '@/lib/otherRedux/slice/auth';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
 export const Header: FC = () => {
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const isLogged = useAppSelector(selectIsLogged);
   const badgeQuantity = useSelector(selectCart).length;
 
   const isTabletPortraitScreen = useMediaQuery(

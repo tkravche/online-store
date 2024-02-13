@@ -24,9 +24,9 @@ import {
 } from '@/theme/styles/layout/StyledProfileLayout';
 import { selectIsLogged } from '@/lib/otherRedux/selectors';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import { logoutUser } from '@/lib/otherRedux/slice/auth';
 import { useAppDispatch } from '@/hooks';
+import { logoutCurrentUser } from '@/lib/otherRedux/slice/user';
 
 export const ProfileLayout: FC = () => {
   const dispatch=useAppDispatch();
@@ -152,7 +152,7 @@ export const ProfileLayout: FC = () => {
                     </StyledToolbarLink>
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemButton onClick={()=>dispatch(logoutUser())}>
+                    <ListItemButton onClick={()=>{dispatch(logoutUser()); dispatch(logoutCurrentUser());}}>
                       <ListItemIcon>{getIcon(EnumIcons.logOut)}</ListItemIcon>
                       <ListItemText
                         primary={'Log out'}

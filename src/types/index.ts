@@ -78,11 +78,11 @@ export interface ICatalogProps {
 }
 
 export interface IProductsGalleryProps {
-  pageSize: number;
-  handlePageChange: any;
   page: number;
+  pageSize: number;
   articles: [];
   totalItems: number;
+  handlePageChange: any;
 }
 export interface IReviewItem {
   stars: number;

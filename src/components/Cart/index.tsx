@@ -38,6 +38,8 @@ import { getCurrentUserCartThunk } from '@/lib/otherRedux/thunks/user';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
+import { currentUserThunk } from '@/lib/otherRedux/thunks/user';
+import { useEffect } from 'react';
 
 export const Cart = () => {
   const cart = useAppSelector(selectCart);

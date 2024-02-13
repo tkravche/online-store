@@ -1,7 +1,6 @@
 import { instance } from '@/hooks/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { selectAccessToken, selectRefreshToken } from '../../selectors';
-import { useAppSelector } from '@/hooks';
+import { selectRefreshToken } from '../../selectors';
 
 
 export const setToken = (token: any) => {
@@ -23,6 +22,7 @@ export const loginUser = createAsyncThunk<
 >('auth/login', async (credentials, { rejectWithValue }) => {
   try {
     const user = await instance.post('auth/email/login', credentials);
+    setToken(user?.data?.data?.accessToken);
     return user.data;
   } catch (error: any) {
     if (error.response && error.response.data.message) {

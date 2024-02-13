@@ -21,7 +21,10 @@ import {
   StyledReviewPopUpTop,
   StyledDialogActions,
 } from '@/theme/styles/components/StyledAddReviewPopUp';
+import { useAppDispatch } from '@/hooks';
+import { addReviewThunk } from '@/lib/otherRedux/thunks/user';
 
+//For stars
 const labels: { [index: string]: string } = {
   0.5: 'Useless',
   1: 'Useless+',
@@ -39,12 +42,13 @@ function getLabelText(value: number) {
   return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
 
-export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
+export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name, id }) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState<number | null>(0);
+  const [value, setValue] = useState<number | null>(0); //Stars
   const [hover] = useState(-1);
   const [text, setText] = useState('');
 
+  const dispatch= useAppDispatch();
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
@@ -56,6 +60,15 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
     setOpen(true);
   };
   const handleClose = () => {
+    setOpen(false);
+  };
+  const reviewData= {
+    "text": text.trim(),
+    "stars": value,
+    "article": id
+  };
+  const handleClick = () => {
+    dispatch(addReviewThunk(reviewData));
     setOpen(false);
   };
 
@@ -99,7 +112,6 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
         >
           Leave your feedback
         </DialogTitle>
-
         <DialogContent sx={{ m: 0, p: 0 }}>
           <StyledReviewPopUpWrapper>
             <StyledProductInfo>
@@ -111,7 +123,6 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
                 height="144"
                 style={{ maxHeight: '144px', objectFit: 'scale-down' }}
               />
-
               <Typography
                 variant="body2"
                 component="h3"
@@ -182,7 +193,7 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name }) => {
                     Cancel
                   </Button>
                   {isTextEntered && value !== null && value > 0 ? (
-                    <Button variant="contained" autoFocus onClick={handleClose}>
+                    <Button variant="contained" autoFocus onClick={handleClick}>
                       Send
                     </Button>
                   ) : (

@@ -17,14 +17,23 @@ import { EnumIcons, ICardProps } from '@/types';
 import Default from '@/assets/default.webp';
 import { addItemToCart } from '@/lib/otherRedux/slice/user';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from '@/hooks';
+import { selectFavorites, selectIsLogged } from '@/lib/otherRedux/selectors';
+import { toast } from 'react-toastify';
 
 export const Card = memo(
   ({ name, price, sale, id, images, rating }: ICardProps) => {
     const dispatch = useDispatch();
 
+    //for Add to cart
     const quantity = 1;
     const urlImage = images[0]?.url === undefined ? Default : images[0]?.url;
     const infoForCart = { id, name, url: urlImage, price, sale, quantity };
+
+    //for Favorites
+    const favoriteItems = useAppSelector(selectFavorites);
+    const isFavorite = favoriteItems?.some((item: any) => item.id === id);
+
     return (
       <StyledCard>
         <StyledCardTop>
@@ -39,6 +48,8 @@ export const Card = memo(
             aria-label="Like"
             icon={getIcon(EnumIcons.heart)}
             checkedIcon={getIcon(EnumIcons.heart)}
+            checked={isFavorite}
+            disabled
           />
         </StyledCardTop>
         <StyledCardImg>

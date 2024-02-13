@@ -14,9 +14,9 @@ import { EnumIcons } from '@/types';
 import { Field } from '../../elements/Field';
 import { loginUser } from '@/lib/otherRedux/thunks/auth';
 
-import { selectIsLoading, selectIsLogged } from '@/lib/otherRedux/selectors';
+import { selectIsLoading } from '@/lib/otherRedux/selectors';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { FC, useEffect } from 'react';
+import { FC} from 'react';
 import { currentUserThunk } from '@/lib/otherRedux/thunks/user';
 import { loginSchema } from '@/helpers/yup';
 import { setAuth } from '@/lib/otherRedux/slice/auth';
@@ -28,7 +28,6 @@ interface ISignIn {
 
 export const SignIn: FC = () => {
   const loading = useAppSelector(selectIsLoading);
-  const isLogged = useAppSelector(selectIsLogged);
   const dispatch = useAppDispatch();
 
   const form = useForm({
@@ -40,10 +39,6 @@ export const SignIn: FC = () => {
   if (form.formState.errors.email || form.formState.errors.password) {
     disabled = true;
   }
-  // const handleSendSubmit = async (data: ISignIn) => {
-  //   await dispatch(loginUser(data));
-  //   dispatch(setAuth(false));
-  // };
 
   const handleSendSubmit = async (data: ISignIn) => {
     await dispatch(loginUser(data)).then(r => {

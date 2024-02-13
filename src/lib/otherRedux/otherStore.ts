@@ -22,11 +22,17 @@ const persistConfig = {
   storage,
   whitelist: ['accessToken','refreshToken','isLogged'],
 };
+const persistConfigForUser = {
+  key: 'user',
+  version: 2,
+  storage,
+  whitelist: ['currentUser'],
+};
 
 export const otherStore = configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authSlice),
-    user: userSlice,
+    user: persistReducer(persistConfigForUser, userSlice),
     headerSearch: headerSlice,
     // ui: uiSlice,
     catalog: catalogSlice

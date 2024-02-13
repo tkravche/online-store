@@ -15,7 +15,7 @@ export const StyledHeader = styled.header`
     rgba(251, 251, 251, 0.64) 54.41%,
     rgba(251, 251, 251, 0.4) 100%
   );
-box-shadow: 0px 4px 16px 0px rgba(128, 131, 255, 0.16); 
+  box-shadow: 0px 4px 16px 0px rgba(128, 131, 255, 0.16);
   &::before {
     ${tw`content-[''] absolute inset-y-0 inset-x-0 backdrop-blur	overflow-hidden`}
   }
@@ -113,20 +113,20 @@ export const StyledHeaderSearch = styled.div`
     }
   }
   .MuiInputBase-root {
-       ${tw`rounded-3xl`}
+    ${tw`rounded-3xl`}
   }
   .MuiInputBase-root-MuiOutlinedInput-root {
-      .icon-search {
+    .icon-search {
       ${tw`w-8 h-8 pr-2 stroke-main-black`}
     }
-   }
-   .MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
-    padding:0;
+  }
+  .MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
+    padding: 0;
     padding-left: 16px;
-   }
-   .MuiInputAdornment-root {
+  }
+  .MuiInputAdornment-root {
     padding-left: 24px;
-   }
+  }
   .MuiButtonBase-root {
     ${tw`p-0 cursor-pointer`}
 
@@ -134,7 +134,7 @@ export const StyledHeaderSearch = styled.div`
       ${tw`w-6 h-6 stroke-secondary-gray`}
     }
 
-        &:hover {
+    &:hover {
       ${tw`bg-main-transparent`}
     }
 

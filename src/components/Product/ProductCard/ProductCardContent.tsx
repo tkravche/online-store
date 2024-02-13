@@ -50,16 +50,14 @@ import { ReviewsSection } from '../ReviewsSection';
 import { ProductSectionByCategory } from '../ProductSectionWithCategory';
 import { ImageSlider } from './ImageSlider';
 import { selectFavorites, selectIsLogged } from '@/lib/otherRedux/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-// import {
-//   addToFavoritesThunk,
-//   removeFromFavoritesThunk,
-// } from '@/lib/otherRedux/thunks/user';
-
 import { addItemToCart } from '@/lib/otherRedux/slice/user';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import Default from '@/assets/default.webp';
-import { getArticleById, getReviewByArticleId } from '@/hooks/axios/service';
+import { getReviewByArticleId } from '@/hooks/axios/service';
+import {
+  addToFavoritesThunk,
+  removeFromFavoritesThunk,
+} from '@/lib/otherRedux/thunks/user';
 
 export const ProductCardContent: FC<ICardProps> = props => {
   const {
@@ -75,13 +73,14 @@ export const ProductCardContent: FC<ICardProps> = props => {
     inStock,
   } = props;
 
-  const dispatch = useDispatch();
-  // const isLogged = useSelector(selectIsLogged);
-  // const favoriteItems = useSelector(selectFavorites);
-  // const isFavorite = favoriteItems?.some((item: any) => item.id === id);
-  // const [favorite, setFavorite] = useState(isFavorite);
+  const dispatch = useAppDispatch();
+
+  const [value, setValue] = useState('1'); //For Tabs
   const [reviewsNumber, setReviewsNumber] = useState(0);
 
+  const isLogged = useAppSelector(selectIsLogged);
+
+  //For reviews number
   useEffect(() => {
     const fetchReviewsNumber = async () => {
       try {
@@ -94,16 +93,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
     fetchReviewsNumber();
   }, [id]);
 
-  const [value, setValue] = useState('1');
-  const isLogged = useAppSelector(selectIsLogged);
-  const handleChange = (_event: SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
-
-  const formatedCharacteristics = characteristic
-    .split('.')
-    .map(item => item.split(':')[1]);
-  
+  //to scroll to Reviews
   const reviewSection = useRef(null);
   const scrollToSection = (elementRef: RefObject<any>) => {
     window.scrollTo({
@@ -111,16 +101,36 @@ export const ProductCardContent: FC<ICardProps> = props => {
       behavior: 'smooth',
     });
   };
+
+  //for adding product to the cart
   const quantity = 1;
   const urlImage = images[0]?.url === undefined ? Default : images[0]?.url;
   const infoForCart = { id, name, url: urlImage, price, sale, quantity };
+
+  //Favorites
+  const favoriteItems = useAppSelector(selectFavorites);
+  const isFavorite = favoriteItems?.some((item: any) => item.id === id);
   const handleFavoritesChange = () => {
     if (!isLogged) {
       toast.info('You need to be logged in to like!', {});
     } else {
-      console.log('favorite');
+      if (!isFavorite) {
+        dispatch(addToFavoritesThunk({id}));
+      } else {
+        dispatch(removeFromFavoritesThunk({id}));
+      }
     }
   };
+
+  //For Tabs
+  const handleChange = (_event: SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+
+  //For Characteristics in Tabs
+  // const formatedCharacteristics = characteristic
+  //   .split('.')
+  //   .map(item => item.split(':')[1]);
 
   return (
     <StyledProductCardSection>
@@ -251,7 +261,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
                 aria-label="Like"
                 icon={getIcon(EnumIcons.heart)}
                 checkedIcon={getIcon(EnumIcons.heart)}
-                // checked={favorite}
+                checked={isFavorite}
                 // disabled={!isLogged}
                 onChange={handleFavoritesChange}
               />
