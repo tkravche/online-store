@@ -42,6 +42,9 @@ import { StyledRating } from '@/theme/styles/ui/StyledRating';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import { EnumBreakpoints, EnumIcons, ICardProps } from '@/types';
 import {
+  StyledCharacteristics,
+  StyledCharacteristicsList,
+  StyledLabels,
   StyledList,
   StyledTabPanel,
   StyledTabsList,
@@ -77,22 +80,23 @@ export const ProductCardContent: FC<ICardProps> = props => {
 
   const [value, setValue] = useState('1'); //For Tabs
   const [reviewsNumber, setReviewsNumber] = useState(0);
-
+  const [reviews, setReviews] = useState([]);
   const isLogged = useAppSelector(selectIsLogged);
 
   //For reviews number
   useEffect(() => {
-    const fetchReviewsNumber = async () => {
+    const fetchReviews = async () => {
       try {
         const res = await getReviewByArticleId(id);
         setReviewsNumber(res?.data?.meta?.totalItems);
+        setReviews(res?.data?.items);
       } catch (error) {
-        console.error('Error fetching reviews number:', error);
+        console.error('Error fetching reviews:', error);
       }
     };
-    fetchReviewsNumber();
+    fetchReviews();
   }, [id]);
-
+  
   //to scroll to Reviews
   const reviewSection = useRef(null);
   const scrollToSection = (elementRef: RefObject<any>) => {
@@ -115,9 +119,9 @@ export const ProductCardContent: FC<ICardProps> = props => {
       toast.info('You need to be logged in to like!', {});
     } else {
       if (!isFavorite) {
-        dispatch(addToFavoritesThunk({id}));
+        dispatch(addToFavoritesThunk({ id }));
       } else {
-        dispatch(removeFromFavoritesThunk({id}));
+        dispatch(removeFromFavoritesThunk({ id }));
       }
     }
   };
@@ -128,9 +132,12 @@ export const ProductCardContent: FC<ICardProps> = props => {
   };
 
   //For Characteristics in Tabs
-  // const formatedCharacteristics = characteristic
-  //   .split('.')
-  //   .map(item => item.split(':')[1]);
+  const formattedCharacteristicsLabels = characteristic
+    .split('.')
+    .map(item => item.split(':')[0]);
+  const formattedCharacteristics = characteristic
+    .split('.')
+    .map(item => item.split(':')[1]);
 
   return (
     <StyledProductCardSection>
@@ -291,11 +298,19 @@ export const ProductCardContent: FC<ICardProps> = props => {
                 <StyledTabPanel value="1" sx={{ padding: '10px' }}>
                   {discription}
                 </StyledTabPanel>
-                <StyledTabPanel
-                  value="2"
-                  sx={{ padding: '8px', whiteSpace: 'pre', lineHeight: '220%' }}
-                >
-                  {characteristic}
+                <StyledTabPanel value="2" sx={{ padding: '0px' }}>
+                  <StyledCharacteristicsList>
+                    <StyledLabels>
+                      {formattedCharacteristicsLabels.map((item, index) => (
+                        <ListItem key={index}>{item}</ListItem>
+                      ))}
+                    </StyledLabels>
+                    <StyledCharacteristics>
+                      {formattedCharacteristics.map((item, index) => (
+                        <ListItem key={index}>{item}</ListItem>
+                      ))}
+                    </StyledCharacteristics>
+                  </StyledCharacteristicsList>
                 </StyledTabPanel>
                 <StyledTabPanel value="3" sx={{ padding: '0px 8px 8px 10px' }}>
                   <StyledList
@@ -378,7 +393,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
       </StyledContainerSlider>
       <StyledContainer>
         <div ref={reviewSection}></div>
-        <ReviewsSection url={urlImage} name={name} id={id} />
+        <ReviewsSection url={urlImage} name={name} id={id} reviews={reviews} />
         <ProductSectionByCategory category={categories[0].name} />
         <StyledAllLink>
           <NavLink to={`/online-store/${categories[0].name}s`}>

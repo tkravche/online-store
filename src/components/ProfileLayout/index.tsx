@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import {
   Breadcrumbs,
@@ -22,22 +22,24 @@ import {
   StyledProfileSection,
   StyledProfileWrapper,
 } from '@/theme/styles/layout/StyledProfileLayout';
-import { selectIsLogged } from '@/lib/otherRedux/selectors';
-import { useSelector } from 'react-redux';
+import { selectCurrentUser, selectIsLogged } from '@/lib/otherRedux/selectors';
 import { logoutUser } from '@/lib/otherRedux/slice/auth';
-import { useAppDispatch } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { logoutCurrentUser } from '@/lib/otherRedux/slice/user';
 
 export const ProfileLayout: FC = () => {
   const dispatch=useAppDispatch();
+
   const pathname = useLocation().pathname;
   const lastSlash = pathname.lastIndexOf('/');
   let location = pathname.slice(lastSlash + 1);
   if (location === 'profile') {
     location = 'cart';
   }
-  const isLogged = useSelector(selectIsLogged);
-  // const isLogged = true;
+  const isLogged = useAppSelector(selectIsLogged);
+  const name =useAppSelector(selectCurrentUser)?.name;
+  const email =useAppSelector(selectCurrentUser)?.email;
+
   return (
     <StyledProfileSection>
       <StyledContainer>
@@ -58,6 +60,7 @@ export const ProfileLayout: FC = () => {
             <StyledUserAvatar>
               {getIcon(EnumIcons.user)}
               {!isLogged ? (
+                
                 <Typography
                   ml={1}
                   sx={{ fontWeight: '700', lineHeight: '200%' }}
@@ -65,7 +68,8 @@ export const ProfileLayout: FC = () => {
                   No Name
                 </Typography>
               ) : (
-                <Typography ml={1}>Name</Typography>
+                
+                <Typography ml={1}sx={{ fontWeight: '700', lineHeight: '200%' }}>{name}</Typography>
               )}
             </StyledUserAvatar>
             {!isLogged ? (
@@ -81,9 +85,9 @@ export const ProfileLayout: FC = () => {
               <Typography
                 variant="body1"
                 component="p"
-                sx={{ color: '#878D99' }}
+                sx={{ color: '#878D99', paddingLeft: '16px' }}
               >
-                email@email.com
+                {email}
               </Typography>
             )}
             {isLogged && (
@@ -95,6 +99,10 @@ export const ProfileLayout: FC = () => {
                       style={({ isActive }) => {
                         return {
                           color: isActive ? '#212121' : '#878D99',
+                          borderWidth: '2px',
+                          borderStyle: isActive ? 'solid' : 'none',
+                          borderColor: isActive ? '#D25' : 'transparent',
+                          borderRadius: '24px',
                         };
                       }}
                     >
@@ -110,6 +118,10 @@ export const ProfileLayout: FC = () => {
                       style={({ isActive }) => {
                         return {
                           color: isActive ? '#212121' : '#878D99',
+                          borderWidth: '2px',
+                          borderStyle: isActive ? 'solid' : 'none',
+                          borderColor: isActive ? '#D25' : 'transparent',
+                          borderRadius: '24px',
                         };
                       }}
                     >
@@ -125,6 +137,10 @@ export const ProfileLayout: FC = () => {
                       style={({ isActive }) => {
                         return {
                           color: isActive ? '#212121' : '#878D99',
+                          borderWidth: '2px',
+                          borderStyle: isActive ? 'solid' : 'none',
+                          borderColor: isActive ? '#D25' : 'transparent',
+                          borderRadius: '24px',
                         };
                       }}
                     >
@@ -140,6 +156,10 @@ export const ProfileLayout: FC = () => {
                       style={({ isActive }) => {
                         return {
                           color: isActive ? '#212121' : '#878D99',
+                          borderWidth: '2px',
+                          borderStyle: isActive ? 'solid' : 'none',
+                          borderColor: isActive ? '#D25' : 'transparent',
+                          borderRadius: '24px',
                         };
                       }}
                     >
@@ -148,7 +168,7 @@ export const ProfileLayout: FC = () => {
                           {getIcon(EnumIcons.setting)}
                         </ListItemIcon>
                         <ListItemText primary={'Settings'} />
-                      </ListItemButton>{' '}
+                      </ListItemButton>
                     </StyledToolbarLink>
                   </ListItem>
                   <ListItem disablePadding>
@@ -156,7 +176,7 @@ export const ProfileLayout: FC = () => {
                       <ListItemIcon>{getIcon(EnumIcons.logOut)}</ListItemIcon>
                       <ListItemText
                         primary={'Log out'}
-                        sx={{ color: '#878D99' }}
+                        sx={{ color: '#8083FF' }}
                       />
                     </ListItemButton>
                   </ListItem>

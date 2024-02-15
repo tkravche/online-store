@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import {
@@ -40,6 +40,7 @@ import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
 import { currentUserThunk } from '@/lib/otherRedux/thunks/user';
 import { useEffect } from 'react';
+import { StyledAllLink } from '@/theme/styles/components/StyledFavorites';
 
 export const Cart = () => {
   const cart = useAppSelector(selectCart);
@@ -168,6 +169,12 @@ export const Cart = () => {
           </StyledCartLeftWrapper>
         </>
       )}
+      <StyledAllLink>
+        <Link to="/online-store/catalog">
+          Back to the catalog
+          {getIcon(EnumIcons.arrowLong)}
+        </Link>
+      </StyledAllLink>
     </StyledCartSection>
   );
 };

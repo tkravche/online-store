@@ -16,18 +16,19 @@ import { HeaderSearch } from './HeaderSearch';
 import { HeaderSearchModal } from './HeaderSearchModal';
 import { setHeaderSearch } from '@/lib/otherRedux/slice/header';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCart, selectIsLogged } from '@/lib/otherRedux/selectors';
 import { setAuth } from '@/lib/otherRedux/slice/auth';
 import { useAppDispatch, useAppSelector } from '@/hooks';
+import { toast } from 'react-toastify';
 
 export const Header: FC = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector(selectIsLogged);
   const badgeQuantity = useSelector(selectCart).length;
-
+  const navigate = useNavigate();
   const isTabletPortraitScreen = useMediaQuery(
     `(max-width: ${EnumBreakpoints.tabletPortrait})`
   );
@@ -38,6 +39,13 @@ export const Header: FC = () => {
 
   const handleSearchBtnClick = () => {
     dispatch(setHeaderSearch(true));
+  };
+  const handleClick = () => {
+    if (!isLogged) {
+      toast.info('You need to be logged in to see your favorites!', {});
+    } else {
+      navigate('profile/favorites');
+    }
   };
 
   return (
@@ -59,7 +67,9 @@ export const Header: FC = () => {
                 {getIcon(EnumIcons.search)}
               </IconButton>
             )}
-            <IconButton>{getIcon(EnumIcons.heart)}</IconButton>
+            <IconButton onClick={handleClick}>
+              {getIcon(EnumIcons.heart)}
+            </IconButton>
             <Badge
               badgeContent={badgeQuantity}
               color="error"

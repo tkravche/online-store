@@ -1,5 +1,5 @@
 import Image from 'react-image-webp';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Button from '@mui/material/Button';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -21,8 +21,9 @@ import {
   StyledReviewPopUpTop,
   StyledDialogActions,
 } from '@/theme/styles/components/StyledAddReviewPopUp';
-import { useAppDispatch } from '@/hooks';
-import { addReviewThunk } from '@/lib/otherRedux/thunks/user';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { addReviewThunk, editReviewThunk } from '@/lib/otherRedux/thunks/user';
+import { selectCurrentUser } from '@/lib/otherRedux/selectors';
 
 //For stars
 const labels: { [index: string]: string } = {
@@ -42,18 +43,38 @@ function getLabelText(value: number) {
   return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
 
-export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name, id }) => {
+export const AddReviewPopUp: FC<IReviewPopUpProps> = ({
+  url,
+  name,
+  id,
+  reviews,
+}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<number | null>(0); //Stars
   const [hover] = useState(-1);
   const [text, setText] = useState('');
+  const dispatch = useAppDispatch();
 
-  const dispatch= useAppDispatch();
+  //For review update
+  const currentUser = useAppSelector(selectCurrentUser)?.id;
+  const reviewIndex = reviews?.findIndex(
+    review => review.author.id === currentUser
+  );
+  useEffect(() => {
+    if (reviewIndex !== -1) {
+      // If there is an existing review, set the initial state with the review text
+      setText(reviews[reviewIndex]?.text || '');
+      // Set the initial state for the stars (if applicable)
+      setValue(reviews[reviewIndex]?.stars || null);
+    }
+  }, [reviewIndex, reviews]);
+
+
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
-  const isTextEntered = text.trim() !== '';
+  const isTextEntered = text?.trim() !== '';
   // const theme = useTheme();
   // const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const handleClickOpen = () => {
@@ -62,14 +83,26 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name, id }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const reviewData= {
-    "text": text.trim(),
-    "stars": value,
-    "article": id
+
+  const reviewData = {
+    text: text.trim(),
+    stars: value,
+    article: id,
   };
+  const reviewEditData = {
+    text: text.trim(),
+    stars: value,
+    reviewId: reviews[reviewIndex]?.id,
+  };
+
   const handleClick = () => {
-    dispatch(addReviewThunk(reviewData));
-    setOpen(false);
+    if (reviewIndex !== -1) {
+      dispatch(editReviewThunk(reviewEditData));
+      setOpen(false);
+    } else {
+      dispatch(addReviewThunk(reviewData));
+      setOpen(false);
+    }
   };
 
   return (
@@ -99,7 +132,6 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name, id }) => {
         >
           <CloseIcon />
         </IconButton>
-
         <DialogTitle
           sx={{
             m: 0,
@@ -172,9 +204,11 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({ url, name, id }) => {
                   onChange={handleTextChange}
                   aria-label="empty textarea"
                   minRows={6}
-                  placeholder="Write here (up to 1500 characters)"
+                  maxRows={6}
+                  maxLength={1500}
+                  required
+                  placeholder="Write here (up to 300 characters)"
                 />
-
                 <StyledDialogActions>
                   <Button
                     variant="contained"

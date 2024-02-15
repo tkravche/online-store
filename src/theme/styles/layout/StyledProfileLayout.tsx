@@ -19,7 +19,7 @@ export const StyledProfileWrapper = styled.div`
 `;
 
 export const StyledUserAvatar = styled.div`
-  ${tw`flex items-center mb-1`}
+  ${tw`flex items-center mb-1 pl-4`}
   svg {
     stroke: #212121;
   }
@@ -49,24 +49,25 @@ export const StyledToolbar = styled(Toolbar)`
   }
   .MuiListItemButton-root:hover {
     background-color: transparent;
-    border: 2px solid #d25;
+    color: #212121;
+    svg {
+      stroke: black;
+    }
+    .icon-heart {
+      ${tw`fill-none`}
+    }
   }
-
   .icon-heart {
     ${tw`fill-secondary-gray`}
   }
   .icon-logOut {
-    ${tw`stroke-secondary-gray`}
+    ${tw`stroke-secondary-blue`}
   }
   .active > .MuiListItemButton-root > .MuiListItemIcon-root > svg {
     ${tw`stroke-main-black`}
   }
   .active > .MuiListItemButton-root > .MuiListItemIcon-root > .icon-heart {
-    ${tw`fill-main-black`}
-  }
-
-  svg:hover {
-    stroke: black;
+    ${tw`fill-none`}
   }
 `;
 

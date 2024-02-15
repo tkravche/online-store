@@ -3,6 +3,7 @@ import {
   addReviewThunk,
   addToFavoritesThunk,
   currentUserThunk,
+  editReviewThunk,
   getCurrentUserCartThunk,
   removeFromFavoritesThunk,
 } from '../../thunks/user';
@@ -107,6 +108,17 @@ const userSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(addReviewThunk.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(editReviewThunk.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(editReviewThunk.fulfilled, (state, action) => {
+      state.reviews = [action.payload, ...state.reviews];
+      state.isLoading = false;
+    });
+    builder.addCase(editReviewThunk.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

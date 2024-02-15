@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { FC } from 'react';
+import { FC} from 'react';
 
 import {
   StyledAddButton,
@@ -9,11 +9,15 @@ import {
 } from '@/theme/styles/components/StyledReviewSection';
 import { StyledContainer } from '@/theme/styles/layout/StyledWrappers';
 import { AddReviewPopUp } from '../AddReviewPopUp';
-import { Reviews } from '../Reviews';
 import { IReviewPopUpProps } from '@/types';
+import { ReviewsSlider } from '../Reviews/ReviewsSlider';
 
-
-export const ReviewsSection: FC<IReviewPopUpProps> = ({ url, name, id }) => {
+export const ReviewsSection: FC<IReviewPopUpProps> = ({
+  url,
+  name,
+  id,
+  reviews,
+}) => {
   return (
     <StyledReviewSection>
       <StyledContainer>
@@ -26,10 +30,10 @@ export const ReviewsSection: FC<IReviewPopUpProps> = ({ url, name, id }) => {
               Leave your feedback about the product
             </Typography>
             <StyledAddButton>
-              <AddReviewPopUp url={url} name={name} id={id} />
+              <AddReviewPopUp url={url} name={name} id={id} reviews={reviews} />
             </StyledAddButton>
           </StyledFeedbackWrapper>
-          <Reviews id={id} />
+          <ReviewsSlider reviews={reviews} />
         </StyledReview>
       </StyledContainer>
     </StyledReviewSection>

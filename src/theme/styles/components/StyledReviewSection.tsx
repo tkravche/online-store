@@ -45,7 +45,7 @@ export const StyledReviewCard = styled(ReviewCard)`
 `;
 
 export const StyledReviewCardWrapper = styled.div`
-  ${tw`min-h-[254px] bg-main-white rounded-3xl p-4`}
+  ${tw`min-h-[254px] max-w-[460px] bg-main-white rounded-3xl p-4`}
 `;
 
 export const StyledContainerReviewSlider = styled.div`

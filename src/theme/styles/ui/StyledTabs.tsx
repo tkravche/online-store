@@ -36,5 +36,17 @@ export const StyledList = styled(List)`
   }
 `;
 export const StyledTabPanel = styled(TabPanel)`
-${tw`max-w-[690px] h-[245px] overflow-auto`}
-  `;
+  ${tw`max-w-[690px] h-[245px] overflow-auto`}
+`;
+export const StyledCharacteristicsList = styled(List)`
+  ${tw`grid grid-cols-[35%, auto] justify-start gap-x-5`}
+  .MuiListItem-root {
+    padding: 6px 0px 6px 0px;
+  }
+`;
+export const StyledLabels = styled.div`
+  ${tw`text-secondary-gray text-sm`}
+`;
+export const StyledCharacteristics = styled.div`
+  ${tw`text-sm`}
+`;

@@ -7,7 +7,7 @@ import {
   StyledReviewSlider,
   StyledReviewsWrapper,
 } from '@/theme/styles/components/StyledReviewSection';
-import { EnumIcons, IReviewItem, IReviewProps } from '@/types';
+import { EnumIcons, IReviewItem, IReviewPopUpProps, IReviewProps } from '@/types';
 import { IconButton, Typography } from '@mui/material';
 
 interface IArrowProps {
@@ -44,29 +44,30 @@ const settings = {
 };
 
 export const ReviewsSlider: FC<IReviewProps> = props => {
-  const { items } = props;
+  const { reviews } = props;
   return (
     <StyledReviewsWrapper>
-      {!items ||
-        (!items.length && (
+      {!reviews ||
+        (!reviews.length && (
           <StyledNoReviews>
             <Typography>
               There are no reviews for this product on this site yet.
             </Typography>
           </StyledNoReviews>
         ))}
-      {items && items?.length > 0 && items?.length === 1 && (
+      {reviews && reviews?.length > 0 && reviews?.length === 1 && (
         <StyledReviewCard
-          stars={items[0].stars}
-          author={items[0].author}
-          text={items[0].text}
-          updatedAt={items[0].updatedAt}
+          id={reviews[0].id}
+          stars={reviews[0].stars}
+          author={reviews[0].author}
+          text={reviews[0].text}
+          updatedAt={reviews[0].updatedAt}
         />
       )}
-      {items && items?.length > 1 && (
+      {reviews && reviews?.length > 1 && (
         <StyledContainerReviewSlider>
           <StyledReviewSlider {...settings}>
-            {items?.map((review: IReviewItem, index: number) => (
+            {reviews?.map((review: IReviewItem, index: number) => (
               <StyledReviewCard key={index} {...review} />
             ))}
           </StyledReviewSlider>

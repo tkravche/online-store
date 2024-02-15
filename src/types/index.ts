@@ -85,25 +85,24 @@ export interface IProductsGalleryProps {
   handlePageChange: any;
 }
 export interface IReviewItem {
+  id: number;
   stars: number;
   author: {
     name: string;
+    id:number;
   };
   text: string;
   updatedAt: Date;
 }
 export interface IReviewProps {
-  author: { name: string };
-  text: string;
-  stars: number;
-  updatedAt: Date;
-  items?: IReviewItem[];
+  reviews: IReviewItem[];
 }
 
 export interface IReviewPopUpProps {
-  id?: number;
+  id: number;
   name: string;
   url: string;
+  reviews: IReviewItem[];
 }
 
 export interface ICartItemProps {

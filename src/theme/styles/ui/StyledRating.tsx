@@ -17,3 +17,6 @@ export const StyledRating = styled(Rating)`
     }
   }
 `;
+export const StyledText = styled.div`
+${tw`max-w-[428px] max-h-[65px]`}
+`;
