@@ -29,11 +29,11 @@ export const StyledCartItemsWrapper = styled.div`
 `;
 
 export const StyledNoCartItemsWrapper = styled.div`
-  ${tw`flex flex-col items-start`}// ${tw`flex flex-col items-start min-w-[700px] min-h-[448px]`}
+  ${tw`flex flex-col items-start h-[300px]`}// ${tw`flex flex-col items-start min-w-[700px] min-h-[448px]`}
 `;
 
-export const StyledNoCartItems = styled.p`
-  ${tw`mt-6 mb-10`}
+export const StyledNoCartItems = styled.div`
+  ${tw` mt-6 mb-10`}
 `;
 // export const StyledCatalogLink = styled.div`
 //   ${tw`self-start py-1 px-9 rounded-xl text-base leading-8 text-main-white bg-main-black`}
@@ -51,7 +51,7 @@ export const StyledTotalsBox = styled.div`
 `;
 
 export const StyledPromocode = styled.div`
-  ${tw`flex flex items-center gap-x-4 mb-6 `}
+  ${tw`flex flex items-end   gap-x-4 mb-6 `}
   .MuiOutlinedInput-root {
     ${tw`text-sm p-2 bg-main-white border-secondary-gray`}
 `;
@@ -71,10 +71,13 @@ export const StyledContinueLink = styled(Link)`
   ${tw`text-base font-bold leading-8 text-[#878D99]`}
 `;
 export const StyledDeliveryDetails = styled.div`
-  ${tw`p-6`}
+  ${tw`pt-3 pb-6 px-6`}
 `;
 export const StyledDeliveryList = styled(List)``;
 export const StyledDeliveryListItem = styled(ListItem)`
+  .MuiTypography-root {
+    ${tw`text-sm`}
+  }
   svg {
     margin-right: 8px;
     height: 12px;
@@ -84,7 +87,7 @@ export const StyledDeliveryListItem = styled(ListItem)`
 `;
 // CartItem
 export const StyledCartItemWrapper = styled.div`
-  ${tw`grid grid-rows-1 md:grid-cols-[35.7% auto] justify-items-stretch md:items-center gap-x-6 py-6 px-6 border-b-[0.5px] border-solid border-[#8083FF] bg-main-white`}// box-shadow: 0px 4px 4px 0px rgba(128, 131, 255, 0.08);
+  ${tw`grid grid-rows-1 md:grid-cols-[35.7% auto] justify-items-stretch md:items-center gap-x-6 py-6 px-8 border-b-[0.5px] border-solid border-[#8083FF] bg-main-white`}// box-shadow: 0px 4px 4px 0px rgba(128, 131, 255, 0.08);
 `;
 export const StyledImageWrapper = styled.div`
   ${tw` max-w-[300px] justify-self-center mb-5 md:mb-0 md:max-w-[220px] px-2`}
@@ -144,7 +147,7 @@ export const StyledCartItemActions = styled.div`
   }
 
   .MuiCheckbox-root {
-    ${tw`stroke-[#878D99] transition-all`}
+    ${tw`stroke-[#878D99] transition-all px-2 py-0`}
   }
   .MuiCheckbox-root:hover {
     svg {
@@ -172,6 +175,9 @@ export const StyledFormControlLabel = styled(FormControlLabel)`
 export const StyledCheckbox = styled(Checkbox)``;
 
 export const StyledIconButton = styled(IconButton)`
+  .MuiButtonBase-root {
+    ${tw`px-2 py-0`}
+  }
   span {
     ${tw`text-sm ml-2`}
   }

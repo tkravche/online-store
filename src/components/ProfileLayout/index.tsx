@@ -28,18 +28,28 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 import { logoutCurrentUser } from '@/lib/otherRedux/slice/user';
 
 export const ProfileLayout: FC = () => {
-  const dispatch=useAppDispatch();
+  const dispatch = useAppDispatch();
 
+  //For Breadcumbs
   const pathname = useLocation().pathname;
   const lastSlash = pathname.lastIndexOf('/');
   let location = pathname.slice(lastSlash + 1);
   if (location === 'profile') {
     location = 'cart';
   }
-  const isLogged = useAppSelector(selectIsLogged);
-  const name =useAppSelector(selectCurrentUser)?.name;
-  const email =useAppSelector(selectCurrentUser)?.email;
 
+  const isLogged = useAppSelector(selectIsLogged);
+  const name = useAppSelector(selectCurrentUser)?.name;
+  const email = useAppSelector(selectCurrentUser)?.email;
+
+  //For Toolbar Navigation
+  const profileToolbar = [
+    { label: 'cart', svg: 'cart' },
+    { label: 'orders', svg: 'orders' },
+    { label: 'favorites', svg: 'heart' },
+    { label: 'settings', svg: 'setting' },
+  ];
+  
   return (
     <StyledProfileSection>
       <StyledContainer>
@@ -60,7 +70,6 @@ export const ProfileLayout: FC = () => {
             <StyledUserAvatar>
               {getIcon(EnumIcons.user)}
               {!isLogged ? (
-                
                 <Typography
                   ml={1}
                   sx={{ fontWeight: '700', lineHeight: '200%' }}
@@ -68,8 +77,12 @@ export const ProfileLayout: FC = () => {
                   No Name
                 </Typography>
               ) : (
-                
-                <Typography ml={1}sx={{ fontWeight: '700', lineHeight: '200%' }}>{name}</Typography>
+                <Typography
+                  ml={1}
+                  sx={{ fontWeight: '700', lineHeight: '200%' }}
+                >
+                  {name}
+                </Typography>
               )}
             </StyledUserAvatar>
             {!isLogged ? (
@@ -93,86 +106,41 @@ export const ProfileLayout: FC = () => {
             {isLogged && (
               <StyledToolbar>
                 <List>
+                  {profileToolbar.map(({ label, svg }, index) => {
+                    return (
+                      <ListItem key={index} disablePadding>
+                        <StyledToolbarLink
+                          to={label}
+                          style={({ isActive }) => {
+                            return {
+                              color: isActive ? '#212121' : '#878D99',
+                              borderWidth: '2px',
+                              borderStyle: isActive ? 'solid' : 'none',
+                              borderColor: isActive ? '#D25' : 'transparent',
+                              borderRadius: '24px',
+                            };
+                          }}
+                        >
+                          <ListItemButton>
+                            <ListItemIcon>
+                              {getIcon(EnumIcons[svg])}
+                            </ListItemIcon>
+                            <ListItemText
+                              primary={label}
+                              sx={{ textTransform: 'capitalize' }}
+                            />
+                          </ListItemButton>
+                        </StyledToolbarLink>
+                      </ListItem>
+                    );
+                  })}
                   <ListItem disablePadding>
-                    <StyledToolbarLink
-                      to="cart"
-                      style={({ isActive }) => {
-                        return {
-                          color: isActive ? '#212121' : '#878D99',
-                          borderWidth: '2px',
-                          borderStyle: isActive ? 'solid' : 'none',
-                          borderColor: isActive ? '#D25' : 'transparent',
-                          borderRadius: '24px',
-                        };
+                    <ListItemButton
+                      onClick={() => {
+                        dispatch(logoutUser());
+                        dispatch(logoutCurrentUser());
                       }}
                     >
-                      <ListItemButton>
-                        <ListItemIcon>{getIcon(EnumIcons.cart)}</ListItemIcon>
-                        <ListItemText primary={'Cart'} />
-                      </ListItemButton>
-                    </StyledToolbarLink>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <StyledToolbarLink
-                      to="orders"
-                      style={({ isActive }) => {
-                        return {
-                          color: isActive ? '#212121' : '#878D99',
-                          borderWidth: '2px',
-                          borderStyle: isActive ? 'solid' : 'none',
-                          borderColor: isActive ? '#D25' : 'transparent',
-                          borderRadius: '24px',
-                        };
-                      }}
-                    >
-                      <ListItemButton>
-                        <ListItemIcon>{getIcon(EnumIcons.orders)}</ListItemIcon>
-                        <ListItemText primary={'Orders'} />
-                      </ListItemButton>
-                    </StyledToolbarLink>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <StyledToolbarLink
-                      to="favorites"
-                      style={({ isActive }) => {
-                        return {
-                          color: isActive ? '#212121' : '#878D99',
-                          borderWidth: '2px',
-                          borderStyle: isActive ? 'solid' : 'none',
-                          borderColor: isActive ? '#D25' : 'transparent',
-                          borderRadius: '24px',
-                        };
-                      }}
-                    >
-                      <ListItemButton>
-                        <ListItemIcon>{getIcon(EnumIcons.heart)}</ListItemIcon>
-                        <ListItemText primary={'Favorites'} />
-                      </ListItemButton>
-                    </StyledToolbarLink>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <StyledToolbarLink
-                      to="settings"
-                      style={({ isActive }) => {
-                        return {
-                          color: isActive ? '#212121' : '#878D99',
-                          borderWidth: '2px',
-                          borderStyle: isActive ? 'solid' : 'none',
-                          borderColor: isActive ? '#D25' : 'transparent',
-                          borderRadius: '24px',
-                        };
-                      }}
-                    >
-                      <ListItemButton>
-                        <ListItemIcon>
-                          {getIcon(EnumIcons.setting)}
-                        </ListItemIcon>
-                        <ListItemText primary={'Settings'} />
-                      </ListItemButton>
-                    </StyledToolbarLink>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={()=>{dispatch(logoutUser()); dispatch(logoutCurrentUser());}}>
                       <ListItemIcon>{getIcon(EnumIcons.logOut)}</ListItemIcon>
                       <ListItemText
                         primary={'Log out'}

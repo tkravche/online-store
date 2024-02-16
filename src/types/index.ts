@@ -22,8 +22,8 @@ export enum EnumIcons {
   orders = 'orders',
   setting = 'setting',
   logOut = 'logOut',
-  dot= 'dot',
-  check= 'check'
+  dot = 'dot',
+  check = 'check',
 }
 
 export enum EnumBreakpoints {
@@ -89,7 +89,7 @@ export interface IReviewItem {
   stars: number;
   author: {
     name: string;
-    id:number;
+    id: number;
   };
   text: string;
   updatedAt: Date;
@@ -111,5 +111,29 @@ export interface ICartItemProps {
   url: string;
   quantity: number;
   price: number;
-  sale: {newPrise:number};
+  sale: { newPrise: number };
+}
+
+export interface ICartItem {
+  id: number;
+  characteristic: string;
+  rating: null | number;
+  inStock: boolean;
+  price: number;
+  discription: string;
+  name: string;
+  count: number;
+  views: number;
+  isPreviouslyUsed: boolean;
+}
+
+export interface ICartData {
+  id: number;
+  quantity: number;
+  article: ICartItem;
+  subtotalPrice: number;
+}
+
+export interface ICartItemsData {
+  items: ICartData[];
 }

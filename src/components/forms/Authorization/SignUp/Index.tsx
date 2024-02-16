@@ -28,8 +28,8 @@ export const SignUp: FC = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const handleSendSubmit = async (data: ISignUp) => {
-    await dispatch(registerUser(data));
+  const handleSendSubmit = (data: ISignUp) => {
+    dispatch(registerUser(data));
   };
   let disabled = false;
   if (

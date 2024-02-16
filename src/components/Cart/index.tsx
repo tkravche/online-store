@@ -1,17 +1,11 @@
+import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Badge, ListItemText, TextField, Typography } from '@mui/material';
 
 import {
-  selectCart,
+  selectTemporaryCart,
   selectCurrentUserCart,
   selectIsLogged,
 } from '@/lib/otherRedux/selectors';
@@ -34,21 +28,44 @@ import {
   StyledDeliveryList,
   StyledDeliveryListItem,
 } from '@/theme/styles/components/StyledCart';
-import { getCurrentUserCartThunk } from '@/lib/otherRedux/thunks/user';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
-import { currentUserThunk } from '@/lib/otherRedux/thunks/user';
-import { useEffect } from 'react';
+import { getCartItemsThunk } from '@/lib/otherRedux/thunks/user';
 import { StyledAllLink } from '@/theme/styles/components/StyledFavorites';
 
 export const Cart = () => {
-  const cart = useAppSelector(selectCart);
+  let cart;
+  const cartTemporary = useAppSelector(selectTemporaryCart);
+  const cartCurrentUser = useAppSelector(selectCurrentUserCart);
   const isLogged = useAppSelector(selectIsLogged);
   const dispatch = useAppDispatch();
 
-  const cartCurrentUser = useAppSelector(selectCurrentUserCart);
+  const badgeQuantityFromCart = cartCurrentUser.length;
+  const badgeQuantityTemporary = cartTemporary.length;
+  const badgeQuantity = isLogged
+    ? badgeQuantityFromCart
+    : badgeQuantityTemporary;
 
+  useEffect(() => {
+    const fetchCart = async () => {
+      if (isLogged) {
+        try {
+          await dispatch(getCartItemsThunk());
+        } catch (error) {
+          console.error('Error fetching reviews:', error);
+        }
+      }
+    };
+    fetchCart();
+  }, [dispatch, isLogged]);
+
+  if (isLogged) {
+    cart = cartCurrentUser;
+  } else {
+    cart = cartTemporary;
+  }
+  console.log(cart);
   const priceTotal = cart?.reduce((acc: any, item: any) => {
     return acc + item.quantity * item.price;
   }, 0);
@@ -64,6 +81,7 @@ export const Cart = () => {
         item.quantity * (isNaN(item?.sale?.newPrise) ? 0 : item?.sale?.newPrise)
       );
     }, 0);
+    const roundedDiscountTotal= Math.ceil(discountTotal);
   const total = priceTotal - discountTotal;
 
   const { register, handleSubmit } = useForm({
@@ -76,9 +94,12 @@ export const Cart = () => {
 
   return (
     <StyledCartSection>
-      <Typography variant="h1" component="h1" className="line-clamp-1">
-        Cart
-      </Typography>
+      <Badge badgeContent={badgeQuantity} color="error" overlap="rectangular">
+        <Typography variant="h1" component="h1" className="line-clamp-1">
+          Cart
+        </Typography>
+      </Badge>
+
       {!cart?.length ? (
         <StyledNoCartItemsWrapper>
           <StyledNoCartItems>
@@ -93,8 +114,8 @@ export const Cart = () => {
           <StyledCartLeftWrapper>
             <StyledCartItemsContainer>
               <StyledCartItemsWrapper>
-                {cart?.map((item: any) => <CartItem key={item.id} {...item} />)}
-                {/* {!isLogged ? (cart?.map((item: any) => <CartItem key={item.id} {...item} />)):(cartCurrentUser?.map((item: any) => <CartItem key={item.id} {...item} />))} */}
+                {/* {cart?.map((item: any) => <CartItem key={item.id} {...item} />)} */}
+                {!isLogged ? (cart?.map((item: any) => <CartItem key={item.id} {...item} />)):(cartCurrentUser?.map((item: any) => <CartItem key={item.id} {...item} />))}
               </StyledCartItemsWrapper>{' '}
             </StyledCartItemsContainer>
             <StyledTotals>
@@ -127,7 +148,7 @@ export const Cart = () => {
                 <StyledSaleTotal>
                   <Typography variant="body1">Sale</Typography>
                   <Typography variant="body1" sx={{ color: '#878D99' }}>
-                    ${discountTotal}
+                    ${roundedDiscountTotal}
                   </Typography>
                 </StyledSaleTotal>
                 <StyledTotal>
@@ -142,7 +163,7 @@ export const Cart = () => {
                 <StyledDeliveryList>
                   <StyledDeliveryListItem disablePadding>
                     {getIcon(EnumIcons.dot)}
-                    <ListItemText primary="fast delivery — 1-5 days*" />
+                    <ListItemText primary="fast delivery — 1-5 days*" sx={{fontSize: '14px'}} />
                   </StyledDeliveryListItem>
                   <StyledDeliveryListItem disablePadding>
                     {getIcon(EnumIcons.dot)}
@@ -161,7 +182,7 @@ export const Cart = () => {
                     paddingLeft: '8px',
                   }}
                 >
-                  *Delivery terms depending on the destination and the selected
+                  * Delivery terms depending on the destination and the selected
                   shipping method
                 </Typography>
               </StyledDeliveryDetails>

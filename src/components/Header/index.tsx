@@ -17,8 +17,11 @@ import { HeaderSearchModal } from './HeaderSearchModal';
 import { setHeaderSearch } from '@/lib/otherRedux/slice/header';
 
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectCart, selectIsLogged } from '@/lib/otherRedux/selectors';
+import {
+  selectCurrentUserCart,
+  selectIsLogged,
+  selectTemporaryCart,
+} from '@/lib/otherRedux/selectors';
 import { setAuth } from '@/lib/otherRedux/slice/auth';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { toast } from 'react-toastify';
@@ -27,8 +30,14 @@ export const Header: FC = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector(selectIsLogged);
-  const badgeQuantity = useSelector(selectCart).length;
   const navigate = useNavigate();
+
+  const badgeQuantityFromCart = useAppSelector(selectCurrentUserCart).length;
+  const badgeQuantityTemporary = useAppSelector(selectTemporaryCart).length;
+  const badgeQuantity = isLogged
+    ? badgeQuantityFromCart
+    : badgeQuantityTemporary;
+    
   const isTabletPortraitScreen = useMediaQuery(
     `(max-width: ${EnumBreakpoints.tabletPortrait})`
   );

@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import { Typography } from '@mui/material';
 import Image from 'react-image-webp';
-import { useDispatch } from 'react-redux';
 
 import { getIcon } from '@/helpers/getIcon';
 import { EnumIcons, ICartItemProps } from '@/types';
-import { addItemToCart, removeItemFromCart } from '@/lib/otherRedux/slice/user';
+import {
+  addItemToTemporaryCart,
+  removeItemFromTemporaryCart,
+} from '@/lib/otherRedux/slice/user';
 import {
   StyledCartItemActions,
   StyledCartItemInfo,
@@ -23,7 +25,14 @@ import {
   StyledQuantityButtons,
   StyledQuantityNumber,
 } from '@/theme/styles/components/StyledCart';
-import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import {
+  selectCurrentUserCart,
+  selectFavorites,
+  selectIsLogged,
+} from '@/lib/otherRedux/selectors';
+import { addToFavoritesThunk, removeFromFavoritesThunk, removeItemFromCartThunk } from '@/lib/otherRedux/thunks/user';
+import { toast } from 'react-toastify';
 
 export const CartItem: FC<ICartItemProps> = ({
   id,
@@ -33,16 +42,48 @@ export const CartItem: FC<ICartItemProps> = ({
   price,
   sale,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const isLogged = useAppSelector(selectIsLogged);
   const newPrice = sale?.newPrise ?? 0;
   const item = { id, name, url, price, sale: newPrice };
+  const cart = useAppSelector(selectCurrentUserCart);
+
+  // const nameArticle=cart[id]?.article?.name;
 
   const changeQuantity = (item: any, quantity: any) => {
-    dispatch(addItemToCart({ ...item, quantity }));
+    dispatch(addItemToTemporaryCart({ ...item, quantity }));
   };
 
   const removeItem = (id: any) => {
-    dispatch(removeItemFromCart(id));
+    dispatch(removeItemFromTemporaryCart(id));
+  };
+
+  const deleteInfo = {
+    quantity: 1,
+    article: cart[id]?.article?.id,
+  };
+
+  const handleDeleteClick = () => {
+    if (isLogged) {
+      dispatch(removeItemFromCartThunk(deleteInfo));
+    } else {
+      removeItem(id);
+    }
+  };
+
+  //Favorites
+  const favoriteItems = useAppSelector(selectFavorites);
+  const isFavorite = favoriteItems?.some((item: any) => item.id === id);
+  const handleFavoritesChange = () => {
+    if (!isLogged) {
+      toast.info('You need to be logged in to like!', {});
+    } else {
+      if (!isFavorite) {
+        dispatch(addToFavoritesThunk({ id }));
+      } else {
+        dispatch(removeFromFavoritesThunk({ id }));
+      }
+    }
   };
 
   return (
@@ -101,10 +142,16 @@ export const CartItem: FC<ICartItemProps> = ({
               <Typography variant="newPrice" component="span">
                 ${!sale?.newPrise ? price : sale?.newPrise}
               </Typography>
-              {sale?.newPrise && (
+              {sale?.newPrise ? (
                 <Typography variant="oldPrice" component="span">
                   ${price}
                 </Typography>
+              ) : (
+                <Typography
+                  variant="oldPrice"
+                  component="span"
+                  sx={{ height: '20px' }}
+                ></Typography>
               )}
             </StyledCartPrices>
           </StyledQuantityAndPricesWrapper>
@@ -114,11 +161,13 @@ export const CartItem: FC<ICartItemProps> = ({
                 <StyledCheckbox
                   icon={getIcon(EnumIcons.heart)}
                   checkedIcon={getIcon(EnumIcons.heart)}
+                  checked={isFavorite}
+                  onChange={handleFavoritesChange}
                 />
               }
               label="Favourite"
             />
-            <StyledIconButton onClick={() => removeItem(id)}>
+            <StyledIconButton onClick={handleDeleteClick}>
               {getIcon(EnumIcons.delete)}
               <span>Delete</span>
             </StyledIconButton>

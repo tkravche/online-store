@@ -27,16 +27,11 @@ import { selectCurrentUser } from '@/lib/otherRedux/selectors';
 
 //For stars
 const labels: { [index: string]: string } = {
-  0.5: 'Useless',
-  1: 'Useless+',
-  1.5: 'Poor',
-  2: 'Poor+',
-  2.5: 'Ok',
-  3: 'Ok+',
-  3.5: 'Good',
-  4: 'Good+',
-  4.5: 'Excellent',
-  5: 'Excellent+',
+  1: 'Useless',
+  2: 'Poor',
+  3: 'Ok',
+  4: 'Good',
+  5: 'Excellent',
 };
 
 function getLabelText(value: number) {
@@ -68,7 +63,6 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({
       setValue(reviews[reviewIndex]?.stars || null);
     }
   }, [reviewIndex, reviews]);
-
 
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
@@ -177,7 +171,7 @@ export const AddReviewPopUp: FC<IReviewPopUpProps> = ({
                   <StyledRating
                     name="hover-feedback"
                     value={value}
-                    precision={0.5}
+                    precision={1}
                     // icon={getIcon(EnumIcons.star)}
                     emptyIcon={<StarBorderIcon sx={{ color: '#FFD700' }} />}
                     getLabelText={getLabelText}

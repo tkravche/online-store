@@ -26,7 +26,7 @@ export const StyledUserAvatar = styled.div`
 `;
 
 export const StyledProfileLeftWrapper = styled.div`
-  ${tw`py-8 px-6 max-h-[423px] rounded-3xl bg-main-white`}
+  ${tw`py-8 px-6 max-h-[434px] rounded-3xl bg-main-white`}
 `;
 
 export const StyledCartRight = styled.div`
@@ -34,7 +34,7 @@ export const StyledCartRight = styled.div`
 `;
 
 export const StyledToolbar = styled(Toolbar)`
-  ${tw`mt-4`}
+  ${tw`mt-6`}
 
   .MuiListItem-root:not(:last-child) {
     margin-bottom: 24px;

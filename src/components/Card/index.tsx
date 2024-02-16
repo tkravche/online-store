@@ -15,7 +15,7 @@ import { StyledSale } from '@/theme/styles/components/StyledSale';
 import { StyledRating } from '@/theme/styles/ui/StyledRating';
 import { EnumIcons, ICardProps } from '@/types';
 import Default from '@/assets/default.webp';
-import { addItemToCart } from '@/lib/otherRedux/slice/user';
+import { addItemToTemporaryCart } from '@/lib/otherRedux/slice/user';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/hooks';
 import { selectFavorites, selectIsLogged } from '@/lib/otherRedux/selectors';
@@ -95,7 +95,7 @@ export const Card = memo(
           <Button
             variant="contained"
             onClick={() => {
-              dispatch(addItemToCart(infoForCart));
+              dispatch(addItemToTemporaryCart(infoForCart));
             }}
           >
             Buy

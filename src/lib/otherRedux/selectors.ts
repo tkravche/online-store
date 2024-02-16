@@ -8,10 +8,10 @@ export const selectIsLogged = state => state?.auth?.isLogged;
 export const selectIsRegistered = state => state?.auth?.isRegistered;
 export const selectIsLoading = state => state.auth.isLoading;
 
-export const selectCurrentUser = state => state.user.currentUser?.data;
+export const selectCurrentUser = state => state.user?.currentUser?.data;
 export const selectCurrentUserCart = state =>
-  state.user.currentUserCart?.data?.items;
-export const selectCart = state => state.user.temporaryCart;
+  state.user?.cart;
+export const selectTemporaryCart = state => state.user?.temporaryCart;
 export const selectFavorites = state => state.user.currentUser?.data?.favorites;
 
 export const selectArticles = state => state.catalog?.articles.data?.items;

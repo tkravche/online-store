@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import tw from 'twin.macro';
 
-export const StyledFavoriteSection = styled.section`
+export const StyledOrdersSection = styled.section`
   ${tw``}
 `;
 export const StyledNoCartItemsWrapper = styled.div`

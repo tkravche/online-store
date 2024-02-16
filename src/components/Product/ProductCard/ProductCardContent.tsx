@@ -53,11 +53,12 @@ import { ReviewsSection } from '../ReviewsSection';
 import { ProductSectionByCategory } from '../ProductSectionWithCategory';
 import { ImageSlider } from './ImageSlider';
 import { selectFavorites, selectIsLogged } from '@/lib/otherRedux/selectors';
-import { addItemToCart } from '@/lib/otherRedux/slice/user';
+import { addItemToTemporaryCart } from '@/lib/otherRedux/slice/user';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import Default from '@/assets/default.webp';
 import { getReviewByArticleId } from '@/hooks/axios/service';
 import {
+  addItemToCartThunk,
   addToFavoritesThunk,
   removeFromFavoritesThunk,
 } from '@/lib/otherRedux/thunks/user';
@@ -96,7 +97,7 @@ export const ProductCardContent: FC<ICardProps> = props => {
     };
     fetchReviews();
   }, [id]);
-  
+
   //to scroll to Reviews
   const reviewSection = useRef(null);
   const scrollToSection = (elementRef: RefObject<any>) => {
@@ -110,6 +111,14 @@ export const ProductCardContent: FC<ICardProps> = props => {
   const quantity = 1;
   const urlImage = images[0]?.url === undefined ? Default : images[0]?.url;
   const infoForCart = { id, name, url: urlImage, price, sale, quantity };
+  const data = { article: id, quantity };
+  const handleAddToCartClick = () => {
+    if (isLogged) {
+      dispatch(addItemToCartThunk(data));
+    } else {
+      dispatch(addItemToTemporaryCart(infoForCart));
+    }
+  };
 
   //Favorites
   const favoriteItems = useAppSelector(selectFavorites);
@@ -259,8 +268,9 @@ export const ProductCardContent: FC<ICardProps> = props => {
                 sale={sale?.newPrise}
               /> */}
               <StyledAddButton
+                disabled={!inStock}
                 variant="addToCart"
-                onClick={() => dispatch(addItemToCart(infoForCart))}
+                onClick={handleAddToCartClick}
               >
                 Add to cart
               </StyledAddButton>
