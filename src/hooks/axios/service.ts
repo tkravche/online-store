@@ -49,3 +49,27 @@ export const getReviewByArticleId = async (id: number) => {
     throw error;
   }
 };
+
+export const searchArticles = async (
+  page = 1,
+  limit = 20,
+  search: null | string
+) => {
+  try {
+    const searchParams = {
+      page,
+      limit,
+      search,
+    };
+
+    const { data } = await instance.get('articles', {
+      params: searchParams,
+    });
+    return data;
+  } catch (error) {
+    // Handle the error here
+    console.error('Error searching articles:', error);
+    // You can throw the error again if needed or return a default value
+    throw error;
+  }
+};

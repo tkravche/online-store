@@ -11,6 +11,7 @@ import { Card } from '@/components/Card';
 
 export const SearchPage: FC = () => {
   const foundArticles = useAppSelector(selectFoundArticles);
+  console.log(foundArticles);
 
   return (
     <StyledSearchSection>

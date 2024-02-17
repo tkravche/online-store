@@ -24,7 +24,11 @@ const initialState: catalogStateProps = {
 const catalogSlice = createSlice({
   name: 'catalog',
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchedArticles: (state, action) => {
+      state.searchedArticles = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getArticlesThunk.pending, state => {
       state.isLoading = true;
@@ -63,6 +67,6 @@ const catalogSlice = createSlice({
   },
 });
 
-// export const { } = catalogSlice.actions;
+export const { setSearchedArticles} = catalogSlice.actions;
 
 export default catalogSlice.reducer;

@@ -35,15 +35,25 @@ export const getFilteredArticlesThunk = createAsyncThunk<
     category: null | string;
     starsCount: null | number;
     price: null | string;
-    maxPrice: null| number;
-    minPrice: null| number;
-    stock: null| string;
+    maxPrice: null | number;
+    minPrice: null | number;
+    stock: null | string;
   },
   { rejectValue: string }
 >(
   'catalog/getFilteredArticles',
   async (
-    { saleChecked, category, page, limit, starsCount, price, maxPrice, minPrice, stock },
+    {
+      saleChecked,
+      category,
+      page,
+      limit,
+      starsCount,
+      price,
+      maxPrice,
+      minPrice,
+      stock,
+    },
     { rejectWithValue }
   ) => {
     try {
@@ -51,7 +61,17 @@ export const getFilteredArticlesThunk = createAsyncThunk<
       if (saleChecked) {
         sale = 'inc';
       }
-      const params = { page, limit, category, sale, starsCount, price,minPrice, maxPrice, stock };
+      const params = {
+        page,
+        limit,
+        category,
+        sale,
+        starsCount,
+        price,
+        minPrice,
+        maxPrice,
+        stock,
+      };
       const articles = await instance('articles', { params });
       return articles.data;
     } catch (error) {
@@ -74,6 +94,7 @@ export const searchArticlesThunk = createAsyncThunk<
     try {
       const params = { page, limit, search };
       const articles = await instance('articles', { params });
+      console.log(articles);
       return articles.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

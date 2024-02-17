@@ -81,7 +81,7 @@ export const Cart = () => {
         item.quantity * (isNaN(item?.sale?.newPrise) ? 0 : item?.sale?.newPrise)
       );
     }, 0);
-    const roundedDiscountTotal= Math.ceil(discountTotal);
+  const roundedDiscountTotal = Math.ceil(discountTotal);
   const total = priceTotal - discountTotal;
 
   const { register, handleSubmit } = useForm({
@@ -114,8 +114,14 @@ export const Cart = () => {
           <StyledCartLeftWrapper>
             <StyledCartItemsContainer>
               <StyledCartItemsWrapper>
-                {/* {cart?.map((item: any) => <CartItem key={item.id} {...item} />)} */}
-                {!isLogged ? (cart?.map((item: any) => <CartItem key={item.id} {...item} />)):(cartCurrentUser?.map((item: any) => <CartItem key={item.id} {...item} />))}
+                {cart?.map((item: any) => <CartItem key={item.id} {...item} />)}
+                {/* {!isLogged
+                  ? cart?.map((item: any) => (
+                      <CartItem key={item.id} {...item} />
+                    ))
+                  : cartCurrentUser?.map((item: any) => (
+                      <CartItem key={item.id} {...item} />
+                    ))} */}
               </StyledCartItemsWrapper>{' '}
             </StyledCartItemsContainer>
             <StyledTotals>
@@ -163,7 +169,10 @@ export const Cart = () => {
                 <StyledDeliveryList>
                   <StyledDeliveryListItem disablePadding>
                     {getIcon(EnumIcons.dot)}
-                    <ListItemText primary="fast delivery — 1-5 days*" sx={{fontSize: '14px'}} />
+                    <ListItemText
+                      primary="fast delivery — 1-5 days*"
+                      sx={{ fontSize: '14px' }}
+                    />
                   </StyledDeliveryListItem>
                   <StyledDeliveryListItem disablePadding>
                     {getIcon(EnumIcons.dot)}
