@@ -26,8 +26,9 @@ const persistConfigForUser = {
   key: 'user',
   version: 2,
   storage,
-  whitelist: ['currentUser'],
+  whitelist: ['currentUser', 'cart'],
 };
+
 
 export const otherStore = configureStore({
   reducer: {

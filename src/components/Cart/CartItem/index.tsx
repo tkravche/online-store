@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Typography } from '@mui/material';
 import Image from 'react-image-webp';
+import { toast } from 'react-toastify';
 
 import { getIcon } from '@/helpers/getIcon';
 import { EnumIcons, ICartItemProps } from '@/types';
@@ -31,8 +32,12 @@ import {
   selectFavorites,
   selectIsLogged,
 } from '@/lib/otherRedux/selectors';
-import { addToFavoritesThunk, removeFromFavoritesThunk, removeItemFromCartThunk } from '@/lib/otherRedux/thunks/user';
-import { toast } from 'react-toastify';
+import {
+  addItemToCartThunk,
+  addToFavoritesThunk,
+  removeFromFavoritesThunk,
+  removeItemFromCartThunk,
+} from '@/lib/otherRedux/thunks/user';
 
 export const CartItem: FC<ICartItemProps> = ({
   id,
@@ -44,14 +49,16 @@ export const CartItem: FC<ICartItemProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector(selectIsLogged);
-  const newPrice = sale?.newPrise ?? 0;
+  const newPrice = sale?.newPrise ?? 0;  
   const item = { id, name, url, price, sale: newPrice };
   const cart = useAppSelector(selectCurrentUserCart);
-
-  // const nameArticle=cart[id]?.article?.name;
-
+  const article = id;
   const changeQuantity = (item: any, quantity: any) => {
-    dispatch(addItemToTemporaryCart({ ...item, quantity }));
+    if (!isLogged) {
+      dispatch(addItemToTemporaryCart({ ...item, quantity }));
+    } else {
+      dispatch(addItemToCartThunk({ article, quantity }));
+    }
   };
 
   const removeItem = (id: any) => {
@@ -60,7 +67,7 @@ export const CartItem: FC<ICartItemProps> = ({
 
   const deleteInfo = {
     quantity: 1,
-    article: cart[id]?.article?.id,
+    article: id,
   };
 
   const handleDeleteClick = () => {

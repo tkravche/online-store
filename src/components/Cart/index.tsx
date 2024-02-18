@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
@@ -28,10 +27,9 @@ import {
   StyledDeliveryList,
   StyledDeliveryListItem,
 } from '@/theme/styles/components/StyledCart';
-import { useAppDispatch, useAppSelector } from '@/hooks';
+import { useAppSelector } from '@/hooks';
 import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
-import { getCartItemsThunk } from '@/lib/otherRedux/thunks/user';
 import { StyledAllLink } from '@/theme/styles/components/StyledFavorites';
 
 export const Cart = () => {
@@ -39,7 +37,6 @@ export const Cart = () => {
   const cartTemporary = useAppSelector(selectTemporaryCart);
   const cartCurrentUser = useAppSelector(selectCurrentUserCart);
   const isLogged = useAppSelector(selectIsLogged);
-  const dispatch = useAppDispatch();
 
   const badgeQuantityFromCart = cartCurrentUser.length;
   const badgeQuantityTemporary = cartTemporary.length;
@@ -47,25 +44,12 @@ export const Cart = () => {
     ? badgeQuantityFromCart
     : badgeQuantityTemporary;
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      if (isLogged) {
-        try {
-          await dispatch(getCartItemsThunk());
-        } catch (error) {
-          console.error('Error fetching reviews:', error);
-        }
-      }
-    };
-    fetchCart();
-  }, [dispatch, isLogged]);
-
   if (isLogged) {
     cart = cartCurrentUser;
   } else {
     cart = cartTemporary;
   }
-  console.log(cart);
+  
   const priceTotal = cart?.reduce((acc: any, item: any) => {
     return acc + item.quantity * item.price;
   }, 0);
@@ -99,7 +83,6 @@ export const Cart = () => {
           Cart
         </Typography>
       </Badge>
-
       {!cart?.length ? (
         <StyledNoCartItemsWrapper>
           <StyledNoCartItems>
@@ -114,15 +97,19 @@ export const Cart = () => {
           <StyledCartLeftWrapper>
             <StyledCartItemsContainer>
               <StyledCartItemsWrapper>
-                {cart?.map((item: any) => <CartItem key={item.id} {...item} />)}
-                {/* {!isLogged
-                  ? cart?.map((item: any) => (
-                      <CartItem key={item.id} {...item} />
-                    ))
+                {!isLogged
+                  ? cartTemporary?.map((item: any) => (
+                    <CartItem key={item.id} {...item} />
+                  ))
                   : cartCurrentUser?.map((item: any) => (
-                      <CartItem key={item.id} {...item} />
-                    ))} */}
-              </StyledCartItemsWrapper>{' '}
+                    <CartItem
+                      key={item.article.id}
+                      {...item.article}
+                      quantity={item.quantity}
+                      url={item.article.images[0].url}
+                    />
+                  ))}
+              </StyledCartItemsWrapper>
             </StyledCartItemsContainer>
             <StyledTotals>
               <StyledTotalsBox>

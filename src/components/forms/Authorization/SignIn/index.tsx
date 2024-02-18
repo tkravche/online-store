@@ -17,7 +17,7 @@ import { loginUser } from '@/lib/otherRedux/thunks/auth';
 import { selectIsLoading } from '@/lib/otherRedux/selectors';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { FC} from 'react';
-import { currentUserThunk } from '@/lib/otherRedux/thunks/user';
+import { currentUserThunk, getCartItemsThunk } from '@/lib/otherRedux/thunks/user';
 import { loginSchema } from '@/helpers/yup';
 import { setAuth } from '@/lib/otherRedux/slice/auth';
 
@@ -44,6 +44,7 @@ export const SignIn: FC = () => {
     await dispatch(loginUser(data)).then(r => {
       if (r.payload && r.meta.requestStatus === 'fulfilled') {
         dispatch(currentUserThunk());
+        dispatch(getCartItemsThunk());
         dispatch(setAuth(false));
       }
     });

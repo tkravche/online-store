@@ -2,7 +2,6 @@ import { instance } from '@/hooks/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { selectRefreshToken } from '../../selectors';
 
-
 export const setToken = (token: any) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
