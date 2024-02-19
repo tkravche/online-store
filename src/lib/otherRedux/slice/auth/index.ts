@@ -115,7 +115,7 @@ export const authSlice = createSlice({
     builder.addCase(changePasswordThunk.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(changePasswordThunk.fulfilled, (state, action) => {
+    builder.addCase(changePasswordThunk.fulfilled, (state) => {
       state.passwordChanged = true;
     });
     builder.addCase(changePasswordThunk.rejected, state => {

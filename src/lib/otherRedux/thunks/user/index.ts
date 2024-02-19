@@ -23,14 +23,16 @@ export const currentUserThunk = createAsyncThunk<IRegisterData>(
 export const updateUserThunk = createAsyncThunk<
   IRegisterData,
   {
-    name: string;
-    phoneNumber: number;
-    street: string;
-    city: string;
-    country: string;
-    postCode: string;
+    name: null | string;
+    phoneNumber: null | string;
+    street: null | string;
+    city: null | string;
+    country: null | string;
+    postCode: null | string;
   }
->('user/updateUserInfo', async (data, { rejectWithValue }) => {
+>('user/updateUserInfo', async (data, { rejectWithValue, getState }) => {
+  const token = selectAccessToken(getState());
+  setToken(token);
   try {
     const currentUser = await instance.patch('users/me', data);
     return currentUser.data;

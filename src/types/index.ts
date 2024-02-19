@@ -154,6 +154,9 @@ export interface IOrdersData {
   items: IOrderData[];
 }
 
+export interface IChangeData {
+  done: boolean;
+}
 
 // {
 //   "data": {

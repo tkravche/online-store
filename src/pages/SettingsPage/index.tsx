@@ -1,57 +1,26 @@
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { TabContext } from '@mui/lab';
-import { Box, Button, Tab, Typography } from '@mui/material';
+import { Box, Tab, Typography } from '@mui/material';
 import { FC, SyntheticEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getIcon } from '@/helpers/getIcon';
-import { EnumBreakpoints, EnumIcons } from '@/types';
+import { EnumIcons } from '@/types';
 import {
   StyledAllLink,
-  StyledDeliveryAddressForm,
-  StyledSettingsForm,
   StyledSettingsSection,
   StyledTabPanel,
 } from '@/theme/styles/components/StyledSettings';
 import { StyledTabsList } from '@/theme/styles/components/StyledSettings';
-import { Field } from '@/components/forms/elements/Field';
-import { updateUserThunk } from '@/lib/otherRedux/thunks/user';
-import { useAppDispatch } from '@/hooks';
-
-interface IUpdateUserInfo {
-  name: string;
-  phone: string;
-}
+import { Contact } from '@/components/Settings/Contact';
+import { DeliveryAddress } from '@/components/Settings/DeliveryAddress';
+import { Password } from '@/components/Settings/Password';
 
 export const SettingsPage: FC = () => {
-  const dispatch = useAppDispatch();
   const [value, setValue] = useState('1'); //For Tabs
   //For Tabs
   const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-
-  const form = useForm({
-    mode: 'onChange',
-    // resolver: yupResolver(updateSchema),
-  });
-
-  const handleSendSubmit = async (data: IUpdateUserInfo) => {
-    // await dispatch(updateUserThunk(data));
-  };
-
-  let disabled = true;
-  if (
-    form.formState.errors.name ||
-    form.formState.errors.phone ||
-    form.formState.errors.country ||
-    form.formState.errors.settlement ||
-    form.formState.errors.postCode ||
-    form.formState.errors.street
-  ) {
-    disabled = true;
-  }
 
   return (
     <StyledSettingsSection>
@@ -85,7 +54,8 @@ export const SettingsPage: FC = () => {
               You can change your name and phone number here. Please note, this
               information will be used by the delivery service.
             </Typography>
-            <StyledSettingsForm
+            <Contact />
+            {/* <StyledSettingsForm
               onSubmit={form.handleSubmit(handleSendSubmit as any)}
             >
               <Field
@@ -113,10 +83,11 @@ export const SettingsPage: FC = () => {
               >
                 <span>Save</span>
               </Button>
-            </StyledSettingsForm>
+            </StyledSettingsForm> */}
           </StyledTabPanel>
           <StyledTabPanel value="2" sx={{ padding: '0px' }}>
-            <StyledDeliveryAddressForm
+            <DeliveryAddress />
+            {/* <StyledDeliveryAddressForm
               onSubmit={form.handleSubmit(handleSendSubmit as any)}
             >
               <Field
@@ -134,7 +105,7 @@ export const SettingsPage: FC = () => {
                 label="Enter your postcode"
                 icon="edit"
                 placeholder="_ _ _ _ _ _ _ _"
-                error={form.formState.errors.postcode}
+                error={form.formState.errors.postCode}
                 register={form.register('postCode')}
               />
               <Field
@@ -156,19 +127,20 @@ export const SettingsPage: FC = () => {
                 register={form.register('street')}
               />
               <Button
-                disabled={disabled}
+                disabled={disabledAddress}
                 variant="contained"
                 sx={{ maxWidth: '188px' }}
               >
                 <span>Confirm</span>
               </Button>
-            </StyledDeliveryAddressForm>
+            </StyledDeliveryAddressForm> */}
           </StyledTabPanel>
           <StyledTabPanel value="3" sx={{ padding: '0px' }}>
             <Typography variant="body4">
               You can change your password here.
             </Typography>
-            <StyledSettingsForm
+            <Password />
+            {/* <StyledSettingsForm
               onSubmit={form.handleSubmit(handleSendSubmit as any)}
             >
               <Field
@@ -177,8 +149,8 @@ export const SettingsPage: FC = () => {
                 label="Enter your password"
                 icon="password"
                 placeholder="***********"
-                error={form.formState.errors.password}
-                register={form.register('password')}
+                error={form.formState.errors.oldPassword}
+                register={form.register('oldPassword')}
               />
               <Field
                 id="newPassword"
@@ -195,17 +167,18 @@ export const SettingsPage: FC = () => {
                 label="Confirm a new password"
                 icon="password"
                 placeholder="***********"
-                error={form.formState.errors.confirmpassword}
-                register={form.register('confirmPassword')}
+                error={form.formState.errors.confirm}
+                register={form.register('confirm')}
               />
               <Button
-                disabled={disabled}
+                disabled={disabledPass}
+                type="submit"
                 variant="contained"
                 sx={{ maxWidth: '188px' }}
               >
                 <span>Confirm</span>
               </Button>
-            </StyledSettingsForm>
+            </StyledSettingsForm> */}
           </StyledTabPanel>
         </TabContext>
       </Box>

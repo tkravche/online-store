@@ -1,6 +1,7 @@
 import { instance } from '@/hooks/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { selectRefreshToken } from '../../selectors';
+import { selectAccessToken, selectRefreshToken } from '../../selectors';
+import { IChangeData } from '@/types';
 
 export const setToken = (token: any) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -88,11 +89,13 @@ export const refreshThunk = createAsyncThunk<
 });
 
 export const changePasswordThunk = createAsyncThunk<
-  { oldPassword: string; newPassword: string },
-  { rejectValue: string }
->('auth/changePassword', async (credentials, { rejectWithValue }) => {
+  IChangeData,
+  { oldPassword: string; newPassword: string }
+>('auth/changePassword', async (data, { rejectWithValue, getState }) => {
+  const token = selectAccessToken(getState());
+  setToken(token);
   try {
-    const user = await instance.post('auth/email/change/password', credentials);
+    const user = await instance.post('auth/email/change/password', data);
     return user.data;
   } catch (error: any) {
     if (error.response && error.response.data.message) {
