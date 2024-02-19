@@ -4,6 +4,7 @@ import { createTheme } from '@mui/material/styles';
 declare module '@mui/material/styles' {
   interface TypographyVariantsOptions {
     body3?: React.CSSProperties;
+    body4?: React.CSSProperties;
     newPrice?: React.CSSProperties;
     newPriceRed?: React.CSSProperties;
     oldPrice?: React.CSSProperties;
@@ -14,6 +15,7 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     body3: true;
+    body4: true;
     newPrice: true;
     newPriceRed: true;
     oldPrice: true;
@@ -75,6 +77,10 @@ const theme = createTheme({
     body3: {
       fontSize: '10px',
       lineHeight: '14px',
+    },
+    body4: {
+      fontSize: '12px',
+      lineHeight: '15px',
     },
     newPrice: {
       fontSize: '24px',

@@ -14,12 +14,21 @@ import { EnumIcons } from '@/types';
 import { Field } from '../../elements/Field';
 import { loginUser } from '@/lib/otherRedux/thunks/auth';
 
-import { selectIsLoading } from '@/lib/otherRedux/selectors';
+import {
+  selectIsLoading,
+  selectTemporaryCart,
+} from '@/lib/otherRedux/selectors';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { FC} from 'react';
-import { currentUserThunk, getCartItemsThunk } from '@/lib/otherRedux/thunks/user';
+import { FC } from 'react';
+import {
+  addItemToCartThunk,
+  currentUserThunk,
+  getCartItemsThunk,
+  getOrdersThunk,
+} from '@/lib/otherRedux/thunks/user';
 import { loginSchema } from '@/helpers/yup';
 import { setAuth } from '@/lib/otherRedux/slice/auth';
+import { emptyTemporaryCart } from '@/lib/otherRedux/slice/user';
 
 interface ISignIn {
   email: string;
@@ -29,6 +38,7 @@ interface ISignIn {
 export const SignIn: FC = () => {
   const loading = useAppSelector(selectIsLoading);
   const dispatch = useAppDispatch();
+  const temporaryCart = useAppSelector(selectTemporaryCart);
 
   const form = useForm({
     mode: 'onChange',
@@ -43,11 +53,20 @@ export const SignIn: FC = () => {
   const handleSendSubmit = async (data: ISignIn) => {
     await dispatch(loginUser(data)).then(r => {
       if (r.payload && r.meta.requestStatus === 'fulfilled') {
-        dispatch(currentUserThunk());
-        dispatch(getCartItemsThunk());
+        if (temporaryCart.length > 0) {
+          temporaryCart.forEach(item =>
+            dispatch(
+              addItemToCartThunk({ article: item.id, quantity: item.quantity })
+            )
+          );
+          dispatch(emptyTemporaryCart());
+        }
         dispatch(setAuth(false));
       }
     });
+    dispatch(currentUserThunk());
+    dispatch(getCartItemsThunk({ page: 1, limit: 20 }));
+    dispatch(getOrdersThunk({ page: 1, limit: 20 }));
   };
   return (
     <StyledAuthorizationForm
@@ -66,7 +85,6 @@ export const SignIn: FC = () => {
         type="email"
         label="E-mail"
         icon="mail"
-        
         placeholder="example@example.com"
         error={form.formState.errors.email}
         register={form.register('email')}

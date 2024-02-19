@@ -63,3 +63,23 @@ export const newsSchema = yup.object().shape({
     )
     .email('Your email is incorrect. Please try again.'),
 });
+
+export const updateSchema = yup
+  .object()
+  .shape({
+    name: yup
+      .string()
+      .required('Please enter your name')
+      .matches(
+        /^[a-zA-Zа-яєїієґҐА-ЯЄЇІЄҐҐ'0-9]+$/,
+        'Your name can only contain letters or numbers. Please try again.'
+      )
+      .min(2, 'Your name should have at least 2 characters. Please try again.'),
+
+    password: yup
+      .string()
+      .required('Please enter your password.')
+      .min(8, 'Please enter a valid password.')
+      .max(20, 'Please enter a valid password.'),
+  })
+  .required();

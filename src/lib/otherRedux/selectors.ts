@@ -13,6 +13,7 @@ export const selectCurrentUserCart = state =>
   state.user?.cart;
 export const selectTemporaryCart = state => state.user?.temporaryCart;
 export const selectFavorites = state => state.user.currentUser?.data?.favorites;
+export const selectOrders = state => state.user?.orders;
 
 export const selectArticles = state => state.catalog?.articles.data?.items;
 export const selectTotalItems = state => state.catalog?.articles.data?.meta.itemCount;

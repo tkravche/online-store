@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  changePasswordThunk,
   clearToken,
   loginUser,
   refreshThunk,
@@ -17,6 +18,7 @@ type userStateProps = {
   isAuthOpen: boolean;
   isRegistered: boolean;
   isVerified: boolean;
+  passwordChanged: boolean;
 };
 
 const initialState: userStateProps = {
@@ -27,12 +29,13 @@ const initialState: userStateProps = {
   isLoading: false,
   isAuthOpen: false,
   isVerified: false,
+  passwordChanged: false,
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  
+
   reducers: {
     setAuth: (state, { payload }) => {
       state.isAuthOpen = payload;
@@ -85,8 +88,11 @@ export const authSlice = createSlice({
       state.isLogged = false;
       state.isLoading = false;
       console.log(action);
-      if (action.payload === "Cannot read properties of undefined (reading 'data')") {
-        toast.error('Please make sure you verified the email', {}); 
+      if (
+        action.payload ===
+        "Cannot read properties of undefined (reading 'data')"
+      ) {
+        toast.error('Please make sure you verified the email', {});
       } else {
         toast.error('Please try again. The email or login are wrong.', {});
       }
@@ -105,6 +111,15 @@ export const authSlice = createSlice({
       state.isLoading = false;
       state.isAuthOpen = true;
       toast.error('Please login.', {});
+    });
+    builder.addCase(changePasswordThunk.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(changePasswordThunk.fulfilled, (state, action) => {
+      state.passwordChanged = true;
+    });
+    builder.addCase(changePasswordThunk.rejected, state => {
+      state.isLoading = false;
     });
   },
 });

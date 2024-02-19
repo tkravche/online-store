@@ -49,9 +49,8 @@ export const CartItem: FC<ICartItemProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector(selectIsLogged);
-  const newPrice = sale?.newPrise ?? 0;  
+  const newPrice = sale?.newPrise ?? 0;
   const item = { id, name, url, price, sale: newPrice };
-  const cart = useAppSelector(selectCurrentUserCart);
   const article = id;
   const changeQuantity = (item: any, quantity: any) => {
     if (!isLogged) {
@@ -66,7 +65,7 @@ export const CartItem: FC<ICartItemProps> = ({
   };
 
   const deleteInfo = {
-    quantity: 1,
+    quantity: quantity,
     article: id,
   };
 

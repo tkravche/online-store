@@ -25,7 +25,7 @@ import {
 import { selectCurrentUser, selectIsLogged } from '@/lib/otherRedux/selectors';
 import { logoutUser } from '@/lib/otherRedux/slice/auth';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { logoutCurrentUser } from '@/lib/otherRedux/slice/user';
+import { emptyCart, emptyTemporaryCart, logoutCurrentUser } from '@/lib/otherRedux/slice/user';
 
 export const ProfileLayout: FC = () => {
   const dispatch = useAppDispatch();
@@ -139,6 +139,8 @@ export const ProfileLayout: FC = () => {
                       onClick={() => {
                         dispatch(logoutUser());
                         dispatch(logoutCurrentUser());
+                        dispatch(emptyCart());
+                        dispatch(emptyTemporaryCart());
                       }}
                     >
                       <ListItemIcon>{getIcon(EnumIcons.logOut)}</ListItemIcon>

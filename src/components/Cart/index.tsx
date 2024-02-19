@@ -7,6 +7,7 @@ import {
   selectTemporaryCart,
   selectCurrentUserCart,
   selectIsLogged,
+  selectCurrentUser,
 } from '@/lib/otherRedux/selectors';
 import { CartItem } from './CartItem';
 import {
@@ -27,16 +28,19 @@ import {
   StyledDeliveryList,
   StyledDeliveryListItem,
 } from '@/theme/styles/components/StyledCart';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { EnumIcons } from '@/types';
 import { getIcon } from '@/helpers/getIcon';
 import { StyledAllLink } from '@/theme/styles/components/StyledFavorites';
+import { createOrderThunk } from '@/lib/otherRedux/thunks/user';
 
 export const Cart = () => {
+  const dispatch = useAppDispatch();
   let cart;
   const cartTemporary = useAppSelector(selectTemporaryCart);
   const cartCurrentUser = useAppSelector(selectCurrentUserCart);
   const isLogged = useAppSelector(selectIsLogged);
+  const currentUser = useAppSelector(selectCurrentUser).address;
 
   const badgeQuantityFromCart = cartCurrentUser.length;
   const badgeQuantityTemporary = cartTemporary.length;
@@ -49,10 +53,12 @@ export const Cart = () => {
   } else {
     cart = cartTemporary;
   }
-  
-  const priceTotal = cart?.reduce((acc: any, item: any) => {
-    return acc + item.quantity * item.price;
-  }, 0);
+
+  const priceTotal = Math.ceil(
+    cart?.reduce((acc: any, item: any) => {
+      return acc + item.quantity * item.price;
+    }, 0)
+  );
   const discountTotal =
     cart?.reduce((acc: any, item: any) => {
       return (
@@ -66,14 +72,21 @@ export const Cart = () => {
       );
     }, 0);
   const roundedDiscountTotal = Math.ceil(discountTotal);
-  const total = priceTotal - discountTotal;
+  const total = Math.ceil(priceTotal - discountTotal);
 
   const { register, handleSubmit } = useForm({
     mode: 'onTouched',
   });
 
-  const handleSendSubmit = (data: any) => {
-    console.log(data);
+  const data = {
+    addition: ':)',
+    street: currentUser.street,
+    city: currentUser.city,
+    country: currentUser.country,
+    postCode: currentUser.postCode,
+  };
+  const handleClick = () => {
+    dispatch(createOrderThunk(data));
   };
 
   return (
@@ -125,12 +138,12 @@ export const Cart = () => {
                   <Typography component="p" variant="body1">
                     Promocode
                   </Typography>
-                  <form onSubmit={handleSubmit(handleSendSubmit as any)}>
-                    <TextField
-                      placeholder="Enter a promo code"
-                      {...register('promocode')}
-                    />
-                  </form>
+                  {/* <form onSubmit={handleSubmit(handleSendSubmit as any)}> */}
+                  <TextField
+                    placeholder="Enter a promo code"
+                    {...register('promocode')}
+                  />
+                  {/* </form> */}
                 </StyledPromocode>
                 <StyledPriceTotal>
                   <Typography variant="body1">Price</Typography>
@@ -149,7 +162,9 @@ export const Cart = () => {
                   <Typography variant="newPrice">${total}</Typography>
                 </StyledTotal>
                 <StyledButtons>
-                  <Button variant="contained">Confirm</Button>
+                  <Button onClick={handleClick} variant="contained">
+                    Confirm
+                  </Button>
                 </StyledButtons>
               </StyledTotalsBox>
               <StyledDeliveryDetails>

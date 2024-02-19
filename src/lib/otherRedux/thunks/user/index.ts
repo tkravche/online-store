@@ -2,10 +2,10 @@ import { instance } from '@/hooks/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { selectAccessToken } from '../../selectors';
 import { IRegisterData, setToken } from '../auth';
-import { ICartData, ICartItemsData } from '@/types';
+import { ICartData, ICartItemsData, IOrderData, IOrdersData } from '@/types';
 
 export const currentUserThunk = createAsyncThunk<IRegisterData>(
-  'user/getInfo',
+  'user/getUserInfo',
   async (_, { rejectWithValue }) => {
     try {
       const currentUser = await instance('users/me');
@@ -19,6 +19,29 @@ export const currentUserThunk = createAsyncThunk<IRegisterData>(
     }
   }
 );
+
+export const updateUserThunk = createAsyncThunk<
+  IRegisterData,
+  {
+    name: string;
+    phoneNumber: number;
+    street: string;
+    city: string;
+    country: string;
+    postCode: string;
+  }
+>('user/updateUserInfo', async (data, { rejectWithValue }) => {
+  try {
+    const currentUser = await instance.patch('users/me', data);
+    return currentUser.data;
+  } catch (error: any) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message);
+    } else {
+      return rejectWithValue(error.message);
+    }
+  }
+});
 
 export const addToFavoritesThunk = createAsyncThunk<
   IRegisterData,
@@ -99,13 +122,20 @@ export const editReviewThunk = createAsyncThunk<
   }
 });
 
-export const getCartItemsThunk = createAsyncThunk<ICartItemsData>(
+export const getCartItemsThunk = createAsyncThunk<
+  ICartItemsData,
+  { page: null | number; limit: null | number }
+>(
   'user/getCartItems',
-  async (_, { rejectWithValue, getState }) => {
+  async ({ page, limit }, { rejectWithValue, getState }) => {
     const token = selectAccessToken(getState());
     setToken(token);
     try {
-      const cart = await instance('carts/my/items');
+      const params = {
+        page,
+        limit,
+      };
+      const cart = await instance('carts/my/items', { params });
       return cart.data.data;
     } catch (error: any) {
       if (error.response && error.response.data.message) {
@@ -144,8 +174,55 @@ export const removeItemFromCartThunk = createAsyncThunk<
   const token = selectAccessToken(getState());
   setToken(token);
   try {
-    const cart = await instance.delete('carts/my/items/decrement', {data});
-    return cart.data;
+    const cart = await instance.delete('carts/my/items/decrement', { data });
+    return cart.data.data;
+  } catch (error: any) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message);
+    } else {
+      return rejectWithValue(error.message);
+    }
+  }
+});
+
+export const getOrdersThunk = createAsyncThunk<
+  IOrdersData,
+  { page: null | number; limit: null | number }
+>('user/getOrders', async ({ page, limit }, { rejectWithValue, getState }) => {
+  const token = selectAccessToken(getState());
+  setToken(token);
+  try {
+    const params = {
+      page,
+      limit,
+    };
+    const orders = await instance('orders/my', { params });
+    return orders.data.data;
+  } catch (error: any) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message);
+    } else {
+      return rejectWithValue(error.message);
+    }
+  }
+});
+
+export const createOrderThunk = createAsyncThunk<
+  IOrderData,
+  {
+    addition: string;
+    street: string;
+    city: string;
+    country: string;
+    postCode: string;
+  },
+  { rejectValue: string }
+>('user/createOrder', async (data, { rejectWithValue, getState }) => {
+  const token = selectAccessToken(getState());
+  setToken(token);
+  try {
+    const order = await instance.post('orders', data);
+    return order.data.data;
   } catch (error: any) {
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data.message);

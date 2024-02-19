@@ -52,7 +52,13 @@ import {
 import { ReviewsSection } from '../ReviewsSection';
 import { ProductSectionByCategory } from '../ProductSectionWithCategory';
 import { ImageSlider } from './ImageSlider';
-import { selectFavorites, selectIsLogged } from '@/lib/otherRedux/selectors';
+import {
+  selectCurrentUser,
+  selectCurrentUserCart,
+  selectFavorites,
+  selectIsLogged,
+  selectTemporaryCart,
+} from '@/lib/otherRedux/selectors';
 import { addItemToTemporaryCart } from '@/lib/otherRedux/slice/user';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import Default from '@/assets/default.webp';
@@ -83,7 +89,18 @@ export const ProductCardContent: FC<ICardProps> = props => {
   const [reviewsNumber, setReviewsNumber] = useState(0);
   const [reviews, setReviews] = useState([]);
   const isLogged = useAppSelector(selectIsLogged);
+  
+   const temporaryCart = useAppSelector(selectTemporaryCart);
+  const cart = useAppSelector(selectCurrentUserCart);
+  const foundInTemporaryCart = temporaryCart.find(item => item.id === id);
+  const foundInCurrentCart = cart.find(item => item.article.id === id);
 
+  let foundInCart;
+  if (isLogged) {
+    foundInCart = foundInCurrentCart;
+  } else {
+    foundInCart = foundInTemporaryCart;
+  }
   //For reviews number
   useEffect(() => {
     const fetchReviews = async () => {
@@ -267,13 +284,23 @@ export const ProductCardContent: FC<ICardProps> = props => {
                 price={price}
                 sale={sale?.newPrise}
               /> */}
-              <StyledAddButton
-                disabled={!inStock}
-                variant="addToCart"
-                onClick={handleAddToCartClick}
-              >
-                Add to cart
-              </StyledAddButton>
+              {!foundInCart ? (
+                <StyledAddButton
+                  disabled={!inStock}
+                  variant="addToCart"
+                  onClick={handleAddToCartClick}
+                >
+                  Add to cart
+                </StyledAddButton>
+              ) : (
+                <StyledAddButton
+                  disabled={!inStock}
+                  variant="addToCart"
+                  onClick={handleAddToCartClick}
+                >
+                  Add one more
+                </StyledAddButton>
+              )}
               <Checkbox
                 aria-label="Like"
                 icon={getIcon(EnumIcons.heart)}
