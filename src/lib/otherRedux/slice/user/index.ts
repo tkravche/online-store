@@ -12,6 +12,7 @@ import {
   removeItemFromCartThunk,
   updateUserThunk,
 } from '../../thunks/user';
+import { toast } from 'react-toastify';
 // import type { PayloadAction } from '@reduxjs/toolkit';
 
 // // Define a type for the slice state
@@ -99,10 +100,13 @@ const userSlice = createSlice({
     builder.addCase(updateUserThunk.fulfilled, (state, action) => {
       state.currentUser = action.payload;
       state.isLoading = false;
+      toast.success('Settings have been saved successfully', {});
     });
     builder.addCase(updateUserThunk.rejected, (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
+      toast.error('Please try again', {});
+
     });
     builder.addCase(addToFavoritesThunk.pending, state => {
       state.isLoading = true;

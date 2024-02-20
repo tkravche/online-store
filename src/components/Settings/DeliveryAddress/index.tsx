@@ -7,24 +7,36 @@ import { StyledDeliveryAddressForm } from '@/theme/styles/components/StyledSetti
 import { updateAddressSchema } from '@/helpers/yup';
 import { useAppDispatch } from '@/hooks';
 import { updateUserThunk } from '@/lib/otherRedux/thunks/user';
+import { FC, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export interface IChangeAddress {
-  name: null |string;
-  phoneNumber: null |string;
+  name: null | string;
+  phoneNumber: null | string;
   country: null | string;
-  city: null |string;
-  postCode: null |string;
-  street: null |string;
+  city: null | string;
+  postCode: null | string;
+  street: null | string;
 }
 
-export const DeliveryAddress = () => {
+export interface IAddressProps {
+  address: null | {
+    country: null | string;
+    city: null | string;
+    postCode: null | string;
+    street: null | string;
+  };
+}
+
+export const DeliveryAddress: FC<IAddressProps> = ({ address }) => {
   const dispatch = useAppDispatch();
-  
+
   const form = useForm({
     mode: 'onChange',
     resolver: yupResolver(updateAddressSchema),
   });
 
+  //Disable button
   let disabledAddress = false;
   if (
     form.formState.errors.country ||
@@ -35,16 +47,36 @@ export const DeliveryAddress = () => {
     disabledAddress = true;
   }
 
-  const handleSendSubmit = async (data: IChangeAddress) => {
-    await dispatch(updateUserThunk(data));
-  };
+  // Check if values have changed
+  const [initialValues] = useState<IChangeAddress>({
+    name: '',
+    phoneNumber: '',
+    country: address?.country || '',
+    city: address?.city || '',
+    postCode: address?.postCode || '',
+    street: address?.street || '',
+  });
+  const valuesChanged =
+    form.getValues('country') !== initialValues.country ||
+    form.getValues('city') !== initialValues.city;
+  form.getValues('postCode') !== initialValues.postCode ||
+    form.getValues('street') !== initialValues.street;
 
+  const handleSendSubmit = async (data: IChangeAddress) => {
+    if (valuesChanged) {
+      await dispatch(updateUserThunk(data));
+    } else {
+      // Values haven't changed, show an alert
+      toast.info('Please change the info before submitting it.', {});
+    }
+  };
   return (
     <StyledDeliveryAddressForm
       onSubmit={form.handleSubmit(handleSendSubmit as any)}
     >
       <Field
         id="country"
+        defaultValue={address?.country ?? ''}
         type="text"
         label="Enter your country"
         icon="search"
@@ -54,6 +86,7 @@ export const DeliveryAddress = () => {
       />
       <Field
         id="postCode"
+        defaultValue={address?.postCode ?? ''}
         type="text"
         label="Enter your postcode"
         icon="edit"
@@ -63,6 +96,7 @@ export const DeliveryAddress = () => {
       />
       <Field
         id="city"
+        defaultValue={address?.city ?? ''}
         type="text"
         label="Enter your settlement"
         icon="search"
@@ -72,6 +106,7 @@ export const DeliveryAddress = () => {
       />
       <Field
         id="street"
+        defaultValue={address?.street ?? ''}
         type="text"
         label="Enter your street and building number"
         icon="edit"
@@ -85,7 +120,7 @@ export const DeliveryAddress = () => {
         variant="contained"
         sx={{ maxWidth: '188px' }}
       >
-        <span>Confirm</span>
+        <span>Save</span>
       </Button>
     </StyledDeliveryAddressForm>
   );

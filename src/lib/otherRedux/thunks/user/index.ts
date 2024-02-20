@@ -25,10 +25,10 @@ export const updateUserThunk = createAsyncThunk<
   {
     name: null | string;
     phoneNumber: null | string;
-    street: null | string;
-    city: null | string;
     country: null | string;
+    city: null | string;
     postCode: null | string;
+    street: null | string;
   }
 >('user/updateUserInfo', async (data, { rejectWithValue, getState }) => {
   const token = selectAccessToken(getState());

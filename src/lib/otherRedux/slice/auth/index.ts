@@ -87,7 +87,6 @@ export const authSlice = createSlice({
     builder.addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
       state.isLogged = false;
       state.isLoading = false;
-      console.log(action);
       if (
         action.payload ===
         "Cannot read properties of undefined (reading 'data')"
@@ -115,12 +114,17 @@ export const authSlice = createSlice({
     builder.addCase(changePasswordThunk.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(changePasswordThunk.fulfilled, (state) => {
+    builder.addCase(changePasswordThunk.fulfilled, state => {
       state.passwordChanged = true;
+      toast.success('You have successfully changed your password', {});
     });
-    builder.addCase(changePasswordThunk.rejected, state => {
-      state.isLoading = false;
-    });
+    builder.addCase(
+      changePasswordThunk.rejected,
+      (state) => {
+        state.isLoading = false;
+        toast.error('Please try again', {});
+      }
+    );
   },
 });
 

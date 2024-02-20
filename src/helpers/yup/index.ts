@@ -76,11 +76,11 @@ export const updateContactSchema = yup
     phoneNumber: yup
       .string()
       .matches(
-        /^\d+$/,
-        'Your phone number can contain only numbers. Please try again.'
+        /^[\d+()-]+$/,
+        'Your phone number should be in such format e.g. +44-2832-346-686. Please try again.'
       )
-      .required('Please enter your phone number')
-      .length(10, 'Your phone number should have 10 digits. Please try again.'),
+      .required('Please enter your phone number'),
+    // .length(16, 'Your phone number should have 16 digits. Please try again.'),
   })
   .required();
 
@@ -91,24 +91,6 @@ export const updateAddressSchema = yup
     city: yup.string().required('Please enter your city'),
     postCode: yup.string().required('Please enter your post code'),
     street: yup.string().required('Please enter your street name'),
-    oldPassword: yup
-      .string()
-      .required('Please enter your password.')
-      .min(8, 'Please enter a valid password.')
-      .max(20, 'Please enter a valid password.'),
-    newPassword: yup
-      .string()
-      .required('Please enter your password.')
-      .min(8, 'Your password should be at least 8 characters.')
-      .max(20, 'Your password should be no longer than 20 characters.')
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=]).+$/,
-        'Your password must contain 1 lowercase and 1 uppercase letters, 1 number and 1 character.'
-      ),
-    confirm: yup
-      .string()
-      .required('Please confirm your password.')
-      .oneOf([yup.ref('newPassword')], 'Your passwords do not match.'),
   })
   .required();
 
@@ -119,7 +101,11 @@ export const updatePasswordSchema = yup
       .string()
       .required('Please enter your old password.')
       .min(8, 'Please enter a valid password.')
-      .max(20, 'Please enter a valid password.'),
+      .max(20, 'Please enter a valid password.')
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=]).+$/,
+        'Your password must contain 1 lowercase and 1 uppercase letters, 1 number and 1 character.'
+      ),
     newPassword: yup
       .string()
       .required('Please enter your new password.')

@@ -2,11 +2,14 @@ import { Button } from '@mui/material';
 import { Field } from '@/components/forms/elements/Field';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { FC, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { StyledSettingsForm } from '@/theme/styles/components/StyledSettings';
 import { updateContactSchema } from '@/helpers/yup';
 import { useAppDispatch } from '@/hooks';
 import { updateUserThunk } from '@/lib/otherRedux/thunks/user';
+
 
 export interface IChangeContact {
   name: null | string;
@@ -17,26 +20,52 @@ export interface IChangeContact {
   street: null | string;
 }
 
-export const Contact = () => {
+export interface IContactsProps {
+  name: string;
+  phone: null | string;
+}
+
+export const Contact: FC<IContactsProps> = ({ name, phone }) => {
   const dispatch = useAppDispatch();
+
   const form = useForm({
     mode: 'onChange',
     resolver: yupResolver(updateContactSchema),
   });
 
+  //Disable button
   let disabled = false;
   if (form.formState.errors.name || form.formState.errors.phoneNumber) {
     disabled = true;
   }
 
+  // Check if values have changed
+  const [initialValues] = useState<IChangeContact>({
+    name: name || '',
+    phoneNumber: phone || '',
+    country: '',
+    city: '',
+    postCode: '',
+    street: '',
+  });
+  const valuesChanged =
+    form.getValues('name') !== initialValues.name ||
+    form.getValues('phoneNumber') !== initialValues.phoneNumber;
+
   const handleSendSubmit = async (data: IChangeContact) => {
-    await dispatch(updateUserThunk(data));
+    if (valuesChanged) {
+      await dispatch(updateUserThunk(data));
+    } else {
+      // Values haven't changed, show an alert
+      toast.info('Please change the info before submitting it.', {});
+    }
   };
 
   return (
     <StyledSettingsForm onSubmit={form.handleSubmit(handleSendSubmit as any)}>
       <Field
         id="name"
+        defaultValue={name}
         type="text"
         label="Enter your full name"
         icon="user"
@@ -46,10 +75,11 @@ export const Contact = () => {
       />
       <Field
         id="phoneNumber"
+        defaultValue={phone}
         type="tel"
         label="Enter your phone number"
         icon="edit"
-        placeholder="(_ _ _)_ _ _   _ _    _ _"
+        placeholder="+ _ _ - _ _ _ _ - _ _ _- _ _ _"
         error={form.formState.errors.phoneNumber}
         register={form.register('phoneNumber')}
       />

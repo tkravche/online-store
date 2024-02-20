@@ -8,14 +8,15 @@ import {
 } from '@mui/material';
 import { FC, useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
+
 import { getIcon } from '@/helpers/getIcon';
 import { EnumIcons } from '@/types';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 interface ISignInTypes {
   id?: string;
   label?: string;
   icon?: string;
+  defaultValue?: string;
   placeholder?: string;
   type?: string;
   register: UseFormRegisterReturn;
@@ -31,6 +32,7 @@ export const Field: FC<ISignInTypes> = ({
   icon,
   placeholder,
   error,
+  defaultValue,
   register,
 }) => {
   const validIcon = EnumIcons[icon as keyof typeof EnumIcons];
@@ -48,6 +50,7 @@ export const Field: FC<ISignInTypes> = ({
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <Input
         id={id}
+        defaultValue={defaultValue}
         type={id === 'password'|| id === 'confirmPassword' || id === 'newPassword' ? (showPassword ? 'text' : 'password') : type}
         error={!!error}
         placeholder={placeholder}
