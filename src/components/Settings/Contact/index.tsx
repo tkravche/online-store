@@ -1,9 +1,8 @@
 import { Button } from '@mui/material';
 import { Field } from '@/components/forms/elements/Field';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useState } from 'react';
-import { toast } from 'react-toastify';
+import { FC} from 'react';
 
 import { StyledSettingsForm } from '@/theme/styles/components/StyledSettings';
 import { updateContactSchema } from '@/helpers/yup';

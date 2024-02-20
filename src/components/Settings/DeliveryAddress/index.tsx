@@ -8,7 +8,6 @@ import { updateAddressSchema } from '@/helpers/yup';
 import { useAppDispatch } from '@/hooks';
 import { updateUserThunk } from '@/lib/otherRedux/thunks/user';
 import { FC } from 'react';
-import { toast } from 'react-toastify';
 
 export interface IChangeAddress {
   name: null | string;
@@ -35,10 +34,10 @@ export const DeliveryAddress: FC<IAddressProps> = ({ address }) => {
     mode: 'onChange',
     resolver: yupResolver(updateAddressSchema),
   });
-  const watchCountry = form.watch('country', address.country);
-  const watchCity = form.watch('city', address.city);
-  const watchPostCode = form.watch('postCode', address.postCode);
-  const watchStreet = form.watch('street', address.street);
+  const watchCountry = form.watch('country', address?.country);
+  const watchCity = form.watch('city', address?.city);
+  const watchPostCode = form.watch('postCode', address?.postCode);
+  const watchStreet = form.watch('street', address?.street);
 
   //Disable button
   const disabledAddress =
@@ -47,10 +46,10 @@ export const DeliveryAddress: FC<IAddressProps> = ({ address }) => {
     !!form.formState.errors.postCode ||
     !!form.formState.errors.street ||
     !form.formState.isDirty ||
-    (watchCountry === address.country &&
-      watchCity === address.city &&
-      watchPostCode === address.postCode &&
-      watchStreet === address.street);
+    (watchCountry === address?.country &&
+      watchCity === address?.city &&
+      watchPostCode === address?.postCode &&
+      watchStreet === address?.street);
 
   const handleSendSubmit = async (data: IChangeAddress) => {
     await dispatch(updateUserThunk(data));

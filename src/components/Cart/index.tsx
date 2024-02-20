@@ -80,10 +80,10 @@ export const Cart = () => {
 
   const data = {
     addition: ':)',
-    street: currentUser.street,
-    city: currentUser.city,
-    country: currentUser.country,
-    postCode: currentUser.postCode,
+    street: currentUser?.street,
+    city: currentUser?.city,
+    country: currentUser?.country,
+    postCode: currentUser?.postCode,
   };
   const handleClick = () => {
     dispatch(createOrderThunk(data));
