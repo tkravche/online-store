@@ -299,7 +299,7 @@ export const Catalog: FC<ICatalogProps> = ({ categoryForPage }) => {
                     <RadioGroup
                       aria-labelledby="categories-controlled-radio-buttons-group"
                       name="categories-controlled-radio-buttons-group"
-                      value={category}
+                      value={category?? ''}
                       onChange={handleRadioChange}
                     >
                       <StyledCategoryFilter>

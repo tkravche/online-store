@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { Field } from '@/components/forms/elements/Field';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -31,27 +31,16 @@ export const Contact: FC<IContactsProps> = ({ name, phone }) => {
     mode: 'onChange',
     resolver: yupResolver(updateContactSchema),
   });
+  const watchName = form.watch('name', name);
+  const watchPhone = form.watch('phoneNumber', phone);
 
-  //Disable button
-  let disabled = false;
-  if (form.formState.errors.name || form.formState.errors.phoneNumber) {
-    disabled = true;
-  }
-  const valuesChanged =
-    form.getValues('name') !== name || form.getValues('phoneNumber') !== phone;
-
-  console.log('initial props', name, phone);
-  console.log('form.getValues', form.getValues('name'));
-  console.log('form.getValues', form.getValues('phoneNumber'));
-  console.log('valuesChanged', valuesChanged);
+  const disabled =
+    !!form.formState.errors.name ||
+    !!form.formState.errors.phoneNumber ||
+    (watchName === name && watchPhone === phone);
 
   const handleSendSubmit = async (data: IChangeContact) => {
-    if (valuesChanged) {
-      await dispatch(updateUserThunk(data));
-    } else {
-      // Values haven't changed, show an alert
-      toast.info('Please change the info before submitting it.', {});
-    }
+    await dispatch(updateUserThunk(data));
   };
 
   return (

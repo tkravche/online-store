@@ -7,7 +7,7 @@ import { StyledDeliveryAddressForm } from '@/theme/styles/components/StyledSetti
 import { updateAddressSchema } from '@/helpers/yup';
 import { useAppDispatch } from '@/hooks';
 import { updateUserThunk } from '@/lib/otherRedux/thunks/user';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { toast } from 'react-toastify';
 
 export interface IChangeAddress {
@@ -35,45 +35,27 @@ export const DeliveryAddress: FC<IAddressProps> = ({ address }) => {
     mode: 'onChange',
     resolver: yupResolver(updateAddressSchema),
   });
+  const watchCountry = form.watch('country', address.country);
+  const watchCity = form.watch('city', address.city);
+  const watchPostCode = form.watch('postCode', address.postCode);
+  const watchStreet = form.watch('street', address.street);
 
   //Disable button
-  let disabledAddress = false;
-  if (
-    form.formState.errors.country ||
-    form.formState.errors.city ||
-    form.formState.errors.postCode ||
-    form.formState.errors.street
-  ) {
-    disabledAddress = true;
-  }
+  const disabledAddress =
+    !!form.formState.errors.country ||
+    !!form.formState.errors.city ||
+    !!form.formState.errors.postCode ||
+    !!form.formState.errors.street ||
+    !form.formState.isDirty ||
+    (watchCountry === address.country &&
+      watchCity === address.city &&
+      watchPostCode === address.postCode &&
+      watchStreet === address.street);
 
-  // console.log(
-  //   'initial props',
-  //   address?.country,
-  //   address?.city,
-  //   address?.postCode,
-  //   address?.street
-  // );
-  // Check if values have changed
-  const valuesChanged =
-    form.getValues('country') !== address?.country ||
-    form.getValues('city') !== address?.city ||
-    form.getValues('postCode') !== address?.postCode ||
-    form.getValues('street') !== address?.street;
-
-  // console.log('form.getValues', form.getValues('country'));
-  // console.log('form.getValues', form.getValues('city'));
-  // console.log('form.getValues', form.getValues('postCode'));
-  // console.log('form.getValues', form.getValues('street'));
-  // console.log('valuesChanged', valuesChanged);
   const handleSendSubmit = async (data: IChangeAddress) => {
-    if (valuesChanged) {
-      await dispatch(updateUserThunk(data));
-    } else {
-      // Values haven't changed, show an alert
-      toast.info('Please change the info before submitting it.', {});
-    }
+    await dispatch(updateUserThunk(data));
   };
+
   return (
     <StyledDeliveryAddressForm
       onSubmit={form.handleSubmit(handleSendSubmit as any)}
