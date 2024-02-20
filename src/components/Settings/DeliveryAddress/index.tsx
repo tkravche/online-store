@@ -47,21 +47,25 @@ export const DeliveryAddress: FC<IAddressProps> = ({ address }) => {
     disabledAddress = true;
   }
 
+  // console.log(
+  //   'initial props',
+  //   address?.country,
+  //   address?.city,
+  //   address?.postCode,
+  //   address?.street
+  // );
   // Check if values have changed
-  const [initialValues] = useState<IChangeAddress>({
-    name: '',
-    phoneNumber: '',
-    country: address?.country || '',
-    city: address?.city || '',
-    postCode: address?.postCode || '',
-    street: address?.street || '',
-  });
   const valuesChanged =
-    form.getValues('country') !== initialValues.country ||
-    form.getValues('city') !== initialValues.city;
-  form.getValues('postCode') !== initialValues.postCode ||
-    form.getValues('street') !== initialValues.street;
+    form.getValues('country') !== address?.country ||
+    form.getValues('city') !== address?.city ||
+    form.getValues('postCode') !== address?.postCode ||
+    form.getValues('street') !== address?.street;
 
+  // console.log('form.getValues', form.getValues('country'));
+  // console.log('form.getValues', form.getValues('city'));
+  // console.log('form.getValues', form.getValues('postCode'));
+  // console.log('form.getValues', form.getValues('street'));
+  // console.log('valuesChanged', valuesChanged);
   const handleSendSubmit = async (data: IChangeAddress) => {
     if (valuesChanged) {
       await dispatch(updateUserThunk(data));

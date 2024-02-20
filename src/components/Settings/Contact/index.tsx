@@ -10,7 +10,6 @@ import { updateContactSchema } from '@/helpers/yup';
 import { useAppDispatch } from '@/hooks';
 import { updateUserThunk } from '@/lib/otherRedux/thunks/user';
 
-
 export interface IChangeContact {
   name: null | string;
   phoneNumber: null | string;
@@ -38,19 +37,13 @@ export const Contact: FC<IContactsProps> = ({ name, phone }) => {
   if (form.formState.errors.name || form.formState.errors.phoneNumber) {
     disabled = true;
   }
-
-  // Check if values have changed
-  const [initialValues] = useState<IChangeContact>({
-    name: name || '',
-    phoneNumber: phone || '',
-    country: '',
-    city: '',
-    postCode: '',
-    street: '',
-  });
   const valuesChanged =
-    form.getValues('name') !== initialValues.name ||
-    form.getValues('phoneNumber') !== initialValues.phoneNumber;
+    form.getValues('name') !== name || form.getValues('phoneNumber') !== phone;
+
+  console.log('initial props', name, phone);
+  console.log('form.getValues', form.getValues('name'));
+  console.log('form.getValues', form.getValues('phoneNumber'));
+  console.log('valuesChanged', valuesChanged);
 
   const handleSendSubmit = async (data: IChangeContact) => {
     if (valuesChanged) {
