@@ -154,6 +154,26 @@ export interface IOrdersData {
   items: IOrderData[];
 }
 
+export interface IOrderItemProps {
+  id: number;
+  article: {
+    id: number;
+    name: string;
+    price: number;
+    images?: {
+      id: number;
+      name: string;
+      url: string;
+    }[];
+  };
+}
+export interface IOrderProps {
+  id: number;
+  status: string;
+  totalPrice: number;
+  orderItems: [IOrderItemProps];
+}
+
 export interface IChangeData {
   done: boolean;
 }

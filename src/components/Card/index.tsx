@@ -18,8 +18,7 @@ import Default from '@/assets/default.webp';
 import { addItemToTemporaryCart } from '@/lib/otherRedux/slice/user';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/hooks';
-import { selectFavorites, selectIsLogged } from '@/lib/otherRedux/selectors';
-import { toast } from 'react-toastify';
+import { selectFavorites } from '@/lib/otherRedux/selectors';
 
 export const Card = memo(
   ({ name, price, sale, id, images, rating }: ICardProps) => {

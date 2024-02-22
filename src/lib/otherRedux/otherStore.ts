@@ -25,7 +25,7 @@ const persistConfigForUser = {
   key: 'user',
   version: 2,
   storage,
-  whitelist: ['currentUser', 'cart', 'temporaryCart'],
+  whitelist: ['currentUser', 'cart', 'temporaryCart', 'orders'],
 };
 
 

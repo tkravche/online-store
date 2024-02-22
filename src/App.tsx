@@ -11,6 +11,7 @@ import { useAppDispatch } from './hooks';
 import { refreshThunk } from './lib/otherRedux/thunks/auth';
 
 import { instance } from './hooks/axios';
+import { History } from './pages/History';
 
 export const App = () => {
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ export const App = () => {
           <Route index element={<CartPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="orders" element={<OrdersPage />} />
+          <Route path="orders/history" element={<History />} />
           <Route path="favorites" element={<FavoritesPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>

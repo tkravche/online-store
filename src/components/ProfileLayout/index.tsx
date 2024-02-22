@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import {
+  Box,
   Breadcrumbs,
   List,
   ListItem,
@@ -25,7 +26,11 @@ import {
 import { selectCurrentUser, selectIsLogged } from '@/lib/otherRedux/selectors';
 import { logoutUser } from '@/lib/otherRedux/slice/auth';
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { emptyCart, emptyTemporaryCart, logoutCurrentUser } from '@/lib/otherRedux/slice/user';
+import {
+  emptyCart,
+  emptyTemporaryCart,
+  logoutCurrentUser,
+} from '@/lib/otherRedux/slice/user';
 
 export const ProfileLayout: FC = () => {
   const dispatch = useAppDispatch();
@@ -49,7 +54,7 @@ export const ProfileLayout: FC = () => {
     { label: 'favorites', svg: 'heart' },
     { label: 'settings', svg: 'setting' },
   ];
-  
+
   return (
     <StyledProfileSection>
       <StyledContainer>
@@ -57,6 +62,13 @@ export const ProfileLayout: FC = () => {
           <Link underline="hover" color="inherit" href="/">
             Home
           </Link>
+          <Typography
+            color="text.primary"
+            className="line-clamp-1"
+            sx={{ textTransform: 'capitalize' }}
+          >
+            Profile
+          </Typography>
           <Typography
             color="text.primary"
             className="line-clamp-1"
