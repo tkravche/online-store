@@ -7,8 +7,6 @@ export const ProductPage: FC = () => {
   const { id } = useParams();
   const productId = Number(id);
   
-
-
   return (
     <>
       <Product id={productId} />

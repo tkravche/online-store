@@ -9,6 +9,7 @@ import {
   StyledOrderCard,
   StyledOrderCards,
   StyledOrderHistory,
+  StyledPrices,
 } from '@/theme/styles/components/StyledOrder';
 import { IOrderProps } from '@/types';
 import Default from '@/assets/default.webp';
@@ -52,12 +53,15 @@ export const OrderHistoryItem: FC<IOrderProps> = ({
         {orderItems.map(item => (
           <StyledOrderCard key={item.id}>
             <StyledCardImg>
-              {/* {item?.article?.images.length > 0 ? (
-                <Image src={item?.article?.images[0].url} webp={item?.article?.images[0].url} alt={item?.article?.name} />
+              {item?.article?.images.length > 0 ? (
+                <Image
+                  src={item?.article?.images[0].url}
+                  webp={item?.article?.images[0].url}
+                  alt={item?.article?.name}
+                />
               ) : (
                 <Image src={Default} webp={Default} alt={item?.article?.name} />
-              )} */}
-              <Image src={Default} webp={Default} alt={item?.article?.name} />
+              )}
             </StyledCardImg>
             <Link to={`/online-store/${item.article.id}`} className="title">
               <Typography
@@ -73,9 +77,20 @@ export const OrderHistoryItem: FC<IOrderProps> = ({
                 {item.article.name}
               </Typography>
             </Link>
-            <Typography variant="newPrice" component="span" pl={2} pr={2}>
-              ${item.article.price}
-            </Typography>
+            <StyledPrices>
+              <Typography variant="newPrice" component="span">
+                $
+                {!item.article.sale?.newPrise
+                  ? item.article.price
+                  : item.article.sale?.newPrise}
+              </Typography>
+
+              {item.article.sale?.newPrise && (
+                <Typography variant="oldPrice" component="span">
+                  ${item.article.price}
+                </Typography>
+              )}
+            </StyledPrices>
           </StyledOrderCard>
         ))}
       </StyledOrderCards>
@@ -87,7 +102,12 @@ export const OrderHistoryItem: FC<IOrderProps> = ({
               ${totalPrice}
             </Typography>
           </Typography>
-          <Typography variant="body2" component="p" sx={{ color: '#878D99' }} mt={1}>
+          <Typography
+            variant="body2"
+            component="p"
+            sx={{ color: '#878D99' }}
+            mt={1}
+          >
             Payment upon receipt
           </Typography>
         </div>

@@ -7,7 +7,7 @@ import {
   StyledReviewSlider,
   StyledReviewsWrapper,
 } from '@/theme/styles/components/StyledReviewSection';
-import { EnumIcons, IReviewItem, IReviewPopUpProps, IReviewProps } from '@/types';
+import { EnumIcons, IReviewItem, IReviewProps } from '@/types';
 import { IconButton, Typography } from '@mui/material';
 
 interface IArrowProps {

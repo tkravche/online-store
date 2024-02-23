@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import { Badge, ListItemText, TextField, Typography } from '@mui/material';
@@ -36,6 +36,7 @@ import { createOrderThunk } from '@/lib/otherRedux/thunks/user';
 
 export const Cart = () => {
   const dispatch = useAppDispatch();
+  const navigate=useNavigate();
   let cart;
   const cartTemporary = useAppSelector(selectTemporaryCart);
   const cartCurrentUser = useAppSelector(selectCurrentUserCart);
@@ -87,6 +88,7 @@ export const Cart = () => {
   };
   const handleClick = () => {
     dispatch(createOrderThunk(data));
+    navigate('/online-store/profile/orders');
   };
 
   return (

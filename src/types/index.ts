@@ -156,10 +156,16 @@ export interface IOrdersData {
 
 export interface IOrderItemProps {
   id: number;
+  quantity: number;
   article: {
     id: number;
     name: string;
     price: number;
+    sale: {
+      id: number;
+      newPrise: number;
+      activeTill: string;
+    };
     images?: {
       id: number;
       name: string;
@@ -170,6 +176,7 @@ export interface IOrderItemProps {
 export interface IOrderProps {
   id: number;
   status: string;
+  updatedAt: Date;
   totalPrice: number;
   orderItems: [IOrderItemProps];
 }

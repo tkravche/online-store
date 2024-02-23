@@ -1,9 +1,9 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import {
+  IconButton,
   Step,
   StepConnector,
   StepLabel,
-  Stepper,
   Typography,
   stepConnectorClasses,
 } from '@mui/material';
@@ -13,15 +13,91 @@ import Image from 'react-image-webp';
 
 import {
   StyledCardImg,
+  StyledContainerSlider,
   StyledOrder,
   StyledOrderCard,
   StyledOrderCards,
+  StyledPrices,
+  StyledQuantity,
+  StyledSlider,
   StyledStepper,
 } from '@/theme/styles/components/StyledOrder';
 import { EnumIcons, IOrderProps } from '@/types';
 import Default from '@/assets/default.webp';
+import { getIcon } from '@/helpers/getIcon';
+import { OrderItem } from './OrderItem';
 
-export const Order: FC<IOrderProps> = ({ id, status, totalPrice, orderItems }) => {
+interface IArrowProps {
+  onClick?: () => void; // Define the type for onClick prop
+}
+
+const NextArrow: FC<IArrowProps> = ({ onClick }) => (
+  <IconButton onClick={onClick} className="button button-next">
+    {getIcon(EnumIcons.arrowRight)}
+  </IconButton>
+);
+
+const PrevArrow: FC<IArrowProps> = ({ onClick }) => (
+  <IconButton onClick={onClick} className="button button-prev">
+    {getIcon(EnumIcons.arrowLeft)}
+  </IconButton>
+);
+
+const settings = {
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
+  responsive: [
+    {
+      breakpoint: 1680,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: true,
+      },
+    },
+    // {
+    //   breakpoint: 1420,
+    //   settings: {
+    //     slidesToShow: 4,
+    //     slidesToScroll: 1,
+    //   },
+    // },
+    // {
+    //   breakpoint: 1280,
+    //   settings: {
+    //     slidesToShow: 3,
+    //     slidesToScroll: 1,
+    //   },
+    // },
+    // {
+    //   breakpoint: 1024,
+    //   settings: {
+    //     slidesToShow: 3,
+    //     slidesToScroll: 1,
+    //   },
+    // },
+    {
+      breakpoint: 980,
+      settings: {
+        autoSlidesToShow: true,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
+
+export const Order: FC<IOrderProps> = ({
+  id,
+  status,
+  updatedAt,
+  totalPrice,
+  orderItems,
+}) => {
   const steps = ['Created', 'Processed', 'Sent', 'Delivered', 'Received'];
 
   const orderStatus = [
@@ -36,13 +112,13 @@ export const Order: FC<IOrderProps> = ({ id, status, totalPrice, orderItems }) =
     statusItem => statusItem === status
   );
   const statusNumber = statusNumberFound === 5 ? -1 : statusNumberFound;
-  //   const dateFormatted = new Date(updatedAt);
-  //   const year = dateFormatted.getFullYear();
-  //   const month = dateFormatted.getMonth() + 1;
-  //   const formattedMonth = month < 10 ? '0' + month : month;
-  //   const day = dateFormatted.getDate();
-  //   const formattedDay = day < 10 ? '0' + day : day;
-  //   const formattedDate = `${formattedDay}.${formattedMonth}.${year}`;
+  const dateFormatted = new Date(updatedAt);
+  const year = dateFormatted.getFullYear();
+  const month = dateFormatted.getMonth() + 1;
+  const formattedMonth = month < 10 ? '0' + month : month;
+  const day = dateFormatted.getDate();
+  const formattedDay = day < 10 ? '0' + day : day;
+  const formattedDate = `${formattedDay}.${formattedMonth}.${year}`;
   const StepperConnector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
       top: 10,
@@ -84,38 +160,20 @@ export const Order: FC<IOrderProps> = ({ id, status, totalPrice, orderItems }) =
         mb={3}
         sx={{ color: '#878D99' }}
       >
-        21.02.2024
+        {formattedDate}
       </Typography>
       <StyledOrderCards>
-        {orderItems.map(item => (
-          <StyledOrderCard key={item.id}>
-            <StyledCardImg>
-              {/* {item?.article?.images.length > 0 ? (
-                <Image src={item?.article?.images[0].url} webp={item?.article?.images[0].url} alt={item?.article?.name} />
-              ) : (
-                <Image src={Default} webp={Default} alt={item?.article?.name} />
-              )} */}
-              <Image src={Default} webp={Default} alt={item?.article?.name} />
-            </StyledCardImg>
-            <Link to={`/online-store/${item.article.id}`} className="title">
-              <Typography
-                variant="body2"
-                component="span"
-                aria-label={item.article.name}
-                title={item.article.name}
-                className="line-clamp-2"
-                height="36px"
-                pl={2}
-                pr={2}
-              >
-                {item.article.name}
-              </Typography>
-            </Link>
-            <Typography variant="newPrice" component="span" pl={2} pr={2}>
-              ${item.article.price}
-            </Typography>
-          </StyledOrderCard>
-        ))}
+        {orderItems?.length < 5 ? (
+          orderItems.map(item => <OrderItem key={item.id} {...item} />)
+        ) : (
+          <StyledContainerSlider>
+            <StyledSlider {...settings}>
+              {orderItems.map(item => (
+                <OrderItem key={item.id} {...item} />
+              ))}
+            </StyledSlider>
+          </StyledContainerSlider>
+        )}
       </StyledOrderCards>
       <Typography variant="body1" component="span">
         Total&nbsp;&nbsp;&nbsp;

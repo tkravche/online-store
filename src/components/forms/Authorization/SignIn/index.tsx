@@ -66,7 +66,7 @@ export const SignIn: FC = () => {
     });
     dispatch(currentUserThunk());
     dispatch(getCartItemsThunk({ page: 1, limit: 20 }));
-    dispatch(getOrdersThunk({ page: 1, limit: 20 }));
+    dispatch(getOrdersThunk({ page: 1, limit: 30 }));// Pagination is missing in Orders page because of orders history
   };
   return (
     <StyledAuthorizationForm
