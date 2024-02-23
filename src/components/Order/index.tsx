@@ -47,7 +47,7 @@ const settings = {
   dots: false,
   infinite: false,
   speed: 500,
-  slidesToShow: 2,
+  slidesToShow: 5,
   slidesToScroll: 1,
   nextArrow: <NextArrow />,
   prevArrow: <PrevArrow />,
@@ -55,7 +55,7 @@ const settings = {
     {
       breakpoint: 1680,
       settings: {
-        slidesToShow: 2,
+        slidesToShow: 4,
         slidesToScroll: 1,
         infinite: true,
       },

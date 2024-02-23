@@ -7,8 +7,13 @@ import { getIcon } from '@/helpers/getIcon';
 import { EnumIcons } from '@/types';
 import { useAppSelector } from '@/hooks';
 import { selectFavorites } from '@/lib/otherRedux/selectors';
-import { StyledFavoriteSection, StyledNoCartItems, StyledNoCartItemsWrapper } from '@/theme/styles/components/StyledFavorites';
+import {
+  StyledFavoriteSection,
+  StyledNoCartItems,
+  StyledNoCartItemsWrapper,
+} from '@/theme/styles/components/StyledFavorites';
 import { StyledAllLink } from '@/theme/styles/components/StyledFavorites';
+import { ProductsGalleryWithoutPagination } from '@/components/Catalog/ProductsGallery/ProductsGalleryWithoutPagination';
 
 export const FavoritesPage: FC = () => {
   const [page, setPage] = useState(1);
@@ -37,14 +42,10 @@ export const FavoritesPage: FC = () => {
           <NavLink to="/online-store/catalog">
             <Button variant="contained">View the catalog</Button>
           </NavLink>
-        </StyledNoCartItemsWrapper>) : (
-        <ProductsGallery
-          page={page}
-          pageSize={pageSize}
-          handlePageChange={handlePageChange}
-          articles={favoriteArticles}
-          totalItems={favoriteTotalItems}
-        />)}
+        </StyledNoCartItemsWrapper>
+      ) : (
+        <ProductsGalleryWithoutPagination articles={favoriteArticles} />
+      )}
       <StyledAllLink>
         <Link to="/online-store/catalog">
           Back to the catalog

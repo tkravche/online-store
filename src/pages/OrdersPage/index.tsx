@@ -20,10 +20,11 @@ import {
 
 export const OrdersPage: FC = () => {
   const orders = useAppSelector(selectOrders);
-  const ordersSorted = orders.sort((a: any, b: any) => {
+  
+  const ordersSorted = [...orders]?.sort((a: any, b: any) => {
     return b.id - a.id;
   });
-  const ordersFiltered = ordersSorted.filter(
+  const ordersFiltered = ordersSorted?.filter(
     (item: any) => item.status !== 'CENCELED' && item.status !== 'RECEIVED'
   );
 

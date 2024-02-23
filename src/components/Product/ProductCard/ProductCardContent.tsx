@@ -89,8 +89,8 @@ export const ProductCardContent: FC<ICardProps> = props => {
   const [reviewsNumber, setReviewsNumber] = useState(0);
   const [reviews, setReviews] = useState([]);
   const isLogged = useAppSelector(selectIsLogged);
-  
-   const temporaryCart = useAppSelector(selectTemporaryCart);
+
+  const temporaryCart = useAppSelector(selectTemporaryCart);
   const cart = useAppSelector(selectCurrentUserCart);
   const foundInTemporaryCart = temporaryCart.find(item => item.id === id);
   const foundInCurrentCart = cart.find(item => item.article.id === id);

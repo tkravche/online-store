@@ -151,8 +151,7 @@ export const getCartItemsThunk = createAsyncThunk<
 
 export const addItemToCartThunk = createAsyncThunk<
   ICartData,
-  { quantity: number; article: number },
-  { rejectValue: string }
+  { quantity: number; article: number }
 >('user/addItemToCart', async (data, { rejectWithValue, getState }) => {
   const token = selectAccessToken(getState());
   setToken(token);

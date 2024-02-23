@@ -85,6 +85,11 @@ export interface IProductsGalleryProps {
   totalItems: number;
   handlePageChange: any;
 }
+
+export interface IProductsGalleryWihoutPaginationProps {
+  articles: [];
+}
+
 export interface IReviewItem {
   id: number;
   stars: number;
