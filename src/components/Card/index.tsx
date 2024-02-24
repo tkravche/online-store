@@ -36,7 +36,8 @@ export const Card: FC<ICardProps> = ({
 }) => {
   const dispatch = useDispatch();
   const isLogged = useAppSelector(selectIsLogged);
-  //for Buy
+
+  //for Buy button
   const temporaryCart = useAppSelector(selectTemporaryCart);
   const cart = useAppSelector(selectCurrentUserCart);
   const foundInTemporaryCart = temporaryCart.find(item => item.id === id);
@@ -52,9 +53,10 @@ export const Card: FC<ICardProps> = ({
   const urlImage = images[0]?.url === undefined ? Default : images[0]?.url;
   const infoForCart = { id, name, url: urlImage, price, sale, quantity };
   const data = { article: id, quantity };
+  
   const handleAddToCartClick = () => {
     if (isLogged) {
-      dispatch(addItemToCartThunk(data));
+      // dispatch(addItemToCartThunk(data));
     } else {
       dispatch(addItemToTemporaryCart(infoForCart));
     }

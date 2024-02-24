@@ -41,7 +41,7 @@ export const Cart = () => {
   const cartTemporary = useAppSelector(selectTemporaryCart);
   const cartCurrentUser = useAppSelector(selectCurrentUserCart);
   const isLogged = useAppSelector(selectIsLogged);
-  const currentUser = useAppSelector(selectCurrentUser).address;
+  const currentUser = useAppSelector(selectCurrentUser)?.address;
 
   const badgeQuantityFromCart = cartCurrentUser.length;
   const badgeQuantityTemporary = cartTemporary.length;
